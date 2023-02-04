@@ -1,4 +1,6 @@
 // PG database client/connection setup
+require("dotenv").config();
+
 const { Pool } = require("pg");
 
 const dbParams = {
@@ -12,7 +14,7 @@ const dbParams = {
 const pool = new Pool(dbParams);
 
 pool.connect()
-  .then((db) => console.log("connected to database", db))
+  .then(() => console.log("connected to database"))
   .catch((err) => console.log("error connecting to database", err));
 
 module.exports = pool;
