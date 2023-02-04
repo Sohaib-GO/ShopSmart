@@ -13,11 +13,20 @@ function App() {
 
 
   return (
-    <div className="App">
-      <h2>Backend Data</h2>
-{ (backendData) ? backendData.user.map((user, index) => <p key={index}>{user}</p>) : <p>Loading...</p> }
+    <div>
+      {backendData ? (
+        <ul>
+          {backendData.map(user => (
+            <li key={user.id}>
+              {user.name}, {user.email}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
-}
+  }
 
 export default App;
