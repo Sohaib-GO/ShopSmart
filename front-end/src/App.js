@@ -1,23 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from 'react';
 
 function App() {
+  const [backendData, setBackendData] = useState(null);
+
+  useEffect(() => {
+    fetch('/api')
+      .then(res => res.json())
+      .then(data => setBackendData(data));
+  }, []);
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h2>Backend Data</h2>
+{ (backendData) ? backendData.user.map((user, index) => <p key={index}>{user}</p>) : <p>Loading...</p> }
     </div>
   );
 }
