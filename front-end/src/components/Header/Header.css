@@ -1,0 +1,24 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2em;
+}
+.navigation-buttons {
+  display: flex;
+}
+.right-buttons-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 20px;
+}
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  column-gap: 20px;
+}
+
