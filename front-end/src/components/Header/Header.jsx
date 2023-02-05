@@ -26,6 +26,7 @@ function Header() {
             className="logo"
             onClick={() => navigate("/")}
           />
+          <Typography className="logo-text">ShopSmart</Typography>
         </div>
         <div className="right-buttons-group">
           <Typography className="page-name" variant="h6" gutterBottom>
@@ -57,6 +58,7 @@ function Header() {
           ) : (
             <Button
               variant="contained"
+              color="success"
               onClick={() => setSignInDrawerOpen(true)}
             >
               Sign in
