@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import ClickAwayListener from "@mui/base/ClickAwayListener";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Header.css";
-import logo from "../../images/logo_2.png";
+import logo from "../../images/cartlogo.png";
 
 function Header() {
   const [signInDrawerOpen, setSignInDrawerOpen] = useState(false);
@@ -28,7 +28,7 @@ function Header() {
           />
         </div>
         <div className="right-buttons-group">
-          <Typography classname="page-name" variant="h6" gutterBottom>
+          <Typography className="page-name" variant="h6" gutterBottom>
             {currentPage}
           </Typography>
           {signInDrawerOpen ? (
