@@ -1,0 +1,12 @@
+.get_started_button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.text {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+}
