@@ -15,6 +15,7 @@ function Homepage() {
       <div className="get_started_button">
         <Button
           variant="text"
+          color="success"
           className="search_button"
           onClick={() => navigate("/listings")}
         >
