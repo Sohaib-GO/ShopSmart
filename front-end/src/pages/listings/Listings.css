@@ -1,0 +1,13 @@
+.search-field {
+  display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+}
+.search-radio-button {
+  margin-left: 1em;
+}
+
+.location {
+  
+}
