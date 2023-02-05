@@ -3,26 +3,16 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header/Header";
 import Homepage from "./pages/homepage/Homepage";
+import Listings from "./pages/listings/Listings";
 
 function App() {
   return (
     <Router>
-      <div>
+      <div className="App">
         <Header />
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Homepage</Link>
-            </li>
-            <li>
-              <Link to="/listings">listings</Link>
-            </li>
-          </ul>
-        </nav>
-
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/listings" element={<h1>Linstings</h1>} />
+          <Route path="/listings" element={<Listings />} />
         </Routes>
       </div>
     </Router>
