@@ -1,4 +1,5 @@
 .App {
   text-align: center;
-  /* background-image: url("./images/background.JPG"); */
+  background-image: url("./images/background_1.jpg");
+  height: 100vh;
 }
