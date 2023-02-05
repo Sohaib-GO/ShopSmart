@@ -4,23 +4,28 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import ClickAwayListener from "@mui/base/ClickAwayListener";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./Header.css";
+import logo from "../../images/logo_2.png";
 
 function Header() {
   const [signInDrawerOpen, setSignInDrawerOpen] = useState(false);
   const [email, setEmail] = useState("");
 
   let location = useLocation();
+  const navigate = useNavigate();
   let currentPage = location.pathname.substring(1);
-
-  console.log("location:::", location.pathname);
 
   return (
     <ClickAwayListener onClickAway={() => setSignInDrawerOpen(false)}>
       <div className="header">
         <div className="navigation-buttons">
-          <h4>logo</h4>
+          <img
+            src={logo}
+            alt="logo"
+            className="logo"
+            onClick={() => navigate("/")}
+          />
         </div>
         <div className="right-buttons-group">
           <Typography classname="page-name" variant="h6" gutterBottom>
