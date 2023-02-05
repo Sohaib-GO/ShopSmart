@@ -1,9 +1,9 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 
 const port = 4000;
-const db = require('./config/connectDB');
+const db = require("./config/connectDB");
 
 app.use(bodyParser.json());
 app.use(
@@ -12,10 +12,8 @@ app.use(
   })
 );
 
-
-
-app.get('/api', (req, res) => {
-  db.query('SELECT * FROM users', (error, result) => {
+app.get("/api", (req, res) => {
+  db.query("SELECT * FROM users", (error, result) => {
     if (error) {
       throw error;
     }
@@ -23,7 +21,30 @@ app.get('/api', (req, res) => {
   });
 });
 
+// create a new list
+app.post("/api/lists", (req, res) => {
+  const { name } = req.body;
+  if (!name) {
+    return res.status(400).json({ error: "name is required" });
+  }
+
+  db.query(
+    `INSERT INTO listings (name, user_id) values ($1, $2)`,
+    [name, 2],
+    (error) => {
+      if (error) {
+        return res.status(500).json({ error });
+      }
+      res.status(201).json({ success: true });
+    }
+  );
+});
+
+
+
+
+
+
 app.listen(port, () => {
   console.log(`Example app listening at port:${port}`);
-}
-);
+});
