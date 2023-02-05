@@ -1,4 +1,8 @@
+.homepage {
+  margin-top: 9em;
+}
 .get_started_button {
+  margin-top: 12em;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -9,4 +13,7 @@
   flex-direction: row;
   justify-content: space-around;
 
+}
+.search_button {
+  color: rgb(30, 95, 74);
 }
