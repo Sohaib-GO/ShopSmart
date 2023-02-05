@@ -1,18 +1,22 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import NewListForm from './components/NewList/NewList';
 import Listings from './pages/listings/Listings';
 import Items from './components/items/items';
-import Register from './authentication/register';
-import Login from './authentication/login';
+import Register from './components/authentication/register';
+import Login from './components/authentication/login';
+import FetchGroceryList from './components/Grocery_List/GroceryList';
+
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 
 
   return (
     <div className="App">
-    <Login />
-    <NewListForm />
+    <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+  {/* <Items isLoggedIn={isLoggedIn} /> */}
+  <FetchGroceryList isLoggedIn={isLoggedIn} />
+
     </div>
   );
 }
