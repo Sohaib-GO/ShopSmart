@@ -1,0 +1,35 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 2em 0 2em;
+}
+.logo {
+  margin-top: 2em;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+
+}
+.logo:hover {
+  opacity: 0.5;
+}
+.navigation-buttons {
+  display: flex;
+}
+.right-buttons-group {
+  margin-top: 2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 20px;
+}
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  column-gap: 20px;
+}
+

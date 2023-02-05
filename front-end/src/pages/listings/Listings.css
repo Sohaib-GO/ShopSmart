@@ -1,0 +1,35 @@
+.listings-page {
+  display: flex;
+}
+.search-field {
+  display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+}
+.search-radio-button {
+  margin-left: 1em;
+}
+
+.item-image {
+  width: 100px;
+  height: 100px;
+  
+}
+.store-table {
+  width: 50%;
+  margin-left: 1em;
+
+}
+
+.item-name {
+  width: 30%;
+}
+
+.store-logo-avatar:hover {
+  opacity: 0.5;
+}
+
+.store-logo-avatar {
+  cursor: pointer;
+}
