@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import ClickAwayListener from "@mui/base/ClickAwayListener";
 import { useLocation, useNavigate } from "react-router-dom";
+import ColoredTabs from "../ColoredTabs/ColoredTabs.jsx";
 import "./Header.css";
 import logo from "../../images/cartlogo.png";
 
@@ -15,6 +16,11 @@ function Header() {
   let location = useLocation();
   const navigate = useNavigate();
   let currentPage = location.pathname.substring(1);
+
+  const tabs = [
+    { value: "listings", label: "Listings" },
+    { value: "saved-items", label: "Saved Items" },
+  ];
 
   return (
     <ClickAwayListener onClickAway={() => setSignInDrawerOpen(false)}>
@@ -29,9 +35,7 @@ function Header() {
           <div className="logo-text">ShopSmart </div>
         </div>
         <div className="right-buttons-group">
-          <Typography className="page-name" variant="h6" gutterBottom>
-            {currentPage}
-          </Typography>
+          <ColoredTabs tabs={tabs} />
           {signInDrawerOpen ? (
             <Box
               className="sign-in-form"
@@ -57,6 +61,7 @@ function Header() {
             </Box>
           ) : (
             <Button
+              className="sign-in-button"
               variant="contained"
               color="success"
               onClick={() => setSignInDrawerOpen(true)}

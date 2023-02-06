@@ -38,7 +38,8 @@
   flex-direction: column;
   justify-content: flex-end;
   color: rgb(23, 72, 26);
-
-
-
+}
+.sign-in-button{
+  display: flex;
+  width: 10em;
 }
