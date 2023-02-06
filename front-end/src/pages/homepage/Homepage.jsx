@@ -16,7 +16,7 @@ function Homepage() {
         <Button
           variant="text"
           color="success"
-          className="search_button"
+          className="search-button"
           onClick={() => navigate("/listings")}
         >
           <Typography variant="h6" gutterBottom>
