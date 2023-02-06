@@ -26,7 +26,7 @@ function Header() {
             className="logo"
             onClick={() => navigate("/")}
           />
-          <Typography className="logo-text">ShopSmart</Typography>
+          <div className="logo-text">ShopSmart </div>
         </div>
         <div className="right-buttons-group">
           <Typography className="page-name" variant="h6" gutterBottom>
