@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
@@ -23,38 +23,56 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 
+const mockData = [
+  {
+    id: "1",
+    name: "apple",
+    price: "5.00",
+    img: "https://i5.walmartimages.ca/images/Enlarge/094/514/6000200094514.jpg",
+  },
+  { id: "2", name: "banana", price: "3.00" },
+  { id: "3", name: "caviar", price: "52.00" },
+  { id: "4", name: "bread", price: "4.25" },
+  { id: "5", name: "rasberry", price: "7.30" },
+  { id: "6", name: "chockolate cake", price: "11.99" },
+  { id: "7", name: "lemons", price: "5.50" },
+  { id: "8", name: "cherry", price: "14.99" },
+];
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
 function Listings() {
   const [dense, setDense] = useState(false);
-  const [items, setItems] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(null);
-
-  useEffect(() => {
-    fetch("/api/items")
-      .then((res) => res.json())
-      .then((data) => setItems(data));
-  }, []);
-
+  const [item, setItem] = useState(null);
   return (
     <div className="listings-page">
       <div className="store-table">
         <div className="search-field">
-          <TextField id="filled-basic" variant="standard" placeholder="search" />
+          <TextField
+            id="filled-basic"
+            variant="standard"
+            placeholder="search"
+          />
           <FormGroup className="search-radio-button">
-            <FormControlLabel control={<Switch defaultChecked />} label="Within 10km" />
+            <FormControlLabel
+              control={<Switch defaultChecked />}
+              label="Within 10km"
+            />
           </FormGroup>
         </div>
         <div>
           <Grid item xs={12} md={6}>
-            <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div" />
+            <Typography
+              sx={{ mt: 4, mb: 2 }}
+              variant="h6"
+              component="div"
+            ></Typography>
             <List dense={dense}>
-              {items.map((item) => {
+              {mockData.map((mock) => {
                 return (
                   <ListItem
-                    id={item.id}
-                    key={`list-item-${item.id}`}
+                    id={mock.id}
+                    key={`list-item-${mock.id}`}
                     secondaryAction={
                       <IconButton edge="end" aria-label="add">
                         <AddShoppingCartIcon color="primary" />
@@ -63,13 +81,12 @@ function Listings() {
                   >
                     <ListItemAvatar
                       className="store-logo-avatar"
-                      onClick={() => setSelectedItem(item)}
+                      onClick={() => setItem(mock)}
                     >
-                    {item.store_name}
-                      <Avatar src={item.store_logo} />
+                      <Avatar src={storeLogo} />
                     </ListItemAvatar>
-                    <ListItemText className="item-name" primary={item.name} />
-                    <ListItemText primary={`${item.price}$`} />
+                    <ListItemText className="item-name" primary={mock.name} />
+                    <ListItemText primary={`${mock.price}$`} />
                   </ListItem>
                 );
               })}
@@ -77,39 +94,39 @@ function Listings() {
           </Grid>
         </div>
       </div>
-      {selectedItem && (
+      {item && (
         <div className="drawer">
           <Card sx={{ maxWidth: 345 }}>
             <CardActionArea>
               <CardMedia
                 component="img"
                 height="140"
-                image={selectedItem.img || "/static/images/cards/contemplative-reptile.jpg"}
-                alt="item"
+                image="/static/images/cards/contemplative-reptile.jpg"
+                alt="green iguana"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  {selectedItem.name}
+                  {mockData.name}
                 </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  Price: {selectedItem.price}$
+                <Typography variant="body2" color="text.secondary">
+                  DescriptionDescriptionDescriptionDescriptionDescription
+                  DescriptionDescriptionDescriptionDescriptionDescription
                 </Typography>
               </CardContent>
             </CardActionArea>
             <CardActions>
               <Button size="small" color="primary">
-                Add to Cart
-              </Button>
-              <Button size="small" color="primary" onClick={() => setSelectedItem(null)}>
-                Close
+                Share
               </Button>
             </CardActions>
           </Card>
         </div>
+        // <div className="drawer">
+        //   <img className="item-image" src={item.img}></img>
+        // </div>
       )}
     </div>
   );
-  
-  }
+}
 
 export default Listings;
