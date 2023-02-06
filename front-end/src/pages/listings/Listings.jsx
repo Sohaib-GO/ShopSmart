@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
@@ -43,36 +43,33 @@ const label = { inputProps: { "aria-label": "Switch demo" } };
 
 function Listings() {
   const [dense, setDense] = useState(false);
-  const [item, setItem] = useState(null);
+  const [items, setItems] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  useEffect(() => {
+    fetch("/api/items")
+      .then((res) => res.json())
+      .then((data) => setItems(data));
+  }, []);
+
   return (
     <div className="listings-page">
       <div className="store-table">
         <div className="search-field">
-          <TextField
-            id="filled-basic"
-            variant="standard"
-            placeholder="search"
-          />
+          <TextField id="filled-basic" variant="standard" placeholder="search" />
           <FormGroup className="search-radio-button">
-            <FormControlLabel
-              control={<Switch defaultChecked />}
-              label="Within 10km"
-            />
+            <FormControlLabel control={<Switch defaultChecked />} label="Within 10km" />
           </FormGroup>
         </div>
         <div>
           <Grid item xs={12} md={6}>
-            <Typography
-              sx={{ mt: 4, mb: 2 }}
-              variant="h6"
-              component="div"
-            ></Typography>
+            <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div" />
             <List dense={dense}>
-              {mockData.map((mock) => {
+              {items.map((item) => {
                 return (
                   <ListItem
-                    id={mock.id}
-                    key={`list-item-${mock.id}`}
+                    id={item.id}
+                    key={`list-item-${item.id}`}
                     secondaryAction={
                       <IconButton edge="end" aria-label="add">
                         <AddShoppingCartIcon color="primary" />
@@ -81,12 +78,12 @@ function Listings() {
                   >
                     <ListItemAvatar
                       className="store-logo-avatar"
-                      onClick={() => setItem(mock)}
+                      onClick={() => setSelectedItem(item)}
                     >
                       <Avatar src={storeLogo} />
                     </ListItemAvatar>
-                    <ListItemText className="item-name" primary={mock.name} />
-                    <ListItemText primary={`${mock.price}$`} />
+                    <ListItemText className="item-name" primary={item.name} />
+                    <ListItemText primary={`${item.price}$`} />
                   </ListItem>
                 );
               })}
@@ -94,39 +91,39 @@ function Listings() {
           </Grid>
         </div>
       </div>
-      {item && (
+      {selectedItem && (
         <div className="drawer">
           <Card sx={{ maxWidth: 345 }}>
             <CardActionArea>
               <CardMedia
                 component="img"
                 height="140"
-                image="/static/images/cards/contemplative-reptile.jpg"
-                alt="green iguana"
+                image={selectedItem.img || "/static/images/cards/contemplative-reptile.jpg"}
+                alt="item"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  {mockData.name}
+                  {selectedItem.name}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  DescriptionDescriptionDescriptionDescriptionDescription
-                  DescriptionDescriptionDescriptionDescriptionDescription
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Price: {selectedItem.price}$
                 </Typography>
               </CardContent>
             </CardActionArea>
             <CardActions>
               <Button size="small" color="primary">
-                Share
+                Add to Cart
+              </Button>
+              <Button size="small" color="primary" onClick={() => setSelectedItem(null)}>
+                Close
               </Button>
             </CardActions>
           </Card>
         </div>
-        // <div className="drawer">
-        //   <img className="item-image" src={item.img}></img>
-        // </div>
       )}
     </div>
   );
-}
+  
+  }
 
 export default Listings;
