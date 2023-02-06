@@ -4,6 +4,7 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Homepage from "./pages/homepage/Homepage";
 import Listings from "./pages/listings/Listings";
+import SavedItems from "./pages/savedItems/SavedItems";
 
 function App() {
   const [savedItems, setSavedItems] = useState([]);
@@ -22,7 +23,7 @@ function App() {
           />
           <Route
             path="/saved-items"
-            // element={<SavedItems savedItems={savedItems} />}
+            element={<SavedItems savedItems={savedItems} />}
           />
         </Routes>
       </div>
