@@ -33,3 +33,8 @@
 .store-logo-avatar {
   cursor: pointer;
 }
+
+.drawer {
+  display: flex;
+  height: 50%;
+}
