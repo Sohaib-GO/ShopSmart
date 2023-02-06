@@ -42,7 +42,19 @@ app.post("/api/lists", (req, res) => {
 
 // show all items
 app.get("/api/items", (req, res) => {
-  db.query("SELECT * FROM items", (error, result) => {
+  db.query(`SELECT 
+  items.name as item_name,
+  items.description,
+  items.price,
+  items.category,
+  items.image as item_image,
+  stores.name as store_name,
+  stores.address,
+  stores.image as store_logo
+FROM 
+  items 
+  JOIN stores ON items.store_id = stores.id
+`, (error, result) => {
     if (error) {
       throw error;
     }

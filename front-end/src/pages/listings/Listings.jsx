@@ -23,21 +23,6 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 
-const mockData = [
-  {
-    id: "1",
-    name: "apple",
-    price: "5.00",
-    img: "https://i5.walmartimages.ca/images/Enlarge/094/514/6000200094514.jpg",
-  },
-  { id: "2", name: "banana", price: "3.00" },
-  { id: "3", name: "caviar", price: "52.00" },
-  { id: "4", name: "bread", price: "4.25" },
-  { id: "5", name: "rasberry", price: "7.30" },
-  { id: "6", name: "chockolate cake", price: "11.99" },
-  { id: "7", name: "lemons", price: "5.50" },
-  { id: "8", name: "cherry", price: "14.99" },
-];
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
@@ -80,7 +65,8 @@ function Listings() {
                       className="store-logo-avatar"
                       onClick={() => setSelectedItem(item)}
                     >
-                      <Avatar src={storeLogo} />
+                    {item.store_name}
+                      <Avatar src={item.store_logo} />
                     </ListItemAvatar>
                     <ListItemText className="item-name" primary={item.name} />
                     <ListItemText primary={`${item.price}$`} />
