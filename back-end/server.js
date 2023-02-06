@@ -75,13 +75,14 @@ app.post("/api/logout", (req, res) => {
 // create a new list
 app.post("/api/lists", (req, res) => {
   const { name } = req.body;
+  const user_id = req.cookies.user;
   if (!name) {
     return res.status(400).json({ error: "name is required" });
   }
 
   db.query(
     `INSERT INTO listings (name, user_id) values ($1, $2)`,
-    [name, 2],
+    [name, user_id],
     (error) => {
       if (error) {
         return res.status(500).json({ error });
