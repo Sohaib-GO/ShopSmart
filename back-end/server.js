@@ -40,6 +40,16 @@ app.post("/api/lists", (req, res) => {
   );
 });
 
+// show all items
+app.get("/api/items", (req, res) => {
+  db.query("SELECT * FROM items", (error, result) => {
+    if (error) {
+      throw error;
+    }
+    res.status(200).json(result.rows);
+  });
+});
+
 
 
 
