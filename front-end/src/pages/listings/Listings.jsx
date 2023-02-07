@@ -79,7 +79,7 @@ function Listings({ setSavedItems }) {
                     key={`list-item-${mock.id}`}
                     secondaryAction={
                       <IconButton edge="end" aria-label="add">
-                        <AddShoppingCartIcon color="primary" />
+                        <AddShoppingCartIcon color="success" />
                       </IconButton>
                     }
                   >
