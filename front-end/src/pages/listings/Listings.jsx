@@ -29,17 +29,17 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 const mockData = [
   {
     id: "1",
-    name: "SaeWay",
+    name: "apple",
     price: "5.00",
     img: "https://i5.walmartimages.ca/images/Enlarge/094/514/6000200094514.jpg",
   },
-  { id: "2", name: "walmart", price: "3.00" },
-  { id: "3", name: "costco", price: "52.00" },
-  { id: "4", name: "superstore", price: "4.25" },
-  { id: "5", name: "axdff", price: "7.30" },
-  { id: "6", name: "7Eleven", price: "11.99" },
-  { id: "7", name: "Whole foods", price: "5.50" },
-  { id: "8", name: "something", price: "14.99" },
+  { id: "2", name: "orange", price: "3.00 " },
+  { id: "3", name: "avocado", price: "52.00" },
+  { id: "4", name: "bananna", price: "4.25" },
+  { id: "5", name: "coffe", price: "7.30" },
+  { id: "6", name: "water", price: "11.99" },
+  { id: "7", name: "milk", price: "5.50" },
+  { id: "8", name: "eggs", price: "14.99" },
 ];
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
