@@ -1,0 +1,8 @@
+.saved-items-page{
+display: flex;
+margin: 3em;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: space-around;
+margin-bottom: 10em;
+}

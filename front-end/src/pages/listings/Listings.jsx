@@ -22,21 +22,24 @@ import { Button, CardActionArea, CardActions } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import { green } from "@mui/material/colors";
+import Icon from "@mui/material/Icon";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const mockData = [
   {
     id: "1",
-    name: "apple",
+    name: "SaeWay",
     price: "5.00",
     img: "https://i5.walmartimages.ca/images/Enlarge/094/514/6000200094514.jpg",
   },
-  { id: "2", name: "banana", price: "3.00" },
-  { id: "3", name: "caviar", price: "52.00" },
-  { id: "4", name: "bread", price: "4.25" },
-  { id: "5", name: "rasberry", price: "7.30" },
-  { id: "6", name: "chockolate cake", price: "11.99" },
-  { id: "7", name: "lemons", price: "5.50" },
-  { id: "8", name: "cherry", price: "14.99" },
+  { id: "2", name: "walmart", price: "3.00" },
+  { id: "3", name: "costco", price: "52.00" },
+  { id: "4", name: "superstore", price: "4.25" },
+  { id: "5", name: "axdff", price: "7.30" },
+  { id: "6", name: "7Eleven", price: "11.99" },
+  { id: "7", name: "Whole foods", price: "5.50" },
+  { id: "8", name: "something", price: "14.99" },
 ];
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
@@ -48,6 +51,7 @@ function Listings({ setSavedItems }) {
   function addItems(item) {
     setSavedItems((prev) => [...prev, item]);
   }
+
   return (
     <div className="listings-page">
       <div className="store-table">
@@ -78,9 +82,21 @@ function Listings({ setSavedItems }) {
                     id={mock.id}
                     key={`list-item-${mock.id}`}
                     secondaryAction={
-                      <IconButton edge="end" aria-label="add">
-                        <AddShoppingCartIcon color="success" />
-                      </IconButton>
+                      <Box
+                        sx={{
+                          "& > :not(style)": {
+                            m: 2,
+                          },
+                        }}
+                      >
+                        <IconButton
+                          onClick={() => addItems(mock)}
+                          edge="end"
+                          aria-label="add"
+                        >
+                          <AddCircleOutlineIcon color="success" />
+                        </IconButton>
+                      </Box>
                     }
                   >
                     <ListItemAvatar
@@ -128,9 +144,6 @@ function Listings({ setSavedItems }) {
             </CardActions>
           </Card>
         </div>
-        // <div className="drawer">
-        //   <img className="item-image" src={item.img}></img>
-        // </div>
       )}
     </div>
   );
