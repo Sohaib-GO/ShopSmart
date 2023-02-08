@@ -6,7 +6,14 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
-function SavedItems({ savedItems }) {
+function SavedItems({ savedItems, setSavedItems }) {
+  function removeItems(item) {
+    const items = savedItems;
+    const filterItems = items.filter(function (el) {
+      return el.id !== item.id;
+    });
+    setSavedItems(filterItems);
+  }
   return (
     <div className="saved-items-page">
       {savedItems.map((item) => {
@@ -31,7 +38,7 @@ function SavedItems({ savedItems }) {
 
             <CardActions>
               <Button
-                onClick={() => console.log(item)}
+                onClick={() => removeItems(item)}
                 size="small"
                 color="warning"
               >

@@ -23,7 +23,12 @@ function App() {
           />
           <Route
             path="/saved-items"
-            element={<SavedItems savedItems={savedItems} />}
+            element={
+              <SavedItems
+                setSavedItems={setSavedItems}
+                savedItems={savedItems}
+              />
+            }
           />
         </Routes>
       </div>
