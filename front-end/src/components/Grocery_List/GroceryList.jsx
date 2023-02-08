@@ -49,27 +49,26 @@ const FetchGroceryList = (props) => {
 
   return (
     <div>
-      {groceries.map((store) => (
-        <div key={store.store_id}>
-          <h3>{store.store_name}</h3>
-          <div>
-            {store.items.map((item) => (
-              <div key={item.item_name}>
-                {item.item_name} (${item.item_price})
-
-                <button
-                  onClick={() => handleDeleteGroceryItem(item.item_name, store.store_name)}
-                >
-                  Delete
-                </button>
-
-              </div>
-            ))}
+      {groceries.length === 0 ? <div>Your grocery list is empty</div> :
+        groceries.map((store) => (
+          <div key={store.store_id}>
+            <h3>{store.store_name}</h3>
+            <div>
+              {store.items.map((item) => (
+                <div key={item.item_name}>
+                  {item.item_name} (${item.item_price})
+                  <button
+                    onClick={() => handleDeleteGroceryItem(item.item_name, store.store_name)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
-};
+  };
 
 export default FetchGroceryList;
