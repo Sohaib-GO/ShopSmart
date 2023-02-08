@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import "./Listings.css";
-import { Button, CardActionArea, CardActions, Modal, Box } from "@mui/material";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
+import { Button, Divider, CardActions, Modal, Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Checkbox from "@mui/material/Checkbox";
+import IconButton from "@mui/material/IconButton";
+import Avatar from "@mui/material/Avatar";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const modalStyle = {
   position: "absolute",
@@ -22,6 +28,8 @@ const modalStyle = {
 
 function Listings({ listings, setListings }) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [checkedItems, setCheckedItems] = useState([]);
+
   function removeItems(item) {
     const items = listings;
     const filterItems = items.filter(function (el) {
@@ -39,13 +47,75 @@ function Listings({ listings, setListings }) {
     removeItems(item);
     setOpenDeleteModal(false);
   };
+  const handleCheckItem = (value) => () => {
+    const currentIndex = checkedItems.indexOf(value.id);
+    console.log("curee", currentIndex);
+    const newChecked = [...checkedItems];
 
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setCheckedItems(newChecked);
+  };
+
+  const isChecked = (item) => {
+    checkedItems.some((value) => {
+      return value.id === item.id;
+    });
+  };
   return (
     <div className="listings">
       {listings.map((item) => {
         return (
-          <>
-            <Card sx={{ maxWidth: 345 }}>
+          <List dense sx={{ width: "100%", maxWidth: 400 }}>
+            <ListItem
+              key={item.id}
+              className="list-item"
+              secondaryAction={
+                <div className="list-item-action-buttons">
+                  <Checkbox
+                    edge="end"
+                    color="success"
+                    onChange={(event) => {
+                      event.target.checked = true;
+                      handleCheckItem(item);
+                    }}
+                  />
+                  <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    onClick={handleOpenDeleteModal}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </div>
+              }
+              disablePadding
+            >
+              <ListItemButton>
+                <ListItemAvatar>
+                  <Avatar
+                    alt={`Avatar${item.storeLogo}`}
+                    src={item.storeLogo}
+                  />
+                </ListItemAvatar>
+                <ListItemText
+                  className="list-item-text"
+                  id={item.id}
+                  primary={item.name}
+                />
+                <ListItemText
+                  id={item.id}
+                  primary={`${item.price}$ per 100 g`}
+                />
+              </ListItemButton>
+            </ListItem>
+            <Divider variant="inset" component="li" />
+
+            {/* <Card sx={{ maxWidth: 345 }}>
               <CardMedia
                 key={`listings${item.id}`}
                 component="img"
@@ -72,7 +142,7 @@ function Listings({ listings, setListings }) {
                   Delete
                 </Button>
               </CardActions>
-            </Card>
+            </Card> */}
             <Modal
               hideBackdrop
               open={openDeleteModal}
@@ -99,7 +169,7 @@ function Listings({ listings, setListings }) {
                 </div>
               </Box>
             </Modal>
-          </>
+          </List>
         );
       })}
     </div>

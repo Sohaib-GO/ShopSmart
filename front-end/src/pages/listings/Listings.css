@@ -12,3 +12,15 @@
   justify-content: space-around;
   margin-top: 2em;
 }
+.list-item {
+  margin-bottom: 2em;
+}
+.list-item-action-buttons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1em;
+}
+.list-item-text {
+  display: flex;
+  flex-direction: column;
+}
