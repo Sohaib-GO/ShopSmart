@@ -18,8 +18,8 @@ function Header() {
   let currentPage = location.pathname.substring(1);
 
   const tabs = [
+    { value: "searchItems", label: "Search items" },
     { value: "listings", label: "Listings" },
-    { value: "saved-items", label: "Saved Items" },
   ];
 
   return (
