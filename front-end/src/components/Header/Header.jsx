@@ -36,9 +36,9 @@ function Header(props) {
 
   return (
     <Box className="header">
-      <Box className="header__left">
+      <Box className="header-left">
         <img
-          className="header__logo"
+          className="logo"
           src={logo}
           alt="logo"
           onClick={() => navigate("/")}
@@ -48,7 +48,7 @@ function Header(props) {
           variant="h6"
           onClick={() => navigate("/")}
         >
-          CartShare
+          ShopSmart
         </Typography>
       </Box>
       <Box className="header__center">
