@@ -8,12 +8,7 @@ CREATE TABLE users (
 );
 
 
-DROP TABLE IF EXISTS listings CASCADE;
-CREATE TABLE listings (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  user_id INTEGER REFERENCES users(id) NOT NULL
-);
+
 
 DROP TABLE IF EXISTS stores CASCADE;
 CREATE TABLE stores (
@@ -34,12 +29,16 @@ CREATE TABLE items (
   store_id INTEGER REFERENCES stores(id) NOT NULL
 );
 
-DROP TABLE IF EXISTS listings_items CASCADE;
-CREATE TABLE listings_items (
+DROP TABLE IF EXISTS grocery_lists CASCADE;
+CREATE TABLE grocery_lists (
   id SERIAL PRIMARY KEY,
-  listing_id INTEGER REFERENCES listings(id) NOT NULL,
-  item_id INTEGER REFERENCES items(id) NOT NULL
+  user_id INTEGER REFERENCES users(id) NOT NULL,
+  item_id INTEGER REFERENCES items(id) NOT NULL,
+  store_id INTEGER REFERENCES stores(id) NOT NULL,
+  price NUMERIC(10,2) NOT NULL,
+  date_added DATE NOT NULL
 );
+
 
 DROP TABLE IF EXISTS stores_items CASCADE;
 CREATE TABLE stores_items (

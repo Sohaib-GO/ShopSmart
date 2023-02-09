@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-function Login() {
+
+function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const {isLoggedIn, setIsLoggedIn} = props;
 
   useEffect(() => {
     // check if user is already logged in
@@ -110,6 +111,7 @@ function Login() {
           />
           <button type="submit">Login</button>
         </form>
+
       )}
     </>
   );

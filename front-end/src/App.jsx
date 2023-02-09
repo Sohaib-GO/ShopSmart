@@ -3,13 +3,13 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header/Header";
 import Homepage from "./pages/homepage/Homepage";
+import SearchItems from "./pages/searchItems/SearchItems";
 import Listings from "./pages/listings/Listings";
-import SavedItems from "./pages/savedItems/SavedItems";
 
 function App() {
-  const [savedItems, setSavedItems] = useState([]);
+  const [listings, setListings] = useState([]);
 
-  console.log(savedItems);
+  console.log(listings);
 
   return (
     <Router>
@@ -18,12 +18,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route
-            path="/listings"
-            element={<Listings setSavedItems={setSavedItems} />}
+            path="/searchItems"
+            element={<SearchItems setListings={setListings} />}
           />
           <Route
-            path="/saved-items"
-            element={<SavedItems savedItems={savedItems} />}
+            path="/listings"
+            element={<Listings setListings={setListings} listings={listings} />}
           />
         </Routes>
       </div>

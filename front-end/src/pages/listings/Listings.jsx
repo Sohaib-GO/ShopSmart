@@ -1,137 +1,177 @@
 import React, { useState } from "react";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
 import "./Listings.css";
-import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
+import { Button, Divider, CardActions, Modal, Box } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import Avatar from "@mui/material/Avatar";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
-import Grid from "@mui/material/Grid";
-import FolderIcon from "@mui/icons-material/Folder";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import storeLogo from "../../images/safeway-Logo.png";
-import { Button, CardActionArea, CardActions } from "@mui/material";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
+import Avatar from "@mui/material/Avatar";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-const mockData = [
-  {
-    id: "1",
-    name: "apple",
-    price: "5.00",
-    img: "https://i5.walmartimages.ca/images/Enlarge/094/514/6000200094514.jpg",
-  },
-  { id: "2", name: "banana", price: "3.00" },
-  { id: "3", name: "caviar", price: "52.00" },
-  { id: "4", name: "bread", price: "4.25" },
-  { id: "5", name: "rasberry", price: "7.30" },
-  { id: "6", name: "chockolate cake", price: "11.99" },
-  { id: "7", name: "lemons", price: "5.50" },
-  { id: "8", name: "cherry", price: "14.99" },
-];
+const modalStyle = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 500,
+  bgcolor: "background.paper",
+  border: "1px solid #000",
+  boxShadow: 24,
+  pt: 2,
+  px: 4,
+  pb: 3,
+};
 
-const label = { inputProps: { "aria-label": "Switch demo" } };
+function Listings({ listings, setListings }) {
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [checkedItems, setCheckedItems] = useState([]);
 
-function Listings({ setSavedItems }) {
-  const [dense, setDense] = useState(false);
-  const [item, setItem] = useState(null);
-
-  function addItems(item) {
-    setSavedItems((prev) => [...prev, item]);
+  function removeItems(item) {
+    const items = listings;
+    const filterItems = items.filter(function (el) {
+      return el.id !== item.id;
+    });
+    setListings(filterItems);
   }
-  return (
-    <div className="listings-page">
-      <div className="store-table">
-        <div className="search-field">
-          <TextField
-            id="filled-basic"
-            variant="standard"
-            placeholder="search"
-          />
-          <FormGroup className="search-radio-button">
-            <FormControlLabel
-              control={<Switch defaultChecked />}
-              label="Within 10km"
-            />
-          </FormGroup>
-        </div>
-        <div>
-          <Grid item xs={12} md={6}>
-            <Typography
-              sx={{ mt: 4, mb: 2 }}
-              variant="h6"
-              component="div"
-            ></Typography>
-            <List dense={dense}>
-              {mockData.map((mock) => {
-                return (
-                  <ListItem
-                    id={mock.id}
-                    key={`list-item-${mock.id}`}
-                    secondaryAction={
-                      <IconButton edge="end" aria-label="add">
-                        <AddShoppingCartIcon color="success" />
-                      </IconButton>
-                    }
-                  >
-                    <ListItemAvatar
-                      className="store-logo-avatar"
-                      onClick={() => setItem(mock)}
-                    >
-                      <Avatar src={storeLogo} />
-                    </ListItemAvatar>
-                    <ListItemText className="item-name" primary={mock.name} />
-                    <ListItemText primary={`${mock.price}$`} />
-                  </ListItem>
-                );
-              })}
-            </List>
-          </Grid>
-        </div>
-      </div>
-      {item && (
-        <div className="drawer">
-          <Card sx={{ maxWidth: 345 }}>
-            <CardMedia
-              component="img"
-              height="140"
-              image={item.img}
-              alt={item.name}
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {item.name}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                DescriptionDescriptionDescriptionDescriptionDescription
-                DescriptionDescriptionDescriptionDescriptionDescription
-              </Typography>
-            </CardContent>
+  const handleOpenDeleteModal = () => {
+    setOpenDeleteModal(true);
+  };
+  const handleCloseDeleteModal = () => {
+    setOpenDeleteModal(false);
+  };
+  const handleDeleteModalSubmit = (item) => {
+    removeItems(item);
+    setOpenDeleteModal(false);
+  };
+  const handleCheckItem = (value) => () => {
+    const currentIndex = checkedItems.indexOf(value.id);
+    console.log("curee", currentIndex);
+    const newChecked = [...checkedItems];
 
-            <CardActions>
-              <Button
-                onClick={() => addItems(item)}
-                size="small"
-                color="success"
-              >
-                Save
-              </Button>
-            </CardActions>
-          </Card>
-        </div>
-        // <div className="drawer">
-        //   <img className="item-image" src={item.img}></img>
-        // </div>
-      )}
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setCheckedItems(newChecked);
+  };
+
+  const isChecked = (item) => {
+    checkedItems.some((value) => {
+      return value.id === item.id;
+    });
+  };
+  return (
+    <div className="listings">
+      {listings.map((item) => {
+        return (
+          <List dense sx={{ width: "100%", maxWidth: 400 }}>
+            <ListItem
+              key={item.id}
+              className="list-item"
+              secondaryAction={
+                <div className="list-item-action-buttons">
+                  <Checkbox
+                    edge="end"
+                    color="success"
+                    onChange={(event) => {
+                      event.target.checked = true;
+                      handleCheckItem(item);
+                    }}
+                  />
+                  <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    onClick={handleOpenDeleteModal}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </div>
+              }
+              disablePadding
+            >
+              <ListItemButton>
+                <ListItemAvatar>
+                  <Avatar
+                    alt={`Avatar${item.storeLogo}`}
+                    src={item.storeLogo}
+                  />
+                </ListItemAvatar>
+                <ListItemText
+                  className="list-item-text"
+                  id={item.id}
+                  primary={item.name}
+                />
+                <ListItemText
+                  id={item.id}
+                  primary={`${item.price}$ per 100 g`}
+                />
+              </ListItemButton>
+            </ListItem>
+            <Divider variant="inset" component="li" />
+
+            {/* <Card sx={{ maxWidth: 345 }}>
+              <CardMedia
+                key={`listings${item.id}`}
+                component="img"
+                height="140"
+                image={item.img}
+                alt={item.name}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {item.name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  DescriptionDescriptionDescriptionDescriptionDescription
+                  DescriptionDescriptionDescriptionDescriptionDescription
+                </Typography>
+              </CardContent>
+
+              <CardActions>
+                <Button
+                  onClick={handleOpenDeleteModal}
+                  size="small"
+                  color="warning"
+                >
+                  Delete
+                </Button>
+              </CardActions>
+            </Card> */}
+            <Modal
+              hideBackdrop
+              open={openDeleteModal}
+              onClose={handleCloseDeleteModal}
+            >
+              <Box sx={{ ...modalStyle }}>
+                <Typography variant="h6" color="text.secondary">
+                  Are you sure you want to delete this item?
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  This item will be removed from your list permanently
+                </Typography>
+                <div className="modal-action-buttons">
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => handleDeleteModalSubmit(item)}
+                  >
+                    Yes
+                  </Button>
+                  <Button variant="outlined" onClick={handleCloseDeleteModal}>
+                    No
+                  </Button>
+                </div>
+              </Box>
+            </Modal>
+          </List>
+        );
+      })}
     </div>
   );
 }

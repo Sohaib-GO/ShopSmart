@@ -20,7 +20,6 @@ function ColoredTabs({ tabs }) {
         onChange={handleChange}
         textColor="inherit"
         indicatorColor="secondary"
-        aria-label="secondary tabs example"
       >
         {tabs.map((tab) => {
           return (
