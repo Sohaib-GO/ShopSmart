@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
+import ClickAwayListener from "@mui/base/ClickAwayListener";
 import { useLocation, useNavigate } from "react-router-dom";
 import ColoredTabs from "../ColoredTabs/ColoredTabs.jsx";
 import "./Header.css";
@@ -15,97 +15,111 @@ function Header(props) {
   const {
     email,
     password,
-    error, // error message from server
-    success, // success message if login successful
+    error,
+    success,
     isLoggedIn,
-    handleLogout,
     handleSubmit,
+    handleLogout,
     setEmail,
     setPassword,
     user,
   } = useLogin(props);
+
   let location = useLocation();
   const navigate = useNavigate();
   let currentPage = location.pathname.substring(1);
 
   const tabs = [
     { value: "searchItems", label: "Search items" },
-    { value: "listings", label: "Listings" },
+    { value: "listings", label: "Grocery List" },
   ];
 
   return (
-    <>
-      <ClickAwayListener onClickAway={() => setSignInDrawerOpen(false)}>
-        <div className="header">
-          <div className="navigation-buttons">
-            <img
-              src={logo}
-              alt="logo"
-              className="logo"
-              onClick={() => navigate("/")}
-            />
-            <Typography className="logo-text">ShopSmart</Typography>
-          </div>
-          <div className="right-buttons-group">
-            <Typography className="page-name" variant="h6" gutterBottom>
-              {currentPage}
+    <Box className="header">
+      <Box className="header__left">
+        <img
+          className="header__logo"
+          src={logo}
+          alt="logo"
+          onClick={() => navigate("/")}
+        />
+        <Typography
+          className="header__title"
+          variant="h6"
+          onClick={() => navigate("/")}
+        >
+          CartShare
+        </Typography>
+      </Box>
+      <Box className="header__center">
+        <ColoredTabs
+          tabs={tabs}
+          currentPage={currentPage}
+          navigate={navigate}
+        />
+      </Box>
+      <Box className="header__right">
+        {isLoggedIn ? (
+          <Box className="header__right__loggedIn">
+            <Typography variant="h6" className="header__right__loggedIn__name">
+              {user.name}
             </Typography>
-            {signInDrawerOpen ? (
-              <Box
-                className="sign-in-form"
-                component="form"
-                onSubmit={handleSubmit}
-              >
-                <TextField
-                  label="Email"
-                  id="outlined-size-small"
-                  size="small"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <TextField
-                  label="Password"
-                  id="outlined-size-small"
-                  size="small"
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <Button
-                  className="sign-in-button"
-                  variant="contained"
-                  type="submit"
-                >
-                  Sign In
-                </Button>
-              </Box>
-            ) : null}
-            {isLoggedIn ? (
-              <>
-                <div>Hello {user.name}</div>
-
-                <Button
-                  className="sign-in-button"
-                  variant="contained"
-                  onClick={handleLogout}
-                >
-                  Sign Out
-                </Button>
-              </>
-            ) : (
+            <Button
+              className="header__right__loggedIn__logout"
+              variant="contained"
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
+          </Box>
+        ) : (
+          <Button
+            className="header__right__login"
+            variant="contained"
+            onClick={() => setSignInDrawerOpen(true)}
+          >
+            Login
+          </Button>
+        )}
+      </Box>
+      {signInDrawerOpen && (
+        <ClickAwayListener onClickAway={() => setSignInDrawerOpen(false)}>
+          <Box className="header__signInDrawer">
+            <Typography
+              variant="h5"
+              className="header__signInDrawer__title"
+            ></Typography>
+            <form
+              className="header__signInDrawer__form"
+              onSubmit={handleSubmit}
+            >
+              <TextField
+                className="header__signInDrawer__form__email"
+                label="Email"
+                variant="outlined"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <TextField
+                className="header__signInDrawer__form__password"
+                label="Password"
+                variant="outlined"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
               <Button
-                className="sign-in-button"
+                className="header__signInDrawer__form__submit"
                 variant="contained"
-                onClick={() => setSignInDrawerOpen(!signInDrawerOpen)}
+                type="submit"
               >
-                Sign In
+                Login
               </Button>
-            )}
-          </div>
-        </div>
-      </ClickAwayListener>
-    </>
+            </form>
+          </Box>
+        </ClickAwayListener>
+      )}
+    </Box>
   );
 }
 
