@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header/Header";
 import Homepage from "./pages/homepage/Homepage";
-import SearchItems from "./pages/searchItems/SearchItems";
+import SearchItems from "./pages/searchItems/Items";
 import Listings from "./pages/listings/Listings";
+import Maps from "./pages/map/Maps";
 
 function App() {
   const [listings, setListings] = useState([]);
@@ -24,6 +25,10 @@ function App() {
           <Route
             path="/listings"
             element={<Listings setListings={setListings} listings={listings} />}
+          />
+           <Route
+            path="/maps"
+            element={<Maps />}
           />
         </Routes>
       </div>

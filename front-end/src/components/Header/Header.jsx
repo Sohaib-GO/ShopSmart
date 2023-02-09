@@ -12,26 +12,26 @@ import useLogin from "../authentication/useLogin";
 
 function Header(props) {
   const [signInDrawerOpen, setSignInDrawerOpen] = useState(false);
-  const {
-    email,
-    password,
-    error,
-    success,
-    isLoggedIn,
-    handleSubmit,
-    handleLogout,
-    setEmail,
-    setPassword,
-    user,
-  } = useLogin(props);
+const { email,
+  password,
+  error,
+  success,
+  isLoggedIn,
+  handleSubmit,
+  handleLogout,
+  setEmail,
+  setPassword,
+  user} = useLogin(props);
 
+
+  
   let location = useLocation();
   const navigate = useNavigate();
   let currentPage = location.pathname.substring(1);
 
   const tabs = [
     { value: "searchItems", label: "Search items" },
-    { value: "listings", label: "Grocery List" },
+    { value: "listings", label: "Listings" },
   ];
 
   return (
@@ -60,7 +60,7 @@ function Header(props) {
       </Box>
       <Box className="header__right">
         {isLoggedIn ? (
-          <Box className="header__right__loggedIn">
+          <Box className="header__right__loggedIn"> 
             <Typography variant="h6" className="header__right__loggedIn__name">
               {user.name}
             </Typography>
@@ -83,12 +83,14 @@ function Header(props) {
         )}
       </Box>
       {signInDrawerOpen && (
-        <ClickAwayListener onClickAway={() => setSignInDrawerOpen(false)}>
+        <ClickAwayListener
+
+          onClickAway={() => setSignInDrawerOpen(false)}
+        >
           <Box className="header__signInDrawer">
-            <Typography
-              variant="h5"
-              className="header__signInDrawer__title"
-            ></Typography>
+            <Typography variant="h5" className="header__signInDrawer__title">
+              
+            </Typography>
             <form
               className="header__signInDrawer__form"
               onSubmit={handleSubmit}
@@ -121,6 +123,7 @@ function Header(props) {
       )}
     </Box>
   );
+  
 }
 
 export default Header;
