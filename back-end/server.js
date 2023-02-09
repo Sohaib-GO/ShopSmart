@@ -67,45 +67,37 @@ app.post("/api/login", (req, res) => {
   );
 });
 
+// get the current user
+app.get("/api/current-user", (req, res) => {
+  const user_id = req.cookies.user;
+  if (!user_id) {
+    return res.status(401).json({ error: "Unauthorized." });
+  }
+  db.query(
+    `SELECT * FROM users WHERE id = $1`,
+    [user_id],
+    (error, result) => {
+      if (error) {
+        return res.status(500).json({ error });
+      }
+      
+
+      const user = result.rows[0];
+      res.json(user);
+      
+    }
+  );
+});
+
+
 app.post("/api/logout", (req, res) => {
   res.clearCookie("user");
   res.json({ message: "Logged out successfully." });
 });
 
-// create a new list
-app.post("/api/lists", (req, res) => {
-  const { name } = req.body;
-  const user_id = req.cookies.user;
-  if (!name) {
-    return res.status(400).json({ error: "name is required" });
-  }
 
-  db.query(
-    `INSERT INTO listings (name, user_id) values ($1, $2)`,
-    [name, user_id],
-    (error) => {
-      if (error) {
-        return res.status(500).json({ error });
-      }
-      res.status(201).json({ success: true });
-    }
-  );
-});
 
-// get all lists
-app.get("/api/lists", (req, res) => {
-  const user_id = req.cookies.user;
-  db.query(
-    `SELECT * FROM listings WHERE user_id = $1`,
-    [user_id],
-    (error, result) => {
-      if (error) {
-        throw error;
-      }
-      res.status(200).json(result.rows);
-    }
-  );
-});
+
 
 app.get("/api/items", (req, res) => {
   db.query(

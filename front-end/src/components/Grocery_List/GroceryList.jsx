@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import useLogin from "../authentication/useLogin";
 
 const FetchGroceryList = (props) => {
   const [groceries, setGroceries] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { isLoggedIn } = props;
+  const { isLoggedIn } = useLogin(props);
 
   useEffect(() => {
     const fetchGroceries = async () => {

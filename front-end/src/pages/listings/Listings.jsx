@@ -95,7 +95,7 @@ function Listings() {
         </div>
       </div>
       {item && (
-        <div className="drawer">
+        <div className="drawer">   
           <Card sx={{ maxWidth: 345 }}>
             <CardActionArea>
               <CardMedia

@@ -7,15 +7,13 @@ import Login from './components/authentication/login';
 import FetchGroceryList from './components/Grocery_List/GroceryList';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
 
 
   return (
     <div className="App">
-    <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+    <Login  />
   {/* <Items isLoggedIn={isLoggedIn} /> */}
-  <FetchGroceryList isLoggedIn={isLoggedIn} />
+  <FetchGroceryList  />
 
     </div>
   );
