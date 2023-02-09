@@ -19,6 +19,13 @@ function App() {
   <FetchGroceryList isLoggedIn={isLoggedIn} /> */}
   <Maps />
 
+function App() {
+
+  return (
+    <div className="App">
+      <Login />
+      <NewListForm />
+   feature/map-webpage
     </div>
   );
 }
