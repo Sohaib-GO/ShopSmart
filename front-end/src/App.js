@@ -9,7 +9,7 @@ import Maps from "./pages/map/Maps";
 
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [ isLoggedIn, setIsLoggedIn ] = useState(false);
 
   return (
     <div className="App">
