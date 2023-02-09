@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-
-function Login(props) {
+const useLogin = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-  const {isLoggedIn, setIsLoggedIn} = props;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     // check if user is already logged in
@@ -24,6 +24,18 @@ function Login(props) {
       }, 3000);
     }
   }, [success]);
+
+
+  useEffect(() => {
+    fetch("/api/current-user")
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(data);
+      });
+  }, []);
+
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -83,38 +95,18 @@ function Login(props) {
       });
   };
 
-  return (
-    <>
-      {success && <div>Login Successful</div>}
-      {error && <div>{error}</div>}
+  return {
+    email,
+    password,
+    error,
+    success,
+    isLoggedIn,
+    handleSubmit,
+    handleLogout,
+    setEmail,
+    setPassword,
+    user,
+  };
+};
 
-      {isLoggedIn && (
-        <div>
-          <br />
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-      )}
-
-      {!isLoggedIn && (
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-          />
-          <button type="submit">Login</button>
-        </form>
-
-      )}
-    </>
-  );
-}
-
-export default Login;
+export default useLogin;

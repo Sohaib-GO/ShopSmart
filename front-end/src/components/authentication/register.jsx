@@ -27,7 +27,7 @@ const Register = () => {
       const config = {
         headers: {
           "Content-Type": "application/json",
-        },
+        }, 
       };
 
       const body = JSON.stringify(newUser);
