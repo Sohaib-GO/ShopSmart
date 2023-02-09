@@ -11,21 +11,11 @@ import Maps from "./pages/map/Maps";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-
-  return (
-    <div className="App">
-    {/* <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-  <Items isLoggedIn={isLoggedIn} />
-  <FetchGroceryList isLoggedIn={isLoggedIn} /> */}
-  <Maps />
-
-function App() {
-
   return (
     <div className="App">
       <Login />
       <NewListForm />
-   feature/map-webpage
+      <Maps />
     </div>
   );
 }
