@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { useLocation, useNavigate } from "react-router-dom";
+import ColoredTabs from "../ColoredTabs/ColoredTabs.jsx";
 import "./Header.css";
 import logo from "../../images/cartlogo.png";
 import useLogin from "../authentication/useLogin";
@@ -26,6 +27,11 @@ function Header(props) {
   let location = useLocation();
   const navigate = useNavigate();
   let currentPage = location.pathname.substring(1);
+
+  const tabs = [
+    { value: "searchItems", label: "Search items" },
+    { value: "listings", label: "Listings" },
+  ];
 
   return (
     <>

@@ -2,7 +2,7 @@
   margin-top: 9em;
 }
 .get_started_button {
-  margin-top: 12em;
+  margin-top: 20em;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -14,7 +14,6 @@
   justify-content: space-around;
 
 }
-.search_button {
-  color: rgb(30, 95, 74);
-  margin-top: 2em
+.search-button {
+  margin-top: 5em
 }
