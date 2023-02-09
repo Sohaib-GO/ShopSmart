@@ -10,7 +10,6 @@ import {useState} from "react";
 import React from "react";
 // import Map from "../../components/Map/Map";
 
-const [selectedMarker, setSelectMarker] = useState("")
 
 const containerStyle = {
     width: '1980px',
@@ -40,7 +39,7 @@ export default function Maps_test() {
     googleMapsApiKey: "AIzaSyDxSBp4edh5BzrKcIJa6ZrP7G5tQJVNFKo",
   });
 
-  const onClick = 
+  const [selectedMarker, setSelectedMarker] = useState(null)
 
   const [map, setMap] = React.useState(null);
 
@@ -63,21 +62,22 @@ export default function Maps_test() {
       id='Marker-test'
       mapContainerStyle={containerStyle}
       center={center}
-      zoom={10}
+      zoom={12}
       onLoad={onLoad}
       onUnmount={onUnmount}
-    >
+    >      
+    <Marker
+        onClick={()=>{setSelectedMarker("")}}
+        position={location}
+    />
     <InfoWindow 
       position={location}
+      onCloseClick={()=>{setSelectedMarker(null)}}
     >
-      <div style={divStyle}>
+      <div>
         <h1>Info</h1>
       </div>
     </InfoWindow>
-    <Marker 
-      position={location}
-      onClick={()=>{setSelectMarker(element)}}
-    />
         <></>
     </GoogleMap>
   );
