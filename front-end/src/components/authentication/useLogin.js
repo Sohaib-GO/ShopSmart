@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 const useLogin = (props) => {
   const [email, setEmail] = useState("");
@@ -25,7 +26,6 @@ const useLogin = (props) => {
     }
   }, [success]);
 
-
   useEffect(() => {
     fetch("/api/current-user")
       .then((res) => res.json())
@@ -34,38 +34,22 @@ const useLogin = (props) => {
       });
   }, []);
 
-
-
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const user = { email, password };
 
-    fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          return res.json();
-        } else {
-          return res.json();
-        }
-      })
-      .then((data) => {
-        if (data.error) {
-          setError(data.error);
-        } else {
-          setSuccess(true);
-          setIsLoggedIn(true);
-          setError("");
-          localStorage.setItem("user", JSON.stringify(data));
-        }
-      });
+    try {
+      const res = await axios.post("/api/login", user);
+      if (res.status === 200) {
+        setSuccess(true);
+        setIsLoggedIn(true);
+        setError("");
+        localStorage.setItem("user", JSON.stringify(res.data));
+      }
+    } catch (err) {
+      setError(err.response.data.error);
+    }
   };
 
   const handleLogout = () => {
