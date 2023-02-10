@@ -26,14 +26,15 @@ app.get("/api", (req, res) => {
 
 // create a new user
 app.post("/api/users", (req, res) => {
-  const { name, email, password, address } = req.body;
-  if (!name || !email || !password || !address) {
+  const { name, email, password, address, lat, lng } = req.body;
+  if (!name || !email || !password || !address || !lat || !lng) {
     return res.status(400).json({ error: "all fields are required" });
   }
 
   db.query(
-    `INSERT INTO users (name, email, password, address) values ($1, $2, $3, $4)`,
-    [name, email, password, address],
+    `INSERT INTO users (name, email, password, address, lat, lng) VALUES ($1, $2, $3, $4, $5, $6)`,
+    [name, email, password, address, lat, lng],
+
     (error) => {
       if (error) {
         return res.status(500).json({ error });
@@ -45,7 +46,7 @@ app.post("/api/users", (req, res) => {
 
 app.post("/api/login", (req, res) => {
   const { email, password } = req.body;
-  
+
   if (!email || !password) {
     return res.status(400).json({ error: "Email and password are required." });
   }
@@ -73,31 +74,20 @@ app.get("/api/current-user", (req, res) => {
   if (!user_id) {
     return res.status(401).json({ error: "Unauthorized." });
   }
-  db.query(
-    `SELECT * FROM users WHERE id = $1`,
-    [user_id],
-    (error, result) => {
-      if (error) {
-        return res.status(500).json({ error });
-      }
-      
-
-      const user = result.rows[0];
-      res.json(user);
-      
+  db.query(`SELECT * FROM users WHERE id = $1`, [user_id], (error, result) => {
+    if (error) {
+      return res.status(500).json({ error });
     }
-  );
-});
 
+    const user = result.rows[0];
+    res.json(user);
+  });
+});
 
 app.post("/api/logout", (req, res) => {
   res.clearCookie("user");
   res.json({ message: "Logged out successfully." });
 });
-
-
-
-
 
 app.get("/api/items", (req, res) => {
   db.query(
@@ -261,7 +251,6 @@ app.get("/api/fetch-grocery-list", async (req, res) => {
   }
 });
 
-
 // delete an item from the grocery list
 app.post("/api/delete-grocery-item", (req, res) => {
   const { item_name, store_name } = req.body;
@@ -301,9 +290,6 @@ app.post("/api/delete-grocery-item", (req, res) => {
   );
 });
 
-
-
 app.listen(port, () => {
   console.log(`Example app listening at port:${port}`);
 });
-
