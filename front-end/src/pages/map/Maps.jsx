@@ -39,7 +39,7 @@ export default function Maps_test() {
     googleMapsApiKey: "AIzaSyDxSBp4edh5BzrKcIJa6ZrP7G5tQJVNFKo",
   });
 
-  const [selectedMarker, setSelectedMarker] = useState(null)
+  const [selectedMarker, setSelectedMarker] = useState(false)
 
   const [map, setMap] = React.useState(null);
 
@@ -67,15 +67,16 @@ export default function Maps_test() {
       onUnmount={onUnmount}
     >      
     <Marker
-        onClick={()=>{setSelectedMarker("")}}
+        onClick={()=>{setSelectedMarker(true)}}
         position={location}
     />
     <InfoWindow 
       position={location}
-      onCloseClick={()=>{setSelectedMarker(null)}}
+      onCloseClick={()=>{setSelectedMarker(false)}}
     >
       <div>
         <h1>Info</h1>
+        <img src='https://render.fineartamerica.com/images/rendered/default/poster/8/8/break/images-medium-5/apple-science-photo-library.jpg'></img>
       </div>
     </InfoWindow>
         <></>
