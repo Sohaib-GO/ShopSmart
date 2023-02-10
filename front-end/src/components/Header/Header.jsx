@@ -44,7 +44,13 @@ function Header(props) {
           className="logo"
           onClick={() => navigate("/")}
         />
-        <div className="logo-text">ShopSmart </div>
+        <div className="logo-text">
+          ShopSmart{" "}
+          <style>
+            @import
+            url('https://fonts.googleapis.com/css2?family=Pacifico&family=Shadows+Into+Light&display=swap');
+          </style>
+        </div>
       </div>
       <div>
         <ColoredTabs tabs={tabs} />
