@@ -156,54 +156,54 @@ function SearchItems(props) {
           </Grid>
         </div>
       </div>
-      <Drawer anchor="right" open={!!item} onClose={() => setItem(null)}>
-  {item && (
-    <Card sx={{ maxWidth: 700 }}>
-      <CardMedia
-        component="img"
-        height="140"
-        image={item.item_image}
-        alt={item.name}
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {item.name}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {item.description}
-        </Typography>
-        <Typography variant="h6" component="div">
-          Stores Selling the Item:
-        </Typography>
-        <List>
-          {item.stores &&
-            item.stores.map((store, index) => {
-              const cheapestStore = getCheapestStore(item.stores);
-              return (
-                <ListItem key={index}>
-                  <Avatar src={store.store_logo} />
-                  <ListItemText primary={store.store_name} />
-                  <ListItemText
-                    primary={
-                      `$${store.price}` +
-                      (store.store_name === cheapestStore.store_name
-                        ? " (cheapest)"
-                        : "")
-                    }
-                    style={
-                      store.store_name === cheapestStore.store_name
-                        ? { color: "red" }
-                        : {}
-                    }
-                  />
-                </ListItem>
-              );
-            })}
-        </List>
-      </CardContent>
-    </Card>
-  )}
-</Drawer>
+      <Drawer anchor="right" open={item.length} onClose={() => setItem(null)}>
+        {item && (
+          <Card sx={{ maxWidth: 700 }}>
+            <CardMedia
+              component="img"
+              height="140"
+              image={item.item_image}
+              alt={item.name}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {item.name}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {item.description}
+              </Typography>
+              <Typography variant="h6" component="div">
+                Stores Selling the Item:
+              </Typography>
+              <List>
+                {item.stores &&
+                  item.stores.map((store, index) => {
+                    const cheapestStore = getCheapestStore(item.stores);
+                    return (
+                      <ListItem key={index}>
+                        <Avatar src={store.store_logo} />
+                        <ListItemText primary={store.store_name} />
+                        <ListItemText
+                          primary={
+                            `$${store.price}` +
+                            (store.store_name === cheapestStore.store_name
+                              ? " (cheapest)"
+                              : "")
+                          }
+                          style={
+                            store.store_name === cheapestStore.store_name
+                              ? { color: "red" }
+                              : {}
+                          }
+                        />
+                      </ListItem>
+                    );
+                  })}
+              </List>
+            </CardContent>
+          </Card>
+        )}
+      </Drawer>
     </div>
   );
 }

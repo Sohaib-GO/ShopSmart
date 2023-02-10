@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { Divider, Alert, Modal } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import ClickAwayListener from "@mui/base/ClickAwayListener";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -12,22 +13,22 @@ import useLogin from "../authentication/useLogin";
 
 function Header(props) {
   const [signInDrawerOpen, setSignInDrawerOpen] = useState(false);
-const { email,
-  password,
-  error,
-  success,
-  isLoggedIn,
-  handleSubmit,
-  handleLogout,
-  setEmail,
-  setPassword,
-  user} = useLogin(props);
 
+  const {
+    email,
+    password,
+    error,
+    success,
+    isLoggedIn,
+    handleSubmit,
+    handleLogout,
+    setEmail,
+    setPassword,
+    user,
+  } = useLogin(props);
 
-  
   let location = useLocation();
   const navigate = useNavigate();
-  let currentPage = location.pathname.substring(1);
 
   const tabs = [
     { value: "searchItems", label: "Search items" },
@@ -35,95 +36,113 @@ const { email,
   ];
 
   return (
-    <Box className="header">
-      <Box className="header-left">
+    <div className="header">
+      <div className="navigation-buttons">
         <img
-          className="logo"
           src={logo}
           alt="logo"
+          className="logo"
           onClick={() => navigate("/")}
         />
-        <Typography
-          className="header__title"
-          variant="h6"
-          onClick={() => navigate("/")}
-        >
-          ShopSmart
-        </Typography>
-      </Box>
-      <Box className="header__center">
-        <ColoredTabs
-          tabs={tabs}
-          currentPage={currentPage}
-          navigate={navigate}
-        />
-      </Box>
-      <Box className="header__right">
+        <div className="logo-text">ShopSmart </div>
+      </div>
+      <div>
+        <ColoredTabs tabs={tabs} />
+      </div>
+      <div className="right-buttons-group">
         {isLoggedIn ? (
-          <Box className="header__right__loggedIn"> 
-            <Typography variant="h6" className="header__right__loggedIn__name">
-              {user.name}
-            </Typography>
-            <Button
-              className="header__right__loggedIn__logout"
-              variant="contained"
-              onClick={handleLogout}
-            >
-              Logout
-            </Button>
-          </Box>
+          <div>
+            <Box className="user-name">
+              <Typography variant="h6" color="green">
+                Hola!&nbsp;&nbsp;
+              </Typography>
+
+              <Typography>{user.name}&nbsp;&nbsp;</Typography>
+              <Button variant="contained" color="error" onClick={handleLogout}>
+                Logout
+              </Button>
+            </Box>
+          </div>
         ) : (
           <Button
-            className="header__right__login"
+            className="sign-in-out-button"
             variant="contained"
+            color="success"
             onClick={() => setSignInDrawerOpen(true)}
           >
             Login
           </Button>
         )}
-      </Box>
-      {signInDrawerOpen && (
-        <ClickAwayListener
-
-          onClickAway={() => setSignInDrawerOpen(false)}
+      </div>
+      {signInDrawerOpen && !isLoggedIn && (
+        <Modal
+          open={signInDrawerOpen}
+          size="small"
+          onClose={() => setSignInDrawerOpen(false)}
         >
-          <Box className="header__signInDrawer">
-            <Typography variant="h5" className="header__signInDrawer__title">
-              
-            </Typography>
-            <form
-              className="header__signInDrawer__form"
-              onSubmit={handleSubmit}
-            >
+          <Box
+            className="sign-in-form"
+            component="form"
+            sx={{
+              "& .MuiTextField-root": { m: 1, width: "25ch" },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <div>
+              <Typography variant="h5" color="grey">
+                Login
+              </Typography>
+            </div>
+            <div className="modal-form">
               <TextField
-                className="header__signInDrawer__form__email"
+                required
+                className="form-field"
                 label="Email"
-                variant="outlined"
+                id="outlined-size-small"
+                size="small"
+                placeholder="Enter your email"
+                e
                 value={email}
+                type="email"
                 onChange={(e) => setEmail(e.target.value)}
               />
               <TextField
-                className="header__signInDrawer__form__password"
+                required
+                className="form-field"
                 label="Password"
-                variant="outlined"
+                id="outlined-size-small"
+                size="small"
+                placeholder="Enter your password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+            </div>
+            <div>
               <Button
-                className="header__signInDrawer__form__submit"
+                className="form-field"
+                disableElevation
                 variant="contained"
-                type="submit"
+                color="success"
+                onClick={handleSubmit}
               >
                 Login
               </Button>
-            </form>
+            </div>
+            {error ? <Alert severity="error">{error}</Alert> : null}
+            <div>
+              <Divider variant="fullWidth" />
+              <Typography variant="caption">Not a member yet?</Typography>{" "}
+              <Typography variant="caption" color="blueviolet">
+                Sign Up.
+              </Typography>
+            </div>
           </Box>
-        </ClickAwayListener>
+        </Modal>
       )}
-    </Box>
+    </div>
   );
-  
 }
 
 export default Header;
