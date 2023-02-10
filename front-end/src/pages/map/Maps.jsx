@@ -37,14 +37,13 @@ export default function Maps_test() {
     googleMapsApiKey: "AIzaSyDxSBp4edh5BzrKcIJa6ZrP7G5tQJVNFKo",
   });
 
-  console.log(useGroceryList);
   const [selectedMarker, setSelectedMarker] = useState(false);
 
   const [map, setMap] = React.useState(null);
 
   const onLoad = React.useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
+    map.setZoom(12)
 
     setMap(map);
   }, []);
@@ -54,8 +53,7 @@ export default function Maps_test() {
   }, []);
 
   const items = useGroceryList();
-  console.log("------", items);
-  const grocerylist = [];
+  console.log(items)
 
   if (!isLoaded) return <div>Loading...</div>;
   return (
@@ -87,8 +85,6 @@ export default function Maps_test() {
               setSelectedMarker(false);
             }}
           >
-        
-        
           <>
             <h1>{items.groceries[0].store_name}</h1>
             {items.groceries[0].items.map((item) => {
