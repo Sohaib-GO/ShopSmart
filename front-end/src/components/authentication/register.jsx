@@ -15,10 +15,10 @@ const Register = () => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { name, email, password, address, lat, lng } = formData;
+  const { name, email, password, address, lat, lng } = formData; // Destructure the state
 
   const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value }); // Spread operator to copy the existing state and then update the state
 
   useEffect(() => {
     const fetchLatLng = async () => {
@@ -26,7 +26,7 @@ const Register = () => {
         `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyDxSBp4edh5BzrKcIJa6ZrP7G5tQJVNFKo`
       );
       const { lat, lng } = response.data.results[0].geometry.location; // Destructure lat and lng from the response
-      setFormData({ ...formData, lat, lng });
+      setFormData({ ...formData, lat, lng }); // Update the state with the lat and lng
     };
 
     if (address) {
