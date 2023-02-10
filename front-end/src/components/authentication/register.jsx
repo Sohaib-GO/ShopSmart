@@ -8,26 +8,42 @@ const Register = () => {
     email: "",
     password: "",
     address: "",
+    lat: "",
+    lng: "",
   });
 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { name, email, password, address } = formData;
+  const { name, email, password, address, lat, lng } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  useEffect(() => {
+    const fetchLatLng = async () => {
+      const response = await axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyDxSBp4edh5BzrKcIJa6ZrP7G5tQJVNFKo`
+      );
+      const { lat, lng } = response.data.results[0].geometry.location; // Destructure lat and lng from the response
+      setFormData({ ...formData, lat, lng });
+    };
+
+    if (address) {
+      fetchLatLng();
+    }
+  }, [address]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const newUser = { name, email, password, address };
+      const newUser = { name, email, password, address, lat, lng };
 
       const config = {
         headers: {
           "Content-Type": "application/json",
-        }, 
+        },
       };
 
       const body = JSON.stringify(newUser);
@@ -38,9 +54,7 @@ const Register = () => {
       // Redirect to login page
       setTimeout(() => {
         window.location.href = "/home";
-      }
-      , 3000);
-
+      }, 3000);
     } catch (err) {
       setErrorMessage(err.response.data.error);
     }
@@ -67,6 +81,7 @@ const Register = () => {
             onChange={(e) => onChange(e)}
             required
           />
+
           <TextField
             label="Email"
             type="email"
@@ -82,7 +97,6 @@ const Register = () => {
             value={password}
             onChange={(e) => onChange(e)}
             required
-            minLength="6"
           />
           <TextField
             label="Address"
@@ -97,7 +111,9 @@ const Register = () => {
           </Button>
         </form>
       )}
-      {errorMessage && <div className="error-message">{errorMessage}</div>}
+      {errorMessage && (
+        <div className="alert alert-danger mt-3">{errorMessage}</div>
+      )}
     </Container>
   );
 };
