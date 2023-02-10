@@ -27,6 +27,7 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import axios from "axios";
 
 import useLogin from "../../components/authentication/useLogin";
+import { useGroceryList } from "./useListingsHook";
 
 
 
@@ -34,34 +35,11 @@ const label = { inputProps: { "aria-label": "Switch demo" } };
 
 function Listings(props) {
   const [dense, setDense] = useState(false);
-  const [stores, setStores] = useState([]);
   const [selectedStore, setSelectedStore] = useState(null);
-  const [groceries, setGroceries] = useState([]);
-
+  const {groceries, handleDeleteGroceryItem} = useGroceryList(props);
   const {isLoggedIn} = useLogin(props);
 
-  useEffect(() => {
-    fetch("/api/fetch-grocery-list")
-      .then((res) => res.json())
-      .then((data) => setGroceries(data.data));
-  }, []);
-
-  const handleDeleteGroceryItem = async (item_name, store_name) => {
-    try {
-      const response = await axios.post("/api/delete-grocery-item", { item_name, store_name });
-      if (response.data.success) {
-        setGroceries(prevGroceryList =>
-          prevGroceryList.filter(store => {
-            store.items = store.items.filter(item => item.item_name !== item_name);
-            return store.items.length > 0;
-          })
-        );
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-    
+ 
 
   return (
     <> 

@@ -6,11 +6,11 @@ import Homepage from "./pages/homepage/Homepage";
 import SearchItems from "./pages/searchItems/Items";
 import Listings from "./pages/listings/Listings";
 import Maps from "./pages/map/Maps";
+import Register from "./components/authentication/register";
 
 function App() {
   const [listings, setListings] = useState([]);
 
-  console.log(listings);
 
   return (
     <Router>
@@ -30,6 +30,8 @@ function App() {
             path="/maps"
             element={<Maps />}
           />
+
+          <Route path="/register" element={<Register />} />
         </Routes>
       </div>
     </Router>
