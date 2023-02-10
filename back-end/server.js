@@ -15,15 +15,6 @@ app.use(
   })
 );
 
-app.get("/api", (req, res) => {
-  db.query("SELECT * FROM users", (error, result) => {
-    if (error) {
-      throw error;
-    }
-    res.status(200).json(result.rows);
-  });
-});
-
 // create a new user
 app.post("/api/users", (req, res) => {
   const { name, email, password, address, lat, lng } = req.body;
@@ -89,6 +80,7 @@ app.post("/api/logout", (req, res) => {
   res.json({ message: "Logged out successfully." });
 });
 
+// get all items
 app.get("/api/items", (req, res) => {
   db.query(
     `SELECT
@@ -200,7 +192,6 @@ app.get("/api/fetch-grocery-list", async (req, res) => {
   }
 
   try {
-    // Get the item name, price, store name, and store id from the `grocery_lists`, `items`, and `stores` tables
     const groceryListQuery = await db.query(
       `SELECT items.name AS item_name, grocery_lists.price AS item_price, stores.name AS store_name, stores.id AS store_id
        FROM grocery_lists
