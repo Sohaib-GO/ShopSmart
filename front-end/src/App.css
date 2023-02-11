@@ -4,6 +4,10 @@
 
 .App {
   text-align: center;
-  background-image: url("./images/background_1.jpg");
+  background-image: url("./images/Wayfair\ .jpeg");
+  background-image: linear-gradient(to bottom,pink,rgb(67, 129, 87));
+  /* background-image: url("./images/shop.jpeg"); */
+  background-size: cover;
   height: 100vh;
+  
 }
