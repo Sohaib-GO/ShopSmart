@@ -127,7 +127,10 @@ function Listings(props) {
           {groceries?.map((store) => {
             return (
               <Accordion>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <AccordionSummary
+                  sx={{ backgroundColor: "lightgrey" }}
+                  expandIcon={<ExpandMoreIcon />}
+                >
                   <Typography>{store.store_name}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
