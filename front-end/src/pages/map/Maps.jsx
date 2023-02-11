@@ -14,16 +14,15 @@ const containerStyle = {
 };
 
 const center = {
-  lat: 49.26376,
-  lng: -123.14833,
+  lat:  53.5790106,
+  lng: -113.5799218,
 };
 
 const places = [
-  { id: 1, lat: 49.259232, lng: -123.027290},
-  { id: 2, lat: 49.26376, lng: -123.14833 },
-  { id: 3, lat: 49.224390, lng: -123.090180 },
-];
-
+  { id: 1, lat: 53.5790106, lng: -113.4799218},
+  { id: 2, lat:53.5790106, lng: -113.3799218} ,
+  { id: 3, lat: 53.5790106, lng:-113.2799218}
+]
 
 const divStyle = {
   background: `white`,
@@ -53,7 +52,7 @@ export default function Maps_test() {
   }, []);
 
   const items = useGroceryList();
-  console.log(items)
+  // console.log(items)
 
   if (!isLoaded) return <div>Loading...</div>;
   return (
@@ -65,29 +64,29 @@ export default function Maps_test() {
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
-    {places.map((place, i) => {
-      console.log('line 79', place)
+    {items.groceries.map((e, i) => {
+      console.log(e)
       return (
         <Marker
           onClick={(e) => {
             setSelectedMarker(true);
           }}
-          key={place.id}
-          position={{lat: place.lat, lng: place.lng }}
+          key={e.store_id}
+          position={{lat: Number(e.store_lat), lng: Number(e.store_lng) }}
         />
       )
     })}
-     {places.map((place, i) => {
+     {items.groceries.map((e, i) => {
         return (
           <InfoWindow
-            position={{lat: place.lat, lng: place.lng }}
+            key={e.store_id}
+            position={{lat: Number(e.store_lat), lng: Number(e.store_lng) }}
             onCloseClick={() => {
               setSelectedMarker(false);
             }}
           >
           <>
-            <h1>{items.groceries[0].store_name}</h1>
-            {items.groceries[0].items.map((item) => {
+            {items.groceries.items.map((item) => {
               return (
                 <div>
                   <p>{item.item_name}</p>
@@ -95,7 +94,6 @@ export default function Maps_test() {
                 </div>
               );
             })}
-            <div>Total cost of this list: </div>
           </>
         </InfoWindow>
         )
