@@ -31,7 +31,7 @@ function Header(props) {
   const navigate = useNavigate();
 
   const tabs = [
-    { value: "searchItems", label: "Search items" },
+    { value: "search-items", label: "Search items" },
     { value: "listings", label: "Listings" },
   ];
 
@@ -64,6 +64,7 @@ function Header(props) {
               </Typography>
 
               <Typography>{user.name}&nbsp;&nbsp;</Typography>
+
               <Button variant="contained" color="error" onClick={handleLogout}>
                 Logout
               </Button>
