@@ -1,12 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 0 2em 0 2em;
+  padding: 2em;
 }
 .logo {
-  margin-top: 2em;
   width: 50px;
   height: 50px;
   cursor: pointer;
@@ -19,27 +22,64 @@
   display: flex;
 }
 .right-buttons-group {
-  margin-top: 2em;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   column-gap: 20px;
+
 }
 .sign-in-form {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  column-gap: 20px;
+  align-items: center;
+  justify-content: space-evenly;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 10px 5px 5px #636363;
+    height: 400px;
+  width: 500px;
+  background-color: #d9d9d9;
+  background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+}
+.modal-form {
+  display: flex;
+  flex-direction: column;
 }
 .logo-text {
-  margin: 1em;
+  font-family: 'Pacifico', cursive;
+  font-family: 'Shadows Into Light', cursive;
+  font-size: x-large;
+  margin: 0.5em;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   color: rgb(23, 72, 26);
+  
+
 }
-.sign-in-button{
+.sign-in-out-button {
   display: flex;
   width: 10em;
 }
+.form-field {
+  width: 18em;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-evenly;
+  margin-top: 2em;
+}
+.user-name {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  font-family: 'Pacifico', cursive;
+  font-family: 'Shadows Into Light', cursive;
+}
+

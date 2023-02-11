@@ -21,6 +21,10 @@ function Homepage() {
         >
           <Typography variant="h6" gutterBottom>
             Start Searching
+            <style>
+              @import
+              url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+            </style>
           </Typography>
         </Button>
       </div>

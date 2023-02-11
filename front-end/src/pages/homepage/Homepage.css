@@ -1,7 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .homepage {
   margin-top: 9em;
 }
 .get_started_button {
+  font-family: 'Anton', sans-serif;
   margin-top: 20em;
   display: flex;
   flex-direction: row;
@@ -15,5 +20,6 @@
 
 }
 .search-button {
-  margin-top: 5em
+  margin-top: 5em;
+
 }
