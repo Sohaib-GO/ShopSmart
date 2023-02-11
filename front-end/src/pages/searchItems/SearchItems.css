@@ -16,8 +16,8 @@
 }
 
 .item-image {
-  width: 100px;
-  height: 100px;
+  width: 300px;
+  height: 300px;
   
 }
 .store-table {
@@ -28,6 +28,11 @@
 
 .item-name {
   width: 30%;
+}
+
+.store-list-item {
+  display: flex !important;
+  justify-content: space-between !important;
 }
 
 .store-logo-avatar:hover {
