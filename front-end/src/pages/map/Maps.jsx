@@ -52,7 +52,7 @@ export default function Maps_test() {
   }, []);
 
   const items = useGroceryList();
-  // console.log(items)
+  console.log(items)
 
   if (!isLoaded) return <div>Loading...</div>;
   return (
@@ -65,7 +65,6 @@ export default function Maps_test() {
       onUnmount={onUnmount}
     >
     {items.groceries.map((e, i) => {
-      console.log(e)
       return (
         <Marker
           onClick={(e) => {
@@ -86,14 +85,11 @@ export default function Maps_test() {
             }}
           >
           <>
-            {items.groceries.items.map((item) => {
-              return (
-                <div>
-                  <p>{item.item_name}</p>
-                  <p>{item.item_price}</p>
-                </div>
-              );
-            })}
+            <h1>{e.store_name}</h1>
+            <div>
+              <p>{e.items[0].item_name}</p>
+              <p>{e.items[0].item_price}</p>
+            </div>
           </>
         </InfoWindow>
         )
