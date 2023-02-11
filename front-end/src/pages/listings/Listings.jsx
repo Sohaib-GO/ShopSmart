@@ -64,10 +64,11 @@ function Listings(props) {
                 return (
                   
                   <div key={`store-${store.store_id}`}>
-                    <ListSubheader>{store.store_name}</ListSubheader>
+                    <ListSubheader onClick={() => setSelectedStore(store)} >{store.store_name}</ListSubheader>
+
                     {store.items.map((item) => {
                       return (
-                        <ListItem key={`item-${item.item_name}`}>
+                        <ListItem key={`item-${item.item_name}`} > 
                           <ListItemText className="item-name" primary={item.item_name} />
                           <ListItemText primary={`$${item.item_price}`} />
                           <IconButton
