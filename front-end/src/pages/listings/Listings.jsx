@@ -27,12 +27,12 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import axios from "axios";
 
 import useLogin from "../../components/authentication/useLogin";
+import { useGroceryList } from "./useListingsHook";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
 function Listings(props) {
   const [dense, setDense] = useState(false);
-  const [stores, setStores] = useState([]);
   const [selectedStore, setSelectedStore] = useState(null);
   const [groceries, setGroceries] = useState([]);
 

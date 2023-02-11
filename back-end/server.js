@@ -15,25 +15,17 @@ app.use(
   })
 );
 
-app.get("/api", (req, res) => {
-  db.query("SELECT * FROM users", (error, result) => {
-    if (error) {
-      throw error;
-    }
-    res.status(200).json(result.rows);
-  });
-});
-
 // create a new user
 app.post("/api/users", (req, res) => {
-  const { name, email, password, address } = req.body;
-  if (!name || !email || !password || !address) {
+  const { name, email, password, address, lat, lng } = req.body;
+  if (!name || !email || !password || !address || !lat || !lng) {
     return res.status(400).json({ error: "all fields are required" });
   }
 
   db.query(
-    `INSERT INTO users (name, email, password, address) values ($1, $2, $3, $4)`,
-    [name, email, password, address],
+    `INSERT INTO users (name, email, password, address, lat, lng) VALUES ($1, $2, $3, $4, $5, $6)`,
+    [name, email, password, address, lat, lng],
+
     (error) => {
       if (error) {
         return res.status(500).json({ error });
@@ -73,32 +65,22 @@ app.get("/api/current-user", (req, res) => {
   if (!user_id) {
     return res.status(401).json({ error: "Unauthorized." });
   }
-  db.query(
-    `SELECT * FROM users WHERE id = $1`,
-    [user_id],
-    (error, result) => {
-      if (error) {
-        return res.status(500).json({ error });
-      }
-      
-
-      const user = result.rows[0];
-      res.json(user);
-      
+  db.query(`SELECT * FROM users WHERE id = $1`, [user_id], (error, result) => {
+    if (error) {
+      return res.status(500).json({ error });
     }
-  );
-});
 
+    const user = result.rows[0];
+    res.json(user);
+  });
+});
 
 app.post("/api/logout", (req, res) => {
   res.clearCookie("user");
   res.json({ message: "Logged out successfully." });
 });
 
-
-
-
-
+// get all items
 app.get("/api/items", (req, res) => {
   db.query(
     `SELECT
@@ -210,9 +192,8 @@ app.get("/api/fetch-grocery-list", async (req, res) => {
   }
 
   try {
-    // Get the item name, price, store name, and store id from the `grocery_lists`, `items`, and `stores` tables
     const groceryListQuery = await db.query(
-      `SELECT items.name AS item_name, grocery_lists.price AS item_price, stores.name AS store_name, stores.id AS store_id
+      `SELECT items.name AS item_name, grocery_lists.price AS item_price, stores.name AS store_name, stores.id AS store_id, stores.lat AS store_lat, stores.lng AS store_lng
        FROM grocery_lists
        INNER JOIN items ON grocery_lists.item_id = items.id
        INNER JOIN stores ON grocery_lists.store_id = stores.id
@@ -230,6 +211,8 @@ app.get("/api/fetch-grocery-list", async (req, res) => {
         acc.push({
           store_name: curr.store_name,
           store_id: curr.store_id,
+          store_lat: curr.store_lat,
+          store_lng: curr.store_lng,
           items: [
             {
               item_name: curr.item_name,
@@ -260,7 +243,6 @@ app.get("/api/fetch-grocery-list", async (req, res) => {
     });
   }
 });
-
 
 // delete an item from the grocery list
 app.post("/api/delete-grocery-item", (req, res) => {
@@ -301,9 +283,6 @@ app.post("/api/delete-grocery-item", (req, res) => {
   );
 });
 
-
-
 app.listen(port, () => {
   console.log(`Example app listening at port:${port}`);
 });
-
