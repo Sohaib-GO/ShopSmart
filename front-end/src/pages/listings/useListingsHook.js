@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const useGroceryList = (props) => {
+export const useGroceryList = () => {
   const [groceries, setGroceries] = useState([]);
 
 
