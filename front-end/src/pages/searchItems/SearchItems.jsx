@@ -28,8 +28,9 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Search } from "@mui/icons-material";
 import { Drawer } from "@mui/material";
 import useLogin from "../../components/authentication/useLogin";
+import Autocomplete from "@mui/material/Autocomplete";
 
-const label = { inputProps: { "aria-label": "Switch demo" } };
+const productName = { inputProps: { "aria-productName": "Switch demo" } };
 
 function SearchItems(props) {
   const [dense, setDense] = useState(false);
@@ -38,6 +39,35 @@ function SearchItems(props) {
   const [store, setStore] = useState([]);
   const [item, setItem] = useState([]);
   const { isLoggedIn } = useLogin(props);
+
+  const products = [
+    { productName: "apple" },
+    { productName: "orange" },
+    { productName: "tomatto" },
+    { productName: "cucumber" },
+    { productName: "carrot" },
+    { productName: "lettuce" },
+    { productName: "milk" },
+    { productName: "eggs" },
+    { productName: "egg white" },
+    { productName: "coffe" },
+    { productName: "chockolate" },
+    { productName: "ice-cream" },
+    { productName: "pine-apple" },
+    { productName: "watermelon" },
+    { productName: "cherry" },
+    { productName: "melon" },
+    { productName: "water" },
+    { productName: "beef" },
+    { productName: "pork" },
+    { productName: "chicken tenders" },
+    { productName: "whole chicken" },
+    { productName: "chicken breast" },
+    { productName: "red grape" },
+    { productName: "rasberry" },
+    { productName: "bluberry" },
+    { productName: "strawberry" },
+  ];
 
   useEffect(() => {
     fetch("/api/items")
@@ -94,18 +124,29 @@ function SearchItems(props) {
     <div className="searchItems-page">
       <div className="store-table">
         <div className="search-field">
-          <TextField
-            id="filled-basic"
-            variant="standard"
-            placeholder="search"
-            onChange={(e) => setSearchTerm(e.target.value)}
+          <Autocomplete
+            id="search-autocomplete"
+            disableCloseOnSelect
+            options={products}
+            getOptionLabel={(option) => option.productName}
+            blurOnSelect
+            defaultValue=""
+            value={{ productName: searchTerm }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Search product"
+                variant="standard"
+              />
+            )}
+            onInputChange={(e, newValue) => {
+              if (typeof newValue === "string") {
+                setSearchTerm(newValue);
+              } else {
+                setSearchTerm(newValue.productName);
+              }
+            }}
           />
-          <FormGroup className="search-radio-button">
-            <FormControlLabel
-              control={<Switch defaultChecked />}
-              label="Within 10km"
-            />
-          </FormGroup>
         </div>
         <div>
           <Grid item xs={12} md={6}>
@@ -134,7 +175,7 @@ function SearchItems(props) {
                         <IconButton
                           onClick={() => handleAddToGroceryList(itemName)}
                           edge="end"
-                          aria-label="add"
+                          aria-productName="add"
                         >
                           <AddCircleOutlineIcon color="success" />
                         </IconButton>
@@ -156,7 +197,7 @@ function SearchItems(props) {
           </Grid>
         </div>
       </div>
-      <Drawer anchor="right" open={item.length} onClose={() => setItem(null)}>
+      <Drawer anchor="right" open={item?.length} onClose={() => setItem(null)}>
         {item && (
           <Card sx={{ maxWidth: 700 }}>
             <CardMedia
