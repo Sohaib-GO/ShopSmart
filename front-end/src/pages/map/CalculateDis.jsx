@@ -40,15 +40,12 @@ const DistanceTime = (props) => {
       });
   }, [user, groceries, transportationMode]);
 
-  const handleTransportationModeChange = (event) => {
-    setTransportationMode(event.target.value);
-  };
 
   return (
     <div>
       <label>
         Mode of transportation:
-        <select value={transportationMode} onChange={handleTransportationModeChange}>
+        <select value={transportationMode} onChange={(e) => setTransportationMode(e.target.value)}>
           <option value="driving">Driving</option>
           <option value="walking">Walking</option>
           <option value="bicycling">Bicycling</option>
