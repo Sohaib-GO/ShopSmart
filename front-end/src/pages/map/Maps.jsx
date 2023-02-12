@@ -6,7 +6,7 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 import React, { Fragment ,useMemo, useState } from "react";
-const { useGroceryList } = require("../listings/useListingsHook");
+import useGroceryList from "../listings/useListingsHook";
 
 const containerStyle = {
   width: "1980px",
