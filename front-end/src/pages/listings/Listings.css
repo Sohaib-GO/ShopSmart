@@ -22,7 +22,7 @@
 .list-item-action-buttons {
   display: flex;
   flex-direction: column;
-  margin-top: 1em;
+  /* margin-top: 1em; */
 }
 .list-item-text {
   display: flex;
@@ -30,4 +30,9 @@
 }
 .listings-page {
   margin: 3em;
+}
+.store-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

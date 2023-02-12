@@ -19,7 +19,7 @@ import Grid from "@mui/material/Grid";
 import FolderIcon from "@mui/icons-material/Folder";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import storeLogo from "../../images/safeway-Logo.png";
-import { Button, CardActionArea, CardActions } from "@mui/material";
+import { Button, Drawer, CardActionArea, CardActions } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -30,7 +30,8 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import axios from "axios";
-import Map from "../map/Maps";
+import Map from "../map/Map";
+import DistanceTime from "../map/CalculateDis";
 
 import useLogin from "../../components/authentication/useLogin";
 import { useGroceryList } from "./useListingsHook";
@@ -132,101 +133,137 @@ function Listings(props) {
                   sx={{ backgroundColor: "lightgrey" }}
                   expandIcon={<ExpandMoreIcon />}
                 >
-                  <Typography>{store.store_name}</Typography>
+                  <Button
+                    variant="text"
+                    onClick={() => setSelectedStore(store)}
+                  >
+                    {store.store_name}
+                  </Button>
                 </AccordionSummary>
-                <AccordionDetails>
-                  {store.items.map((item) => {
-                    const checked = isChecked(item.item_name, store.store_name);
-                    return (
-                      <List dense sx={{ width: "100%", maxWidth: 400 }}>
-                        <ListItem
-                          key={`id-${item.item_name}`}
-                          className="list-item"
-                          secondaryAction={
-                            <div className="list-item-action-buttons">
-                              <Checkbox
-                                checked={checked}
-                                edge="end"
-                                color="success"
-                                onChange={() =>
-                                  handleCheckItem(
-                                    item.item_name,
-                                    store.store_name
-                                  )
-                                }
+                <AccordionDetails className="store-details">
+                  <div>
+                    {store.items.map((item) => {
+                      const checked = isChecked(
+                        item.item_name,
+                        store.store_name
+                      );
+                      return (
+                        <List dense sx={{ width: "100%", maxWidth: 400 }}>
+                          <ListItem
+                            key={`id-${item.item_name}`}
+                            className="list-item"
+                            secondaryAction={
+                              <div className="list-item-action-buttons">
+                                {/* <Checkbox
+                                  checked={checked}
+                                  edge="end"
+                                  color="success"
+                                  onChange={() =>
+                                    handleCheckItem(
+                                      item.item_name,
+                                      store.store_name
+                                    )
+                                  }
+                                /> */}
+                                <IconButton
+                                  edge="end"
+                                  aria-label="delete"
+                                  onClick={() =>
+                                    handleOpenDeleteModal(
+                                      item.item_name,
+                                      store.store_name
+                                    )
+                                  }
+                                >
+                                  <DeleteIcon />
+                                </IconButton>
+                              </div>
+                            }
+                            disablePadding
+                          >
+                            <ListItemButton>
+                              <ListItemAvatar>
+                                <Avatar
+                                  alt={`Avatar${item.item_image}`}
+                                  src={item.item_image}
+                                />
+                              </ListItemAvatar>
+                              <ListItemText
+                                className="list-item-text"
+                                primary={item.item_name}
                               />
-                              <IconButton
-                                edge="end"
-                                aria-label="delete"
-                                onClick={() =>
-                                  handleOpenDeleteModal(
-                                    item.item_name,
-                                    store.store_name
-                                  )
-                                }
-                              >
-                                <DeleteIcon />
-                              </IconButton>
-                            </div>
-                          }
-                          disablePadding
-                        >
-                          <ListItemButton>
-                            <ListItemAvatar>
-                              <Avatar
-                                alt={`Avatar${item.item_image}`}
-                                src={item.item_image}
+                              <ListItemText
+                                id={item.id}
+                                primary={`${item.item_price}$ per 100 g`}
                               />
-                            </ListItemAvatar>
-                            <ListItemText
-                              className="list-item-text"
-                              primary={item.item_name}
-                            />
-                            <ListItemText
-                              id={item.id}
-                              primary={`${item.item_price}$ per 100 g`}
-                            />
-                          </ListItemButton>
-                        </ListItem>
-                        <Divider variant="inset" component="li" />
-                        <Modal
-                          hideBackdrop
-                          open={openDeleteModal}
-                          onClose={handleCloseDeleteModal}
-                        >
-                          <Box sx={{ ...modalStyle }}>
-                            <Typography variant="h6" color="text.secondary">
-                              Are you sure you want to delete this item?
-                            </Typography>
-                            <Typography variant="body1" color="text.secondary">
-                              This item will be removed from your list
-                              permanently
-                            </Typography>
-                            <div className="modal-action-buttons">
-                              <Button
-                                variant="outlined"
-                                color="error"
-                                onClick={handleDeleteModalSubmit}
+                            </ListItemButton>
+                          </ListItem>
+                          <Divider variant="inset" component="li" />
+                          <Modal
+                            hideBackdrop
+                            open={openDeleteModal}
+                            onClose={handleCloseDeleteModal}
+                          >
+                            <Box sx={{ ...modalStyle }}>
+                              <Typography variant="h6" color="text.secondary">
+                                Are you sure you want to delete this item?
+                              </Typography>
+                              <Typography
+                                variant="body1"
+                                color="text.secondary"
                               >
-                                Yes
-                              </Button>
-                              <Button
-                                variant="outlined"
-                                onClick={handleCloseDeleteModal}
-                              >
-                                No
-                              </Button>
-                            </div>
-                          </Box>
-                        </Modal>
-                      </List>
-                    );
-                  })}
+                                This item will be removed from your list
+                                permanently
+                              </Typography>
+                              <div className="modal-action-buttons">
+                                <Button
+                                  variant="outlined"
+                                  color="error"
+                                  onClick={handleDeleteModalSubmit}
+                                >
+                                  Yes
+                                </Button>
+                                <Button
+                                  variant="outlined"
+                                  onClick={handleCloseDeleteModal}
+                                >
+                                  No
+                                </Button>
+                              </div>
+                            </Box>
+                          </Modal>
+                        </List>
+                      );
+                    })}
+                  </div>
+                  <Map />
                 </AccordionDetails>
               </Accordion>
             );
           })}
-
+          <Drawer
+            anchor="right"
+            open={!!selectedStore}
+            onClose={() => setSelectedStore(null)}
+          >
+            {selectedStore && (
+              <Card sx={{ maxWidth: 700, minWidth: 300 }}>
+                <CardMedia
+                  className="item-image"
+                  component="img"
+                  image={selectedStore.store_logo}
+                  alt={selectedStore.store_name}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h6" component="div">
+                    {selectedStore.store_name}
+                  </Typography>
+                  <Divider />
+                  <DistanceTime />
+                </CardContent>
+              </Card>
+            )}
+          </Drawer>
           {/* {selectedStore && (
             <div className="drawer">
               <Card sx={{ maxWidth: 345 }}>
