@@ -5,7 +5,7 @@ import {
   useJsApiLoader,
   InfoWindow,
 } from "@react-google-maps/api";
-import React, { useMemo, useState } from "react";
+import React, { Fragment ,useMemo, useState } from "react";
 const { useGroceryList } = require("../listings/useListingsHook");
 
 const containerStyle = {
@@ -24,18 +24,15 @@ const divStyle = {
   padding: 15,
 };
 
-export default function Maps_test() {
+export default function Map() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyDxSBp4edh5BzrKcIJa6ZrP7G5tQJVNFKo",
   });
 
   const [selected, setSelected] = useState(null);
-  const [activeMarker, setActiveMarker] = useState(null);
-
-
-
   const [map, setMap] = React.useState(null);
+  const groceryLists = useGroceryList();
 
   const onLoad = React.useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds(center);
@@ -48,9 +45,6 @@ export default function Maps_test() {
     setMap(null);
   }, []);
 
-  const items = useGroceryList();
-  console.log(items)
-
   if (!isLoaded) return <div>Loading...</div>;
   return (
     <GoogleMap
@@ -61,38 +55,46 @@ export default function Maps_test() {
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
-    {items.groceries.map((e, i) => {
+    {groceryLists.groceries.map((store) => {
       return (
-        <Marker
-          onClick={() => {setSelected(e)}}
-          key={e.store_id}
-          position={{lat: Number(e.store_lat), lng: Number(e.store_lng) }}
-        />
+        <MarkerAndInfo key={store.store_id} store={store}/>
       )
     })}
-     {selected && items.groceries.map((e, i) => {
-        return (
-        <InfoWindow
-            key={e.store_id}
-            position={{lat: Number(e.store_lat), lng: Number(e.store_lng) }}
-            onCloseClick={() => {setSelected(null)}}
-          >
-          <>
-            <h1>{e.store_name}</h1>
-            {e.items.map((e, i) => {
-              return (
-                <div>
-                  <p>{e.item_name}</p>
-                  <p>{e.item_price}</p>
-                </div>
-              )
-            })}
-            
-          </>
-        </InfoWindow> 
-        )
-      })}
-      
     </GoogleMap>
   )
 };
+
+const MarkerAndInfo = ({store}) => {
+  const [open, setOpen] = useState(true);
+
+  const toggleOpenInfo = () => {
+    setOpen(!open);
+  }
+
+  const storeLocation = {lat: Number(store.store_lat), lng: Number(store.store_lng)}
+
+  return(
+    <>
+    <Marker
+      onClick={toggleOpenInfo}
+      position={storeLocation}
+    />
+    {open && <InfoWindow
+        position={storeLocation}
+        onCloseClick={toggleOpenInfo}
+      >
+        <>
+          <h1>{store.store_name}</h1>
+          {store.items.map((item) => {
+            return (
+              <Fragment key={item.item_name}>
+                <p>{item.item_name}</p>
+                <p>{item.item_price}</p>
+              </Fragment>
+            )
+          })}
+        </>
+    </InfoWindow>}
+  </>
+  )
+}
