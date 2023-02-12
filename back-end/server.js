@@ -2,6 +2,13 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const cors = require('cors');
+
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use(cookieParser());
 
@@ -193,7 +200,7 @@ app.get("/api/fetch-grocery-list", async (req, res) => {
 
   try {
     const groceryListQuery = await db.query(
-      `SELECT items.name AS item_name, grocery_lists.price AS item_price, stores.name AS store_name, stores.id AS store_id, stores.lat AS store_lat, stores.lng AS store_lng
+      `SELECT items.name AS item_name, grocery_lists.price AS item_price, stores.name AS store_name, stores.id AS store_id, stores.lat AS store_lat, stores.lng AS store_lng, stores.address AS store_address
        FROM grocery_lists
        INNER JOIN items ON grocery_lists.item_id = items.id
        INNER JOIN stores ON grocery_lists.store_id = stores.id
@@ -213,6 +220,7 @@ app.get("/api/fetch-grocery-list", async (req, res) => {
           store_id: curr.store_id,
           store_lat: curr.store_lat,
           store_lng: curr.store_lng,
+          store_address: curr.store_address,
           items: [
             {
               item_name: curr.item_name,
