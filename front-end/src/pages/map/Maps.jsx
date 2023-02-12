@@ -30,20 +30,10 @@ export default function Maps_test() {
     googleMapsApiKey: "AIzaSyDxSBp4edh5BzrKcIJa6ZrP7G5tQJVNFKo",
   });
 
-  const [state, setState] = useState(false);
+  const [selected, setSelected] = useState(null);
+  const [activeMarker, setActiveMarker] = useState(null);
 
 
-const handleToggleOpen = () => {
-    setState({
-      isOpen: true,
-    })
-  }
-
-const handleToggleClose = () => {
-    setState({
-      isOpen: false,
-    })
-  }
 
   const [map, setMap] = React.useState(null);
 
@@ -74,34 +64,32 @@ const handleToggleClose = () => {
     {items.groceries.map((e, i) => {
       return (
         <Marker
-          onClick={() => {handleToggleOpen()}}
+          onClick={() => {setSelected(e)}}
           key={e.store_id}
           position={{lat: Number(e.store_lat), lng: Number(e.store_lng) }}
         />
       )
     })}
-     {items.groceries.map((e, i) => {
-      console.log(e)
+     {selected && items.groceries.map((e, i) => {
         return (
-          <InfoWindow
+        <InfoWindow
             key={e.store_id}
             position={{lat: Number(e.store_lat), lng: Number(e.store_lng) }}
-            onCloseClick={() => {handleToggleClose()}}
+            onCloseClick={() => {setSelected(null)}}
           >
           <>
             <h1>{e.store_name}</h1>
             {e.items.map((e, i) => {
-              console.log('----', e)
               return (
                 <div>
-                  <p>{e.items[0].item_name}</p>
-                  <p>{e.items[0].item_price}</p>
+                  <p>{e.item_name}</p>
+                  <p>{e.item_price}</p>
                 </div>
               )
             })}
             
           </>
-        </InfoWindow>
+        </InfoWindow> 
         )
       })}
       
