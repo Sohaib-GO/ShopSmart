@@ -4,12 +4,17 @@
 
 .searchItems-page {
   display: flex;
+  background-color: rgb(204, 206, 207);
+  background-size: cover;
+  height: 100vh;
+
 }
 .search-field {
+  margin: 2em;
   display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
 }
 .search-radio-button {
   margin-left: 1em;

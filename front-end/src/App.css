@@ -4,10 +4,16 @@
 
 .App {
   text-align: center;
-  background-image: url("./images/Wayfair\ .jpeg");
-  background-image: linear-gradient(to bottom,pink,rgb(67, 129, 87));
-  /* background-image: url("./images/shop.jpeg"); */
+  background-image: url("./images/shopbag.avif");
+  backdrop-filter: blur(5px);
+
   background-size: cover;
   height: 100vh;
   
+}
+.blur {
+  background: rgba(255, 255, 255, 0.2); 
+  backdrop-filter: blur(8px); 
+  height: 100vh;
+	width: 50%;
 }

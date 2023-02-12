@@ -8,8 +8,8 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin-bottom: 10em;
-}
+  margin-bottom: 10em;}
+
 .modal-action-buttons {
   display: flex;
   flex-direction: row;

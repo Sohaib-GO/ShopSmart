@@ -59,8 +59,8 @@ function Header(props) {
         {isLoggedIn ? (
           <div>
             <Box className="user-name">
-              <Typography variant="h6" color="green">
-                Hola!&nbsp;&nbsp;
+              <Typography variant="h6" color="grey">
+                Welcome!&nbsp;&nbsp;
               </Typography>
 
               <Typography>{user.name}&nbsp;&nbsp;</Typography>
