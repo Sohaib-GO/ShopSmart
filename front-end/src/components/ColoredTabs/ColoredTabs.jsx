@@ -2,16 +2,21 @@ import * as React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function ColoredTabs({ tabs }) {
-  const [value, setValue] = React.useState("one");
+  const [value, setValue] = React.useState("");
 
   const navigate = useNavigate();
+  let location = useLocation();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  React.useEffect(() => {
+    if (location.pathname === "/") setValue("");
+  }, [location.pathname]);
 
   return (
     <Box sx={{ width: "100%" }}>
