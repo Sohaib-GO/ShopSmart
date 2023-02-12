@@ -71,7 +71,7 @@ const MarkerAndInfo = ({ store }) => {
   const toggleOpenInfo = () => {
     setOpen(!open);
   };
-
+  const storeLogo = store.store_image
   const storeLocation = {
     lat: Number(store.store_lat),
     lng: Number(store.store_lng),
@@ -83,10 +83,11 @@ const MarkerAndInfo = ({ store }) => {
         <InfoWindow position={storeLocation} onCloseClick={toggleOpenInfo}>
           <>
           <div class='info-window'>
-            <h1 class="info-window-title">{store.store_name}
-            <img class='icon-map' src={mapPin}/>
-            </h1>
-            <p class='info-window-address'>{store.store_address}</p>
+            <img class="store-logo" src={storeLogo}/>
+            <div class='address-container'>
+              <img class='icon-map' src={mapPin}/>
+              <p class='info-window-address'>{store.store_address}</p>
+            </div>
             {store.items.map((item) => {
               return (
                 <Fragment key={item.item_name}>
