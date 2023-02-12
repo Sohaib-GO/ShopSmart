@@ -14,7 +14,7 @@ INSERT INTO
 VALUES
   (
     'Loblaws',
-    '1234 Main St, Toronto, ON',
+    '122 Street Northwest, Edmonton, AB',
     53.6028262802915,
     -113.5357762697085,
     'https://1000logos.net/wp-content/uploads/2022/08/Loblaws-Logo.png'

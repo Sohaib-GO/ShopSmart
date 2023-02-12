@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const useGroceryList = () => {
+ const useGroceryList = () => {
   const [groceries, setGroceries] = useState([]);
 
 
@@ -29,3 +29,6 @@ export const useGroceryList = () => {
 
   return { groceries, handleDeleteGroceryItem };
 };
+
+
+export default useGroceryList;
