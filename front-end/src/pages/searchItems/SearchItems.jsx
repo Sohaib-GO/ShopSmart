@@ -18,7 +18,13 @@ import Grid from "@mui/material/Grid";
 import FolderIcon from "@mui/icons-material/Folder";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import storeLogo from "../../images/safeway-Logo.png";
-import { Button, CardActionArea, CardActions } from "@mui/material";
+import {
+  Button,
+  CardActionArea,
+  CardActions,
+  Pagination,
+  CircularProgress,
+} from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -42,6 +48,7 @@ function SearchItems(props) {
   const [items, setItems] = useState([]);
   const [savedItems, setSavedItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filteredSlicedItems, setFilteredSlicedItems] = useState([]);
   const [store, setStore] = useState([]);
   const [item, setItem] = useState();
   const { isLoggedIn } = useLogin(props);
@@ -78,7 +85,10 @@ function SearchItems(props) {
   useEffect(() => {
     fetch("/api/items")
       .then((res) => res.json())
-      .then((data) => setItems(data))
+      .then((data) => {
+        setItems(data);
+        setFilteredSlicedItems(Object.keys(data).slice(0, 10));
+      })
       .catch((error) => console.error(error));
     // Fetching user list
     fetch("/api/fetch-grocery-list")
@@ -114,6 +124,16 @@ function SearchItems(props) {
   const filteredItems = Object.keys(items).filter((itemName) =>
     itemName.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // Pagination
+  const pageCount = Math.floor(filteredItems.length / 10);
+  const handlePageChange = (event, page) => {
+    if (page === 1) {
+      setFilteredSlicedItems(filteredItems.slice(0, 10));
+    } else {
+      setFilteredSlicedItems(filteredItems.slice(page + 1, page + 11));
+    }
+  };
 
   const getSavedItem = (item) => {
     if (!savedItems) return;
@@ -172,7 +192,6 @@ function SearchItems(props) {
             options={products}
             getOptionLabel={(option) => option.productName}
             blurOnSelect
-            defaultValue=""
             value={{ productName: searchTerm }}
             renderInput={(params) => (
               <TextField
@@ -198,7 +217,7 @@ function SearchItems(props) {
               </Typography>
             )}
             <List dense={dense}>
-              {filteredItems.map((itemName) => {
+              {filteredSlicedItems?.map((itemName) => {
                 const { item_image, stores, id } = items[itemName];
                 const { price } = getCheapestStore(stores);
                 const savedItem = getSavedItem(itemName);
@@ -208,36 +227,38 @@ function SearchItems(props) {
                     id={id}
                     key={`list-item-${id}`}
                     secondaryAction={
-                      <Box
-                        sx={{
-                          "& > :not(style)": {
-                            m: 2,
-                          },
-                        }}
-                      >
-                        {!savedItem ? (
-                          <IconButton
-                            onClick={() => handleAddToGroceryList(itemName)}
-                            edge="end"
-                            aria-productName="add"
-                          >
-                            <AddCircleOutlineIcon color="success" />
-                          </IconButton>
-                        ) : (
-                          <IconButton
-                            onClick={() =>
-                              handleDeleteGroceryItem(
-                                itemName,
-                                savedItem.store_name
-                              )
-                            }
-                            edge="end"
-                            aria-productName="add"
-                          >
-                            <DoneOutlineIcon color="success" />
-                          </IconButton>
-                        )}
-                      </Box>
+                      isLoggedIn && (
+                        <Box
+                          sx={{
+                            "& > :not(style)": {
+                              m: 2,
+                            },
+                          }}
+                        >
+                          {!savedItem ? (
+                            <IconButton
+                              onClick={() => handleAddToGroceryList(itemName)}
+                              edge="end"
+                              aria-productName="add"
+                            >
+                              <AddCircleOutlineIcon color="success" />
+                            </IconButton>
+                          ) : (
+                            <IconButton
+                              onClick={() =>
+                                handleDeleteGroceryItem(
+                                  itemName,
+                                  savedItem.store_name
+                                )
+                              }
+                              edge="end"
+                              aria-productName="add"
+                            >
+                              <DoneOutlineIcon color="success" />
+                            </IconButton>
+                          )}
+                        </Box>
+                      )
                     }
                   >
                     <ListItemAvatar
@@ -252,6 +273,11 @@ function SearchItems(props) {
                 );
               })}
             </List>
+            <Pagination
+              count={pageCount + 1}
+              color="primary"
+              onChange={handlePageChange}
+            />
           </Grid>
         </div>
       </div>
