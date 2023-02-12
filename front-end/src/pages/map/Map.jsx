@@ -7,6 +7,7 @@ import {
 } from "@react-google-maps/api";
 import React, { Fragment, useMemo, useState } from "react";
 import useGroceryList from "../listings/useListingsHook";
+import "./Map.css";
 
 const containerStyle = {
   width: "900px",
@@ -63,7 +64,7 @@ export default function Map() {
 }
 
 const MarkerAndInfo = ({ store }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const toggleOpenInfo = () => {
     setOpen(!open);
@@ -80,15 +81,17 @@ const MarkerAndInfo = ({ store }) => {
       {open && (
         <InfoWindow position={storeLocation} onCloseClick={toggleOpenInfo}>
           <>
-            <h1>{store.store_name}</h1>
+          <div class='info-window'>
+            <h1 class="info-window-title">{store.store_name}</h1>
+            <p class='info-window-address'>{store.store_address}</p>
             {store.items.map((item) => {
               return (
                 <Fragment key={item.item_name}>
-                  <p>{item.item_name}</p>
-                  <p>{item.item_price}</p>
+                  <p class="info-window-text">{item.item_name} - ${item.item_price}</p>
                 </Fragment>
               );
             })}
+          </div>
           </>
         </InfoWindow>
       )}
