@@ -30,6 +30,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import axios from "axios";
+import Map from "../map/Maps";
 
 import useLogin from "../../components/authentication/useLogin";
 import { useGroceryList } from "./useListingsHook";
