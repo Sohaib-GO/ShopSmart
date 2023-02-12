@@ -12,15 +12,15 @@ const DistanceTime = (props) => {
   useEffect(() => {
     if (isLoggedIn) {
       const userAddress = user.address;
-      const storeAddresses = groceries.map((grocery) => {
+      const storeAddresses = groceries?.map((grocery) => {
         return grocery.store_address;
       });
-      const storeNames = groceries.map((grocery) => {
+      const storeNames = groceries?.map((grocery) => {
         return grocery.store_name;
       });
 
       Promise.all(
-        storeAddresses.map((storeAddress, index) => {
+        storeAddresses?.map((storeAddress, index) => {
           const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${userAddress}&destinations=${storeAddress}&mode=${transportationMode}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
           return fetch(url)
             .then((res) => res.json())
