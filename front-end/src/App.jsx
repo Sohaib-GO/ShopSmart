@@ -7,6 +7,7 @@ import SearchItems from "./pages/searchItems/SearchItems";
 import Listings from "./pages/listings/Listings";
 import Maps from "./pages/map/Maps";
 import Register from "./components/authentication/register";
+import DistanceTime from "./pages/map/CalculateDis";
 
 function App() {
   const [listings, setListings] = useState([]);
@@ -28,7 +29,10 @@ function App() {
           <Route path="/maps" element={<Maps />} />
 
           <Route path="/register" element={<Register />} />
+          <Route path="/routing" element={<DistanceTime />} />
         </Routes>
+
+        
       </div>
     </Router>
   );

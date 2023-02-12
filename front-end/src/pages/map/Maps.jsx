@@ -18,12 +18,6 @@ const center = {
   lng: -113.5799218,
 };
 
-const places = [
-  { id: 1, lat: 53.5790106, lng: -113.4799218},
-  { id: 2, lat:53.5790106, lng: -113.3799218} ,
-  { id: 3, lat: 53.5790106, lng:-113.2799218}
-]
-
 const divStyle = {
   background: `white`,
   border: `1 px solid #ccc`,
@@ -36,7 +30,20 @@ export default function Maps_test() {
     googleMapsApiKey: "AIzaSyDxSBp4edh5BzrKcIJa6ZrP7G5tQJVNFKo",
   });
 
-  const [selectedMarker, setSelectedMarker] = useState(false);
+  const [state, setState] = useState(false);
+
+
+const handleToggleOpen = () => {
+    setState({
+      isOpen: true,
+    })
+  }
+
+const handleToggleClose = () => {
+    setState({
+      isOpen: false,
+    })
+  }
 
   const [map, setMap] = React.useState(null);
 
@@ -67,34 +74,37 @@ export default function Maps_test() {
     {items.groceries.map((e, i) => {
       return (
         <Marker
-          onClick={(e) => {
-            setSelectedMarker(true);
-          }}
+          onClick={() => {handleToggleOpen()}}
           key={e.store_id}
           position={{lat: Number(e.store_lat), lng: Number(e.store_lng) }}
         />
       )
     })}
      {items.groceries.map((e, i) => {
+      console.log(e)
         return (
           <InfoWindow
             key={e.store_id}
             position={{lat: Number(e.store_lat), lng: Number(e.store_lng) }}
-            onCloseClick={() => {
-              setSelectedMarker(false);
-            }}
+            onCloseClick={() => {handleToggleClose()}}
           >
           <>
             <h1>{e.store_name}</h1>
-            <div>
-              <p>{e.items[0].item_name}</p>
-              <p>{e.items[0].item_price}</p>
-            </div>
+            {e.items.map((e, i) => {
+              console.log('----', e)
+              return (
+                <div>
+                  <p>{e.items[0].item_name}</p>
+                  <p>{e.items[0].item_price}</p>
+                </div>
+              )
+            })}
+            
           </>
         </InfoWindow>
         )
       })}
       
-      </GoogleMap>
+    </GoogleMap>
   )
 };
