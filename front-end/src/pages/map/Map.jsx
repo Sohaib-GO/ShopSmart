@@ -8,6 +8,7 @@ import {
 import React, { Fragment, useMemo, useState } from "react";
 import useGroceryList from "../listings/useListingsHook";
 import "./Map.css";
+import mapPin from "../../images/map_pin_icon.png";
 
 const containerStyle = {
   width: "900px",
@@ -45,6 +46,7 @@ export default function Map() {
   const onUnmount = React.useCallback(function callback(map) {
     setMap(null);
   }, []);
+  
 
   if (!isLoaded) return <div>Loading...</div>;
   return (
@@ -74,7 +76,6 @@ const MarkerAndInfo = ({ store }) => {
     lat: Number(store.store_lat),
     lng: Number(store.store_lng),
   };
-
   return (
     <>
       <Marker onClick={toggleOpenInfo} position={storeLocation} />
@@ -82,7 +83,9 @@ const MarkerAndInfo = ({ store }) => {
         <InfoWindow position={storeLocation} onCloseClick={toggleOpenInfo}>
           <>
           <div class='info-window'>
-            <h1 class="info-window-title">{store.store_name}</h1>
+            <h1 class="info-window-title">{store.store_name}
+            <img class='icon-map' src={mapPin}/>
+            </h1>
             <p class='info-window-address'>{store.store_address}</p>
             {store.items.map((item) => {
               return (
