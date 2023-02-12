@@ -17,7 +17,7 @@ function Homepage() {
           variant="text"
           color="success"
           className="search-button"
-          onClick={() => navigate("/searchItems")}
+          onClick={() => navigate("/search-items")}
         >
           <Typography variant="h6" gutterBottom>
             Start Searching
