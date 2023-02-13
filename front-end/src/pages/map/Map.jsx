@@ -5,6 +5,7 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 import React, { Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 import useGroceryList from "../listings/useListingsHook";
 import "./Map.css";
 import mapPin from "../../images/map_pin_icon.png";
@@ -75,7 +76,9 @@ const MarkerAndInfo = ({ store, renderStore }) => {
 
   const toggleOpenInfo = () => {
     setSelectedStore(!selectedStore); 
+    setSelectedStore(!selectedStore); 
   };
+
 
   const storeLogo = store.store_image
 
@@ -83,6 +86,7 @@ const MarkerAndInfo = ({ store, renderStore }) => {
     lat: Number(store.store_lat),
     lng: Number(store.store_lng),
   };
+
 
   return (
     <>
@@ -100,6 +104,7 @@ const MarkerAndInfo = ({ store, renderStore }) => {
             {store.items.map((item) => {
               return (
                 <Fragment key={item.item_name}>
+                  {/* <p class="info-window-text">{item.item_name} - ${item.item_price}</p> */}
                   {/* <p class="info-window-text">{item.item_name} - ${item.item_price}</p> */}
                 </Fragment>
               );

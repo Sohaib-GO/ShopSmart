@@ -258,7 +258,9 @@ function Listings(props) {
                       );
                     })}
                   </div>
-                 
+                  <Map  
+                    selectedStore={selectedStore}
+                   />
                 </AccordionDetails>
               </Accordion>
               
