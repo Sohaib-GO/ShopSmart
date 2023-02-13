@@ -60,10 +60,13 @@ function Listings(props) {
   const [selectedStore, setSelectedStore] = useState(null);
   const [groceries, setGroceries] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
-  const [stateobj, setStateobj] = useState({
+  
+  const [isListsOpen, setListsOpen] = useState({
     1: false,
     2: false,
-    4: false
+    3: false,
+    4: false,
+    5: false
   });
 
   const updatestateobj = () => {
@@ -76,6 +79,10 @@ function Listings(props) {
       .then((res) => res.json())
       .then((data) => setGroceries(data.data));
   }, []);
+
+  useEffect(() => {
+    console.log(selectedStore, ' store');
+  }, [selectedStore])
 
   const handleDeleteGroceryItem = async (item_name, store_name) => {
     try {
@@ -130,12 +137,18 @@ function Listings(props) {
     }
     return false;
   };
+
+  const handleAccordion = (store) => {
+    setListsOpen= {store: true}
+    
+  }
   return (
     <>
       {!isLoggedIn && <Alert severity="warning">Please sign in</Alert>}
       {isLoggedIn && (
         <div className="listings-page">
           {groceries?.map((store) => {
+            //isListsOpen add store to this list, set the value to false or true depending if you want the default state to be open or not
             return (
               <Accordion>
                 <AccordionSummary
@@ -144,7 +157,7 @@ function Listings(props) {
                 >
                   <Button
                     variant="text"
-                    onClick={() => setSelectedStore(store)}
+                    onClick={() => {setSelectedStore(store)}}
                   >
                     {store.store_name}
                   </Button>
@@ -245,15 +258,18 @@ function Listings(props) {
                       );
                     })}
                   </div>
-                  <Map  
-                    selectedStore={selectedStore}
-                    stateobj={stateobj}
-                    setStateobj={setStateobj}
-                   />
+                 
                 </AccordionDetails>
               </Accordion>
+              
             );
           })}
+           <Map  
+              selectedStore={selectedStore}
+              stateobj={stateobj}
+              setStateobj={setStateobj}
+              isListsOpen={isListsOpen}
+            />
        
           <Drawer
             anchor="right"
