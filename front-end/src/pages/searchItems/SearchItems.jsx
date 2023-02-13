@@ -303,39 +303,46 @@ function SearchItems(props) {
               </Typography>
               <List dense={dense}>
                 {item.stores &&
-                  item.stores.map((store, index) => {
-                    const cheapestStore = getCheapestStore(item.stores);
-                    return (
-                      <ListItem key={index} className="store-list-item">
-                        <Badge
-                          overlap="rectangular"
-                          anchorOrigin={{
-                            vertical: "bottom",
-                            horizontal: "right",
-                          }}
-                          badgeContent={
-                            <Typography variant="subtitle1">
-                              {/* {store.store_name} */}
-                            </Typography>
-                          }
-                        >
-                          <img src={store.store_logo} alt={store.store_name}
-                                    style={{ width: '100px', height: '80px', objectFit: 'contain' }}
-
-                          />
-                        </Badge>
-                        <Typography
-                          style={
-                            store.store_name === cheapestStore.store_name
-                              ? { color: "red" }
-                              : {}
-                          }
-                        >
-                          {store.price}
-                        </Typography>
-                      </ListItem>
-                    );
-                  })}
+                  item.stores
+                    .sort((a, b) => a.price - b.price)
+                    .map((store, index) => {
+                      const cheapestStore = getCheapestStore(item.stores);
+                      return (
+                        <ListItem key={index} className="store-list-item">
+                          <Badge
+                            overlap="rectangular"
+                            anchorOrigin={{
+                              vertical: "bottom",
+                              horizontal: "right",
+                            }}
+                            badgeContent={
+                              <Typography variant="subtitle1">
+                                {/* {store.store_name} */}
+                              </Typography>
+                            }
+                          >
+                            <img
+                              src={store.store_logo}
+                              alt={store.store_name}
+                              style={{
+                                width: "100px",
+                                height: "80px",
+                                objectFit: "contain",
+                              }}
+                            />
+                          </Badge>
+                          <Typography
+                            style={
+                              store.store_name === cheapestStore.store_name
+                                ? { color: "red" }
+                                : {}
+                            }
+                          >
+                            {store.price}
+                          </Typography>
+                        </ListItem>
+                      );
+                    })}
               </List>
             </CardContent>
           </Card>
