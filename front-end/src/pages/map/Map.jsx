@@ -71,6 +71,7 @@ const MarkerAndInfo = ({ store }) => {
   const toggleOpenInfo = () => {
     setOpen(!open);
   };
+  console.log(store)
   const storeLogo = store.store_image
   const storeLocation = {
     lat: Number(store.store_lat),
@@ -80,12 +81,13 @@ const MarkerAndInfo = ({ store }) => {
     <>
       <Marker onClick={toggleOpenInfo} position={storeLocation} />
       {open && (
-        <InfoWindow position={storeLocation} onCloseClick={toggleOpenInfo}>
+        <InfoWindow position={storeLocation} onCloseClick={toggleOpenInfo}
+          options={{pixelOffset: new window.google.maps.Size(0, -30)}}
+        >
           <>
           <div class='info-window'>
             <img class="store-logo" src={storeLogo}/>
             <div class='address-container'>
-              <img class='icon-map' src={mapPin}/>
               <p class='info-window-address'>{store.store_address}</p>
             </div>
             {store.items.map((item) => {
