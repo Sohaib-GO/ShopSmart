@@ -5,7 +5,6 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 import React, { Fragment, useState } from "react";
-import React, { Fragment, useState } from "react";
 import useGroceryList from "../listings/useListingsHook";
 import "./Map.css";
 import mapPin from "../../images/map_pin_icon.png";
