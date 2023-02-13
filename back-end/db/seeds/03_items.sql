@@ -4,7 +4,7 @@ VALUES
   ('Banana', 'Yellow and ripe bananas', 3.99, 'Fruit', 'https://assets.shop.loblaws.ca/products/20139509001/b2/en/front/20139509001_front_a06_@2.png', 2),
   ('Carrot', 'Orange and crunchy carrots', 1.79, 'Vegetable', 'https://images.costcobusinessdelivery.com/ImageDelivery/imageService?profileId=12028466&itemId=412&recipeName=680', 3),
   ('Lettuce', 'Crispy and fresh green lettuce', 4.79, 'Vegetable', 'https://assets.shop.loblaws.ca/products/20305726001/b2/en/front/20305726001_front_a06_@2.png', 4),
-  ('Tomato', 'Red and juicy vine-ripe tomatoes', 2.99, 'Vegetable', 'https://assets.shop.loblaws.ca/products/20177216001/b2/en/front/20177216001_front_a06_@2.png', 5), 
+  ('Tomato', 'Red and juicy vine-ripe tomatoes', 2.99, 'Vegetable', 'https://assets.shop.loblaws.ca/products/20426141001/b2/en/front/20426141001_front_a06_@2.png', 5), 
   ('Apple', 'Juicy and crisp Red Delicious apples', 4.99, 'Fruit', 'https://render.fineartamerica.com/images/rendered/default/poster/8/8/break/images-medium-5/apple-science-photo-library.jpg', 2),
   ('Banana', 'Yellow and ripe bananas', 1.34, 'Fruit', 'https://images.costcobusinessdelivery.com/ImageDelivery/imageService?profileId=12028466&imageId=30669__1&recipeName=350', 3),
   ('Carrot', 'Orange and crunchy carrots', 1.99, 'Vegetable', 'https://assets.shop.loblaws.ca/products/20628932001/b2/en/front/20628932001_front_a06_@2.png', 4),
