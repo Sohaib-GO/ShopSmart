@@ -8,16 +8,24 @@ const DistanceTime = (props) => {
   const [transportationMode, setTransportationMode] = useState("driving");
   const { user, isLoggedIn } = useLogin(props);
   const { groceries } = useGroceryList(props);
+  const { selectedStore } = props;
 
   useEffect(() => {
     if (isLoggedIn) {
       const userAddress = user.address;
-      const storeAddresses = groceries?.map((grocery) => {
-        return grocery.store_address;
-      });
-      const storeNames = groceries?.map((grocery) => {
-        return grocery.store_name;
-      });
+      let storeAddresses = [];
+      let storeNames = [];
+      if (selectedStore) {
+        storeAddresses = [selectedStore.store_address];
+        storeNames = [selectedStore.store_name];
+      } else {
+        storeAddresses = groceries?.map((grocery) => {
+          return grocery.store_address;
+        });
+        storeNames = groceries?.map((grocery) => {
+          return grocery.store_name;
+        });
+      }
 
       Promise.all(
         storeAddresses?.map((storeAddress, index) => {
@@ -40,7 +48,7 @@ const DistanceTime = (props) => {
           console.error(error);
         });
     }
-  }, [user, groceries, transportationMode, isLoggedIn]);
+  }, [user, groceries, transportationMode, selectedStore, isLoggedIn]);
 
   return (
     <div>

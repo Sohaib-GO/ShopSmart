@@ -52,6 +52,8 @@ const modalStyle = {
   pb: 3,
 };
 
+
+
 function Listings(props) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [dense, setDense] = useState(false);
@@ -120,7 +122,6 @@ function Listings(props) {
     }
     return false;
   };
-
   return (
     <>
       {!isLoggedIn && <Alert severity="warning">Please sign in</Alert>}
@@ -259,7 +260,12 @@ function Listings(props) {
                     {selectedStore.store_name}
                   </Typography>
                   <Divider />
-                  <DistanceTime />
+                  <DistanceTime
+                  selectedStore={selectedStore}
+                  {...props}
+                />
+                
+
                 </CardContent>
               </Card>
             )}
