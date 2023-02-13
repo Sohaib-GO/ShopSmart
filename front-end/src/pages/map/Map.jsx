@@ -27,7 +27,6 @@ const divStyle = {
 
 export default function Map(props) {
   
-  const {stateobj, setStateobj} = props
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -35,7 +34,8 @@ export default function Map(props) {
   });
 
   const [map, setMap] = React.useState(null);
-  const { groceries } = props;
+
+  const [isListsOpen, setListsOpen] = useState(false) 
 
   const onLoad = React.useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds(center);
@@ -47,6 +47,8 @@ export default function Map(props) {
   const onUnmount = React.useCallback(function callback(map) {
     setMap(null);
   }, []);
+
+  const groceryLists = useGroceryList();
 
   if (!isLoaded) return <div>Loading...</div>;
   return (
@@ -60,7 +62,7 @@ export default function Map(props) {
     >
       {groceryLists.groceries.map((store) => {
         return <MarkerAndInfo key={store.store_id} store={store}
-        renderStore={stateobj[store.store_id]}  
+        renderStore={isListsOpen[store.store_id]}  
       />;
       })}
     </GoogleMap>

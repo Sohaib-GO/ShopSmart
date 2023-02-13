@@ -67,9 +67,9 @@ function Listings(props) {
     5: false
   });
 
-  const updatestateobj = () => {
-    console.log('Test')
-  }
+  
+
+
   const { isLoggedIn } = useLogin(props);
 
   useEffect(() => {
@@ -266,15 +266,12 @@ function Listings(props) {
           })}
            <Map  
               selectedStore={selectedStore}
-              stateobj={stateobj}
-              setStateobj={setStateobj}
               isListsOpen={isListsOpen}
             />
        
           <Drawer
             anchor="right"
             open={!!selectedStore}
-            PaperProps={{onClick: updatestateobj}}
             onClose={() => setSelectedStore(null)}
           >
             {selectedStore && (
