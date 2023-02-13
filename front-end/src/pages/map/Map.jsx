@@ -88,7 +88,6 @@ const MarkerAndInfo = ({ store }) => {
             <div class="info-window">
               <img class="store-logo" src={storeLogo} alt="store logo" />
               <div class="address-container">
-                <img class="icon-map" src={mapPin} alt="map pin icon" />
                 <p class="info-window-address">{store.store_address}</p>
               </div>
               <p class="info-window-text">

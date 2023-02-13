@@ -175,6 +175,7 @@ function Listings(props) {
                         objectFit: "cover",
                       }}
                     />
+                  <p class='list-text-length'>Number of items {store.items.length}</p>
                   </Button>
                 </AccordionSummary>
                 <AccordionDetails className="store-details">
