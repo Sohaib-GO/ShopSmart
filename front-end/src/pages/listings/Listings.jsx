@@ -52,8 +52,6 @@ const modalStyle = {
   pb: 3,
 };
 
-
-
 function Listings(props) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [dense, setDense] = useState(false);
@@ -75,7 +73,7 @@ function Listings(props) {
   const { isLoggedIn } = useLogin(props);
 
   useEffect(() => {
-    fetch("/api/fetch-grocery-list")
+    fetch("/api/lists/fetch-grocery-list")
       .then((res) => res.json())
       .then((data) => setGroceries(data.data));
   }, []);
@@ -86,7 +84,7 @@ function Listings(props) {
 
   const handleDeleteGroceryItem = async (item_name, store_name) => {
     try {
-      const response = await axios.post("/api/delete-grocery-item", {
+      const response = await axios.post("/api/lists/delete-grocery-item", {
         item_name,
         store_name,
       });
@@ -147,6 +145,8 @@ function Listings(props) {
       {!isLoggedIn && <Alert severity="warning">Please sign in</Alert>}
       {isLoggedIn && (
         <div className="listings-page">
+          <Map groceries={groceries} />
+
           {groceries?.map((store) => {
             //isListsOpen add store to this list, set the value to false or true depending if you want the default state to be open or not
             return (
@@ -216,7 +216,7 @@ function Listings(props) {
                               />
                               <ListItemText
                                 id={item.id}
-                                primary={`${item.item_price}$ per 100 g`}
+                                primary={`: $${item.item_price}`}
                               />
                             </ListItemButton>
                           </ListItem>
@@ -290,53 +290,11 @@ function Listings(props) {
                     {selectedStore.store_name}
                   </Typography>
                   <Divider />
-                  <DistanceTime
-                  selectedStore={selectedStore}
-                  {...props}
-                />
-                
-
+                  <DistanceTime selectedStore={selectedStore} {...props} />
                 </CardContent>
               </Card>
             )}
           </Drawer>
-          {/* {selectedStore && (
-            <div className="drawer">
-              <Card sx={{ maxWidth: 345 }}>
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    height="140"
-                    image={selectedStore.store_logo || "/static/..."}
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {selectedStore.store_name}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      {selectedStore.items.map((item) => {
-                        return (
-                          <div key={`selected-item-${item.item_name}`}>
-                            <Typography
-                              variant="body2"
-                              color="textSecondary"
-                              component="p"
-                            >
-                              {item.item_name}: {item.item_price}$
-                            </Typography>
-                          </div>
-                        );
-                      })}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </div>
-          )} */}
         </div>
       )}
     </>

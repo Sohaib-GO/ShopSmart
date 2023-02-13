@@ -91,14 +91,14 @@ function SearchItems(props) {
       })
       .catch((error) => console.error(error));
     // Fetching user list
-    fetch("/api/fetch-grocery-list")
+    fetch("/api/lists/fetch-grocery-list")
       .then((res) => res.json())
       .then((data) => setSavedItems(data.data));
   }, []);
 
   const handleDeleteGroceryItem = async (item_name, store_name) => {
     try {
-      const response = await axios.post("/api/delete-grocery-item", {
+      const response = await axios.post("/api/lists/delete-grocery-item", {
         item_name,
         store_name,
       });
@@ -156,7 +156,7 @@ function SearchItems(props) {
     const { store_name, price } = cheapestStore;
 
     try {
-      const response = await fetch("/api/add-to-grocery-list", {
+      const response = await fetch("/api/items/add-to-grocery-list", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

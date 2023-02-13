@@ -13,7 +13,7 @@ VALUES
   ('Apple', 'Juicy and crisp Red Delicious apples', 2.99, 'Fruit', 'https://render.fineartamerica.com/images/rendered/default/poster/8/8/break/images-medium-5/apple-science-photo-library.jpg', 3),
   ('Banana', 'Yellow and ripe bananas', 1.99, 'Fruit', 'https://example.com/banana.jpg', 4),
   ('Carrot', 'Orange and crunchy carrots', 3.49, 'Vegetable', 'https://example.com/carrot.jpg', 5),
-  ('Lettuce', 'Crispy and fresh green lettuce', 11.79, 'Vegetable', 'https://example.com/lettuce.jpg', 1),
+  ('Lettuce', 'Crispy and fresh green lettuce', 6.79, 'Vegetable', 'https://example.com/lettuce.jpg', 1),
   ('Tomato', 'Red and juicy vine-ripe tomatoes', 2.99, 'Vegetable', 'https://example.com/tomato.jpg', 2), 
   ('Apple', 'Juicy and crisp Red Delicious apples', 2.69, 'Fruit', 'https://render.fineartamerica.com/images/rendered/default/poster/8/8/break/images-medium-5/apple-science-photo-library.jpg', 4),
   ('Banana', 'Yellow and ripe bananas', 1.22, 'Fruit', 'https://example.com/banana.jpg', 5),

@@ -10,8 +10,8 @@ import "./Map.css";
 import mapPin from "../../images/map_pin_icon.png";
 
 const containerStyle = {
-  width: "900px",
-  height: "300px",
+  width: "100%",
+  height: "350px",
 };
 
 const center = {
@@ -35,11 +35,11 @@ export default function Map(props) {
   });
 
   const [map, setMap] = React.useState(null);
-  const groceryLists = useGroceryList();
+  const { groceries } = props;
 
   const onLoad = React.useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds(center);
-    map.setZoom(12);
+    map.setZoom(11.5);
 
     setMap(map);
   }, []);
@@ -47,7 +47,6 @@ export default function Map(props) {
   const onUnmount = React.useCallback(function callback(map) {
     setMap(null);
   }, []);
-  
 
   if (!isLoaded) return <div>Loading...</div>;
   return (
