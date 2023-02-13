@@ -39,7 +39,7 @@ VALUES
     '15411 97 St NW, Edmonton, AB T5X 5V3',
     53.6156989,
     -113.4901921,
-    'https://prhfoundation.com/wp-content/uploads/2021/02/No-Frills-Logo.png'
+    'https://seeklogo.com/images/N/no-frills-logo-1D8F76AE88-seeklogo.com.png'
   );
 
 INSERT INTO
