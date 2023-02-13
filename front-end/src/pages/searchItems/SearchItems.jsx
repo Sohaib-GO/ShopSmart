@@ -338,7 +338,7 @@ function SearchItems(props) {
                                 : {}
                             }
                           >
-                            {store.price}
+                            {` $${store.price}`}
                           </Typography>
                         </ListItem>
                       );
