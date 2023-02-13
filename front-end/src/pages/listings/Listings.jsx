@@ -270,43 +270,6 @@ function Listings(props) {
               </Card>
             )}
           </Drawer>
-          {/* {selectedStore && (
-            <div className="drawer">
-              <Card sx={{ maxWidth: 345 }}>
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    height="140"
-                    image={selectedStore.store_logo || "/static/..."}
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {selectedStore.store_name}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      {selectedStore.items.map((item) => {
-                        return (
-                          <div key={`selected-item-${item.item_name}`}>
-                            <Typography
-                              variant="body2"
-                              color="textSecondary"
-                              component="p"
-                            >
-                              {item.item_name}: {item.item_price}$
-                            </Typography>
-                          </div>
-                        );
-                      })}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </div>
-          )} */}
         </div>
       )}
     </>
