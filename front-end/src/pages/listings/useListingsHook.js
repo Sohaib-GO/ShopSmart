@@ -7,10 +7,7 @@ import axios from "axios";
 
   useEffect(() => {
     fetch("/api/fetch-grocery-list")
-      .then((res) => 
-      {
-        console.log('line 12', res)
-        res.json()})
+      .then((res) => res.json())
       .then((data) => setGroceries(data.data));
   }, []);
 

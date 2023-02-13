@@ -60,7 +60,15 @@ function Listings(props) {
   const [selectedStore, setSelectedStore] = useState(null);
   const [groceries, setGroceries] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
+  const [stateobj, setStateobj] = useState({
+    1: false,
+    2: false,
+    4: false
+  });
 
+  const updatestateobj = () => {
+    console.log('Test')
+  }
   const { isLoggedIn } = useLogin(props);
 
   useEffect(() => {
@@ -239,14 +247,18 @@ function Listings(props) {
                   </div>
                   <Map  
                     selectedStore={selectedStore}
+                    stateobj={stateobj}
+                    setStateobj={setStateobj}
                    />
                 </AccordionDetails>
               </Accordion>
             );
           })}
+       
           <Drawer
             anchor="right"
             open={!!selectedStore}
+            PaperProps={{onClick: updatestateobj}}
             onClose={() => setSelectedStore(null)}
           >
             {selectedStore && (

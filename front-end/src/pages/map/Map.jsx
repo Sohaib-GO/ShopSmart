@@ -25,7 +25,10 @@ const divStyle = {
   padding: 15,
 };
 
-export default function Map() {
+export default function Map(props) {
+  
+  const {stateobj, setStateobj} = props
+
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyDxSBp4edh5BzrKcIJa6ZrP7G5tQJVNFKo",
@@ -57,13 +60,15 @@ export default function Map() {
       onUnmount={onUnmount}
     >
       {groceryLists.groceries.map((store) => {
-        return <MarkerAndInfo key={store.store_id} store={store} />;
+        return <MarkerAndInfo key={store.store_id} store={store}
+        renderStore={stateobj[store.store_id]}  
+      />;
       })}
     </GoogleMap>
   );
 }
 
-const MarkerAndInfo = ({ store }) => {
+const MarkerAndInfo = ({ store, renderStore }) => {
   const [selectedStore, setSelectedStore] = useState(false)
   const [open, setOpen] = useState(false);
 
@@ -72,6 +77,7 @@ const MarkerAndInfo = ({ store }) => {
   };
 
   const storeLogo = store.store_image
+
   const storeLocation = {
     lat: Number(store.store_lat),
     lng: Number(store.store_lng),
@@ -80,7 +86,7 @@ const MarkerAndInfo = ({ store }) => {
   return (
     <>
       <Marker onClick={toggleOpenInfo} position={storeLocation} />
-      {selectedStore && (
+      {renderStore && (
         <InfoWindow position={storeLocation} onCloseClick={toggleOpenInfo}
           options={{pixelOffset: new window.google.maps.Size(0, -30)}}
         >
