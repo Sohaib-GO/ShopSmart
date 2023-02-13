@@ -1,11 +1,10 @@
 import {
   GoogleMap,
-  useLoadScript,
   Marker,
   useJsApiLoader,
   InfoWindow,
 } from "@react-google-maps/api";
-import React, { Fragment, useMemo, useState } from "react";
+import React, { Fragment, useState } from "react";
 import useGroceryList from "../listings/useListingsHook";
 import "./Map.css";
 import mapPin from "../../images/map_pin_icon.png";
@@ -32,7 +31,6 @@ export default function Map() {
     googleMapsApiKey: "AIzaSyDxSBp4edh5BzrKcIJa6ZrP7G5tQJVNFKo",
   });
 
-  const [selected, setSelected] = useState(null);
   const [map, setMap] = React.useState(null);
   const groceryLists = useGroceryList();
 
@@ -66,21 +64,23 @@ export default function Map() {
 }
 
 const MarkerAndInfo = ({ store }) => {
+  const [selectedStore, setSelectedStore] = useState(false)
   const [open, setOpen] = useState(false);
 
   const toggleOpenInfo = () => {
-    setOpen(!open);
+    setSelectedStore(!selectedStore); 
   };
-  console.log(store)
+
   const storeLogo = store.store_image
   const storeLocation = {
     lat: Number(store.store_lat),
     lng: Number(store.store_lng),
   };
+
   return (
     <>
       <Marker onClick={toggleOpenInfo} position={storeLocation} />
-      {open && (
+      {selectedStore && (
         <InfoWindow position={storeLocation} onCloseClick={toggleOpenInfo}
           options={{pixelOffset: new window.google.maps.Size(0, -30)}}
         >
@@ -93,7 +93,7 @@ const MarkerAndInfo = ({ store }) => {
             {store.items.map((item) => {
               return (
                 <Fragment key={item.item_name}>
-                  <p class="info-window-text">{item.item_name} - ${item.item_price}</p>
+                  {/* <p class="info-window-text">{item.item_name} - ${item.item_price}</p> */}
                 </Fragment>
               );
             })}
