@@ -315,13 +315,13 @@ function SearchItems(props) {
                           }}
                           badgeContent={
                             <Typography variant="subtitle1">
-                              {store.store_name}
+                              {/* {store.store_name} */}
                             </Typography>
                           }
                         >
-                          <Avatar
-                            src={store.store_logo}
-                            sx={{ width: 56, height: 56 }}
+                          <img src={store.store_logo} alt={store.store_name}
+                                    style={{ width: '100px', height: '80px', objectFit: 'contain' }}
+
                           />
                         </Badge>
                         <Typography
