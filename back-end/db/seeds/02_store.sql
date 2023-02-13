@@ -17,7 +17,7 @@ VALUES
     '122 Street Northwest, Edmonton, AB',
     53.6028262802915,
     -113.5357762697085,
-    'https://1000logos.net/wp-content/uploads/2022/08/Loblaws-Logo.png'
+    'https://www.instacart.com/assets/domains/store_configuration/logo/1008/white_label_landing_page_71155d76-49dc-4430-b99f-e944315b8805.png'
   );
 
 INSERT INTO
