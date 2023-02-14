@@ -24,7 +24,7 @@ INSERT INTO
   stores (name, address, lat, lng, image)
 VALUES
   (
-    'Coscto',
+    'Costco',
     '12450 149 St, Edmonton, AB T5V 1G9',
     53.5790106,
     -113.5799218,
