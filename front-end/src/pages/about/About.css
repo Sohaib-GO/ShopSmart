@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 * {
   margin: 0;
@@ -10,21 +11,18 @@
 
 .about-page {
   display: flex;
-  background: #333;
-  justify-content: flex-end;
-  align-items: flex-end;
+  background: #c7bccb;
+  justify-content: center;
   min-height: 87vh;
+  font-family: 'Montserrat, sans-serif' !important;
 }
 .footer {
-  position: relative;
+  position: fixed;
+  bottom: 0;
   width: 100%;
   background: #3586ff;
   min-height: 100px;
   padding: 20px 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 }
 
 
@@ -43,6 +41,30 @@
   height: 100px;
   background: url("https://i.ibb.co/wQZVxxk/wave.png");
   background-size: 1000px 100px;
+}
+
+.title-text {
+  letter-spacing: 2.25px;
+  font-size: 70px;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 2.75em;
+  margin-bottom: 15px;
+}
+
+.points-text {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.email-input {
+  margin-top: 40px;
+  padding: 7px 15px;
+}
+
+.email-btn {
+  background-color: rgba(0, 0, 0, 0.454) !important;
+  color: white !important;
+  padding: 7px 15px !important
 }
 
 .wave#wave1 {
