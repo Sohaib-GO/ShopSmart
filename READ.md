@@ -34,8 +34,8 @@ which grocery store they are and their address.
 
 `npm start` 
 
-front-end will be run on [http://localhost:3000]
-back-end will be run on [http://localhost:4000]
+front-end will be run on `http://localhost:3000`
+back-end will be run on `http://localhost:4000`
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
@@ -50,8 +50,8 @@ You may also see any lint errors in the console.
 1. Load `localhost:3000` onto your browser.
 2. Login with user from the database.
 3. Select `Search items` 
-4. Add items from list by clicking on plus sign
-5. Click on icons of items to display more information
+4. Add items from list by clicking on plus the sign
+5. Click on icons of items will display more information about the item
 6. Once items are added head to `lists` selection to view items
 7. Open cards to view items and directions for grocery stores 
 
