@@ -35,11 +35,11 @@ INSERT INTO
   stores (name, address, lat, lng, image)
 VALUES
   (
-    'No Frills',
+    'Save On Foods',
     '15411 97 St NW, Edmonton, AB T5X 5V3',
     53.6156989,
     -113.4901921,
-    'https://seeklogo.com/images/N/no-frills-logo-1D8F76AE88-seeklogo.com.png'
+    'https://storage.googleapis.com/images-sof-prd-9fa6b8b.sof.prd.v8.commerce.mi9cloud.com/web/img/sof_primary.png'
   );
 
 INSERT INTO
