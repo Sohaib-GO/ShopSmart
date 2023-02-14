@@ -47,7 +47,7 @@ You may also see any lint errors in the console.
 
 
 ## How to use Application 
-1. Load `localhost:3000` onto your browser.
+1. Load `http://localhost:3000` onto your browser.
 2. Login with user from the database.
 3. Select `Search items` 
 4. Add items from list by clicking on plus the sign
