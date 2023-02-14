@@ -24,10 +24,6 @@ app.use("/api/users", usersRoutes(db));
 app.use("/api/items", itemsRoutes(db));
 app.use("/api/lists", listsRoutes(db));
 
-
-
-
-
 app.listen(port, () => {
   console.log(`Example app listening at port:${port}`);
 });
