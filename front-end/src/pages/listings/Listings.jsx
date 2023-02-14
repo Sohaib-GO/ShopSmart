@@ -62,14 +62,14 @@ function Listings(props) {
   const { isLoggedIn } = useLogin(props);
 
   useEffect(() => {
-    fetch("/api/fetch-grocery-list")
+    fetch("/api/lists/fetch-grocery-list")
       .then((res) => res.json())
       .then((data) => setGroceries(data.data));
   }, []);
 
   const handleDeleteGroceryItem = async (item_name, store_name) => {
     try {
-      const response = await axios.post("/api/delete-grocery-item", {
+      const response = await axios.post("/api/lists/delete-grocery-item", {
         item_name,
         store_name,
       });
