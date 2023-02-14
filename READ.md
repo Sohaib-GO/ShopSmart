@@ -34,14 +34,26 @@ which grocery store they are and their address.
 
 ### `npm start` 
 
-front-end will be run on [http://localhost:3000](http://localhost:3000)
-back-end will be run on [http://localhost:4000](http://localhost:4000)
+front-end will be run on [http://localhost:3000]
+back-end will be run on [http://localhost:4000]
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-Screenshots 
+## Screenshots 
 
-# Main Page []
+Main Page [https://github.com/Sohaib-GO/ShopSmart/blob/master/img/Grocery_items.png?raw=true]
+Search items list [https://github.com/Sohaib-GO/ShopSmart/blob/master/img/Grocery_items.png?raw=true]
+Display of users grocery list and map [https://github.com/Sohaib-GO/ShopSmart/blob/master/img/Lists.png?raw=true]
+
+
+## How to use Application 
+1. Load `localhost:3000` onto your browser.
+2. Login with user from the database.
+3. Select `Search items` 
+4. Add items from list by clicking on plus sign
+5. Click on icons of items to display more information
+6. Once items are added head to `lists` selection to view items
+7. Open cards to view items and directions for grocery stores 
 
 
 
