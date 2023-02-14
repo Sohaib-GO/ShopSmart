@@ -58,17 +58,14 @@ function Listings(props) {
   const [selectedStore, setSelectedStore] = useState(null);
   const [groceries, setGroceries] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
-  
+
   const [isListsOpen, setListsOpen] = useState({
     1: false,
     2: false,
     3: false,
     4: false,
-    5: false
+    5: false,
   });
-
-  
-
 
   const { isLoggedIn } = useLogin(props);
 
@@ -79,8 +76,8 @@ function Listings(props) {
   }, []);
 
   useEffect(() => {
-    console.log(selectedStore, ' store');
-  }, [selectedStore])
+    console.log(selectedStore, " store");
+  }, [selectedStore]);
 
   const handleDeleteGroceryItem = async (item_name, store_name) => {
     try {
@@ -137,9 +134,16 @@ function Listings(props) {
   };
 
   const handleAccordion = (store) => {
-    setListsOpen= {store: true}
-    
-  }
+    setListsOpen = { store: true };
+  };
+
+  useEffect(() => {
+    const dropdown = document.getElementById(selectedStore);
+    if (dropdown) {
+      dropdown.click();
+    }
+  }, [selectedStore]);
+
   return (
     <>
       {!isLoggedIn && <Alert severity="warning">Please sign in</Alert>}
@@ -157,7 +161,9 @@ function Listings(props) {
                 >
                   <Button
                     variant="text"
-                    onClick={() => {setSelectedStore(store)}}
+                    onClick={() => {
+                      setSelectedStore(store);
+                    }}
                   >
                     {store.store_name}
                   </Button>
@@ -220,6 +226,7 @@ function Listings(props) {
                               />
                             </ListItemButton>
                           </ListItem>
+                          <DistanceTime store={store} />
                           <Divider variant="inset" component="li" />
                           <Modal
                             hideBackdrop
@@ -260,33 +267,8 @@ function Listings(props) {
                   </div>
                 </AccordionDetails>
               </Accordion>
-              
             );
           })}
-       
-          <Drawer
-            anchor="right"
-            open={!!selectedStore}
-            onClose={() => setSelectedStore(null)}
-          >
-            {selectedStore && (
-              <Card sx={{ maxWidth: 700, minWidth: 300 }}>
-                <CardMedia
-                  className="item-image"
-                  component="img"
-                  image={selectedStore.store_logo}
-                  alt={selectedStore.store_name}
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div">
-                    {selectedStore.store_name}
-                  </Typography>
-                  <Divider />
-                  <DistanceTime selectedStore={selectedStore} {...props} />
-                </CardContent>
-              </Card>
-            )}
-          </Drawer>
         </div>
       )}
     </>

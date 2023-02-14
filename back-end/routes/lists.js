@@ -16,7 +16,7 @@ module.exports = (db) => {
 
     try {
       const groceryListQuery = await db.query(
-        `SELECT items.name AS item_name, grocery_lists.price AS item_price, stores.name AS store_name, stores.id AS store_id, stores.lat AS store_lat, stores.lng AS store_lng, stores.address AS store_address, stores.image AS store_image
+        `SELECT items.name AS item_name, items.image as item_image, grocery_lists.price AS item_price, stores.name AS store_name, stores.id AS store_id, stores.lat AS store_lat, stores.lng AS store_lng, stores.address AS store_address, stores.image AS store_image
        FROM grocery_lists
        INNER JOIN items ON grocery_lists.item_id = items.id
        INNER JOIN stores ON grocery_lists.store_id = stores.id
@@ -42,6 +42,7 @@ module.exports = (db) => {
               {
                 item_name: curr.item_name,
                 item_price: curr.item_price,
+                item_image: curr.item_image,
               },
             ],
           });
@@ -50,6 +51,7 @@ module.exports = (db) => {
           acc[storeIndex].items.push({
             item_name: curr.item_name,
             item_price: curr.item_price,
+            item_image: curr.item_image,
           });
         }
         return acc;

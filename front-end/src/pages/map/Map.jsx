@@ -25,6 +25,7 @@ const divStyle = {
 };
 
 export default function Map(props) {
+
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyDxSBp4edh5BzrKcIJa6ZrP7G5tQJVNFKo",
@@ -73,9 +74,13 @@ const MarkerAndInfo = ({ store }) => {
     lat: Number(store.store_lat),
     lng: Number(store.store_lng),
   };
+  
   return (
     <>
-      <Marker onClick={toggleOpenInfo} position={storeLocation} />
+      <Marker  position={storeLocation}    onClick={() => toggleOpenInfo()}
+
+  storeName={store.name}
+ />
       {open && (
         <InfoWindow position={storeLocation} onCloseClick={toggleOpenInfo}>
           <>
