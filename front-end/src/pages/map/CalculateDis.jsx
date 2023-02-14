@@ -56,9 +56,8 @@ const DistanceTime = (props) => {
     transit: <DirectionsTransit />,
   };
 
-  
   return (
-    <div>
+    <div className="modeOfTransportation">
       <label>
         Mode of transportation:
         <Select

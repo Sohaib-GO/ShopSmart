@@ -28,9 +28,18 @@
 .list-item-text {
   display: flex;
   flex-direction: column;
+  
 }
 .listings-page {
-  margin: 3em;
+  margin: 2em;
+
+/*  
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start; */
+
 }
 .store-details {
   display: flex;
@@ -41,3 +50,17 @@
 .list-text-length {
   margin-left: 10px;
 }
+
+.modeOfTransportation {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+/* .accordion {
+  display: flex;
+  flex-direction: column;
+} */
+/* .map {
+  display: flex;
+  flex-direction: row;
+} */

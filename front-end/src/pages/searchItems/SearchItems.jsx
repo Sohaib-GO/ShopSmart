@@ -212,9 +212,11 @@ function SearchItems(props) {
         <div>
           <Grid item xs={12} md={6}>
             {filteredItems.length > 0 && (
-              <Typography sx={{ mt: 4, mb: 2 }} variant="body1" component="div">
-                Search results
-              </Typography>
+              <Typography
+                sx={{ mt: 4, mb: 2 }}
+                variant="body1"
+                component="div"
+              ></Typography>
             )}
             <List dense={dense}>
               {filteredSlicedItems?.map((itemName) => {

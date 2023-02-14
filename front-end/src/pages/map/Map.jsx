@@ -8,6 +8,7 @@ import React, { Fragment, useState } from "react";
 import useGroceryList from "../listings/useListingsHook";
 import "./Map.css";
 import mapPin from "../../images/map_pin_icon.png";
+import { sizeHeight } from "@mui/system";
 
 const containerStyle = {
   width: "100%",
@@ -91,8 +92,8 @@ const MarkerAndInfo = ({ store }) => {
                 <p class="info-window-address">{store.store_address}</p>
               </div>
               <p class="info-window-text">
-            Number of items: {store.items.length}
-          </p>
+                Number of items: {store.items.length}
+              </p>
             </div>
           </>
         </InfoWindow>

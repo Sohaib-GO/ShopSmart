@@ -232,7 +232,7 @@ function Listings(props) {
                               />
                               <ListItemText
                                 id={item.id}
-                                primary={`: $${item.item_price}`}
+                                primary={` $${item.item_price}`}
                               />
                             </ListItemButton>
                           </ListItem>
