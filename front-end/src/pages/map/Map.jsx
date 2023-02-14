@@ -4,7 +4,7 @@ import {
   useJsApiLoader,
   InfoWindow,
 } from "@react-google-maps/api";
-import React, { Fragment,useState } from "react";
+import React, { Fragment, useState } from "react";
 import "./Map.css";
 import mapPin from "../../images/map_pin_icon.png";
 
@@ -25,7 +25,6 @@ const divStyle = {
 };
 
 export default function Map(props) {
-
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyDxSBp4edh5BzrKcIJa6ZrP7G5tQJVNFKo",
@@ -74,13 +73,14 @@ const MarkerAndInfo = ({ store }) => {
     lat: Number(store.store_lat),
     lng: Number(store.store_lng),
   };
-  
+
   return (
     <>
-      <Marker  position={storeLocation}    onClick={() => toggleOpenInfo()}
-
-  storeName={store.name}
- />
+      <Marker
+        position={storeLocation}
+        onClick={() => toggleOpenInfo()}
+        storeName={store.name}
+      />
       {open && (
         <InfoWindow position={storeLocation} onCloseClick={toggleOpenInfo}>
           <>
@@ -90,15 +90,9 @@ const MarkerAndInfo = ({ store }) => {
                 <img class="icon-map" src={mapPin} alt="map pin icon" />
                 <p class="info-window-address">{store.store_address}</p>
               </div>
-              {store.items.map((item) => {
-                return (
-                  <Fragment key={item.item_name}>
-                    <p class="info-window-text">
-                      {item.item_name} - ${item.item_price}
-                    </p>
-                  </Fragment>
-                );
-              })}
+              <p class="info-window-text">
+            Number of items: {store.items.length}
+          </p>
             </div>
           </>
         </InfoWindow>
