@@ -1,12 +1,10 @@
 import {
   GoogleMap,
-  useLoadScript,
   Marker,
   useJsApiLoader,
   InfoWindow,
 } from "@react-google-maps/api";
-import React, { Fragment, useMemo, useState } from "react";
-import useGroceryList from "../listings/useListingsHook";
+import React, { Fragment,useState } from "react";
 import "./Map.css";
 import mapPin from "../../images/map_pin_icon.png";
 
@@ -82,9 +80,9 @@ const MarkerAndInfo = ({ store }) => {
         <InfoWindow position={storeLocation} onCloseClick={toggleOpenInfo}>
           <>
             <div class="info-window">
-              <img class="store-logo" src={storeLogo} />
+              <img class="store-logo" src={storeLogo} alt="store logo" />
               <div class="address-container">
-                <img class="icon-map" src={mapPin} />
+                <img class="icon-map" src={mapPin} alt="map pin icon" />
                 <p class="info-window-address">{store.store_address}</p>
               </div>
               {store.items.map((item) => {
