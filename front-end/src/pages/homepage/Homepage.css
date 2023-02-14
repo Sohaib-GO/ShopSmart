@@ -23,3 +23,15 @@
   margin-top: 5em;
 
 }
+
+.start-searching-btn {
+    margin: 0;
+    margin-top: 5em;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    letter-spacing: 0.0075em;
+    margin-bottom: 0.35em;;
+
+}

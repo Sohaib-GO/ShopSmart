@@ -19,9 +19,11 @@ function Homepage() {
           className="search-button"
           onClick={() => navigate("/search-items")}
         >
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h6" gutterBottom 
+          class='start-searching-btn'
+          >
             Start Searching
-            <style>
+             <style>
               @import
               url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
             </style>
