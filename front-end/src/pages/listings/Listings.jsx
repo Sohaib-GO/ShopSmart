@@ -165,7 +165,16 @@ function Listings(props) {
                       setSelectedStore(store);
                     }}
                   >
-                    {store.store_name}
+                    {/* {store.store_name} */}
+                    <img
+                      src={store.store_image}
+                      alt="store logo"
+                      style={{
+                        width: "100%",
+                        height: "50px",
+                        objectFit: "cover",
+                      }}
+                    />
                   </Button>
                 </AccordionSummary>
                 <AccordionDetails className="store-details">
@@ -226,8 +235,8 @@ function Listings(props) {
                               />
                             </ListItemButton>
                           </ListItem>
-                          <DistanceTime store={store} />
                           <Divider variant="inset" component="li" />
+
                           <Modal
                             hideBackdrop
                             open={openDeleteModal}
@@ -264,6 +273,7 @@ function Listings(props) {
                         </List>
                       );
                     })}
+                    <DistanceTime store={store} />
                   </div>
                 </AccordionDetails>
               </Accordion>
