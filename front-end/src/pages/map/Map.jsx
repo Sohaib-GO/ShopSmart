@@ -11,8 +11,8 @@ import mapPin from "../../images/map_pin_icon.png";
 import { sizeHeight } from "@mui/system";
 
 const containerStyle = {
-  width: "50%",
-  height: "500px",
+  width: "55%",
+  height: "800px",
 };
 
 const center = {
