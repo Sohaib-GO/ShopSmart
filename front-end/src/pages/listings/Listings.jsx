@@ -258,18 +258,11 @@ function Listings(props) {
                       );
                     })}
                   </div>
-                  <Map  
-                    selectedStore={selectedStore}
-                   />
                 </AccordionDetails>
               </Accordion>
               
             );
           })}
-           <Map  
-              selectedStore={selectedStore}
-              isListsOpen={isListsOpen}
-            />
        
           <Drawer
             anchor="right"
