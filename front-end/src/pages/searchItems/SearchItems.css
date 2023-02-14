@@ -56,5 +56,6 @@
 .pagination {
   position: absolute;
   bottom: 10px;
-  left: 40%
+  left: 40%;
+  margin-bottom: 300px;
 }

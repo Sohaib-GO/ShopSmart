@@ -155,7 +155,7 @@ function Listings(props) {
               return (
                 <Accordion className="accordion">
                   <AccordionSummary
-                    sx={{ width: "600px", backgroundColor: "lightgrey" }}
+                    sx={{ width: "700px", backgroundColor: "lightgrey" }}
                     expandIcon={<ExpandMoreIcon />}
                   >
                     <div className="accordion-header">
@@ -164,7 +164,7 @@ function Listings(props) {
                         alt="store logo"
                         style={{
                           width: "40%",
-                          height: "30px",
+                          height: "auto",
                           objectFit: "cover",
                         }}
                       />
