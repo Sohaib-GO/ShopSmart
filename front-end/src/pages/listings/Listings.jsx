@@ -52,8 +52,6 @@ const modalStyle = {
   pb: 3,
 };
 
-
-
 function Listings(props) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [dense, setDense] = useState(false);
@@ -122,11 +120,14 @@ function Listings(props) {
     }
     return false;
   };
+
   return (
     <>
       {!isLoggedIn && <Alert severity="warning">Please sign in</Alert>}
       {isLoggedIn && (
         <div className="listings-page">
+          <Map groceries={groceries} />
+
           {groceries?.map((store) => {
             return (
               <Accordion>
@@ -195,7 +196,7 @@ function Listings(props) {
                               />
                               <ListItemText
                                 id={item.id}
-                                primary={`${item.item_price}$ per 100 g`}
+                                primary={`: $${item.item_price}`}
                               />
                             </ListItemButton>
                           </ListItem>
@@ -237,7 +238,6 @@ function Listings(props) {
                       );
                     })}
                   </div>
-                  <Map />
                 </AccordionDetails>
               </Accordion>
             );
@@ -260,12 +260,7 @@ function Listings(props) {
                     {selectedStore.store_name}
                   </Typography>
                   <Divider />
-                  <DistanceTime
-                  selectedStore={selectedStore}
-                  {...props}
-                />
-                
-
+                  <DistanceTime selectedStore={selectedStore} {...props} />
                 </CardContent>
               </Card>
             )}
