@@ -6,7 +6,7 @@
   display: flex;
   background-color:rgba(147,167,186,255);
   background-size: cover;
-  height: 100vh;
+  height: 110vh;
 
 }
 .search-field {
@@ -27,7 +27,7 @@
 }
 .store-table {
   width: 50%;
-  margin-left: 1em;
+  margin-left: 20em;
 
 }
 
