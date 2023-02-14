@@ -1,6 +1,19 @@
 import React, { useState, useEffect } from "react";
-
 import useLogin from "../../components/authentication/useLogin";
+import {
+  DirectionsTransit,
+  DirectionsWalk,
+  DirectionsBike,
+  DirectionsCar,
+} from "@mui/icons-material";
+import {
+  Select,
+  ListItemIcon,
+  MenuItem,
+  ListItemText,
+  List,
+  ListItem,
+} from "@mui/material";
 
 const DistanceTime = (props) => {
   const [storeDistances, setStoreDistances] = useState([]);
@@ -36,33 +49,46 @@ const DistanceTime = (props) => {
         });
     }
   }, [user, transportationMode, isLoggedIn]);
+  const transportationIcons = {
+    driving: <DirectionsCar />,
+    walking: <DirectionsWalk />,
+    bicycling: <DirectionsBike />,
+    transit: <DirectionsTransit />,
+  };
 
+  
   return (
     <div>
       <label>
         Mode of transportation:
-        <select
+        <Select
           value={transportationMode}
           onChange={(e) => setTransportationMode(e.target.value)}
+          style={{ width: "40%" }}
         >
-          <option value="driving">Driving</option>
-          <option value="walking">Walking</option>
-          <option value="bicycling">Bicycling</option>
-          <option value="transit">Transit</option>
-        </select>
+          <MenuItem value="driving">Driving</MenuItem>
+          <MenuItem value="walking">Walking</MenuItem>
+          <MenuItem value="bicycling">Bicycling</MenuItem>
+          <MenuItem value="transit">Transit</MenuItem>
+        </Select>
       </label>
-      <ul>
+      <List>
         {storeDistances.length > 0 ? (
           storeDistances.map((storeDistance) => (
-            <li key={storeDistance.name}>
-              {storeDistance.distance},{" "}
-              {storeDistance.duration}
-            </li>
+            <ListItem key={storeDistance.name}>
+              <ListItemIcon>
+                {transportationIcons[transportationMode]}
+              </ListItemIcon>
+              <ListItemText
+                primary={`${storeDistance.distance}, ${storeDistance.duration}`}
+                secondary={storeDistance.name}
+              />
+            </ListItem>
           ))
         ) : (
-          <li>No stores added yet</li>
+          <ListItem>No stores added yet</ListItem>
         )}
-      </ul>
+      </List>
     </div>
   );
 };
