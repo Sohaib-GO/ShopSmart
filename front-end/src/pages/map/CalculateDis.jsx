@@ -6,14 +6,14 @@ const DistanceTime = (props) => {
   const [storeDistances, setStoreDistances] = useState([]);
   const [transportationMode, setTransportationMode] = useState("driving");
   const { user, isLoggedIn } = useLogin(props);
-  const { selectedStore } = props;
+  const { store } = props;
 
   useEffect(() => {
     if (isLoggedIn) {
       const userAddress = user.address;
 
-      const storeAddress = [selectedStore.store_address];
-      const storeNames = [selectedStore.store_name];
+      const storeAddress = [store.store_address];
+      // const storeNames = [selectedStore.store_name];
 
       Promise.all(
         storeAddress?.map((storeAddress, index) => {
@@ -22,7 +22,6 @@ const DistanceTime = (props) => {
             .then((res) => res.json())
             .then((data) => {
               return {
-                name: storeNames[index],
                 distance: data.rows[0].elements[0].distance.text,
                 duration: data.rows[0].elements[0].duration.text,
               };
@@ -36,7 +35,7 @@ const DistanceTime = (props) => {
           console.error(error);
         });
     }
-  }, [user, transportationMode, selectedStore, isLoggedIn]);
+  }, [user, transportationMode, isLoggedIn]);
 
   return (
     <div>
@@ -54,16 +53,15 @@ const DistanceTime = (props) => {
       </label>
       <ul>
         {storeDistances.length > 0 ? (
-            storeDistances.map((storeDistance) => (
-              <li key={storeDistance.name}>
-                {storeDistance.name}: {storeDistance.distance},{" "}
-                {storeDistance.duration}
-              </li>
-            ))
-          ) : (
-            <li>No stores added yet</li>
-          )
-        }
+          storeDistances.map((storeDistance) => (
+            <li key={storeDistance.name}>
+              {storeDistance.distance},{" "}
+              {storeDistance.duration}
+            </li>
+          ))
+        ) : (
+          <li>No stores added yet</li>
+        )}
       </ul>
     </div>
   );
