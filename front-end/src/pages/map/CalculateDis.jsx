@@ -1,32 +1,40 @@
 import React, { useState, useEffect } from "react";
-
 import useLogin from "../../components/authentication/useLogin";
-import useGroceryList from "../listings/useListingsHook";
+import {
+  DirectionsTransit,
+  DirectionsWalk,
+  DirectionsBike,
+  DirectionsCar,
+} from "@mui/icons-material";
+import {
+  Select,
+  ListItemIcon,
+  MenuItem,
+  ListItemText,
+  List,
+  ListItem,
+} from "@mui/material";
 
 const DistanceTime = (props) => {
   const [storeDistances, setStoreDistances] = useState([]);
   const [transportationMode, setTransportationMode] = useState("driving");
   const { user, isLoggedIn } = useLogin(props);
-  const { groceries } = useGroceryList(props);
+  const { store } = props;
 
   useEffect(() => {
     if (isLoggedIn) {
       const userAddress = user.address;
-      const storeAddresses = groceries?.map((grocery) => {
-        return grocery.store_address;
-      });
-      const storeNames = groceries?.map((grocery) => {
-        return grocery.store_name;
-      });
+
+      const storeAddress = [store.store_address];
+      // const storeNames = [selectedStore.store_name];
 
       Promise.all(
-        storeAddresses?.map((storeAddress, index) => {
+        storeAddress?.map((storeAddress, index) => {
           const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${userAddress}&destinations=${storeAddress}&mode=${transportationMode}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
           return fetch(url)
             .then((res) => res.json())
             .then((data) => {
               return {
-                name: storeNames[index],
                 distance: data.rows[0].elements[0].distance.text,
                 duration: data.rows[0].elements[0].duration.text,
               };
@@ -40,41 +48,47 @@ const DistanceTime = (props) => {
           console.error(error);
         });
     }
-  }, [user, groceries, transportationMode, isLoggedIn]);
+  }, [user, transportationMode, isLoggedIn]);
+  const transportationIcons = {
+    driving: <DirectionsCar />,
+    walking: <DirectionsWalk />,
+    bicycling: <DirectionsBike />,
+    transit: <DirectionsTransit />,
+  };
 
+  
   return (
     <div>
       <label>
         Mode of transportation:
-        <select
+        <Select
           value={transportationMode}
           onChange={(e) => setTransportationMode(e.target.value)}
+          style={{ width: "40%" }}
         >
-          <option value="driving">Driving</option>
-          <option value="walking">Walking</option>
-          <option value="bicycling">Bicycling</option>
-          <option value="transit">Transit</option>
-        </select>
+          <MenuItem value="driving">Driving</MenuItem>
+          <MenuItem value="walking">Walking</MenuItem>
+          <MenuItem value="bicycling">Bicycling</MenuItem>
+          <MenuItem value="transit">Transit</MenuItem>
+        </Select>
       </label>
-      <ul>
-        {isLoggedIn ? (
-          storeDistances.length > 0 ? (
-            storeDistances.map((storeDistance) => (
-              <li key={storeDistance.name}>
-                {storeDistance.name}: {storeDistance.distance},{" "}
-                {storeDistance.duration}
-              </li>
-            ))
-          ) : (
-            <li>No stores added yet</li>
-          )
+      <List>
+        {storeDistances.length > 0 ? (
+          storeDistances.map((storeDistance) => (
+            <ListItem key={storeDistance.name}>
+              <ListItemIcon>
+                {transportationIcons[transportationMode]}
+              </ListItemIcon>
+              <ListItemText
+                primary={`${storeDistance.distance}, ${storeDistance.duration}`}
+                secondary={storeDistance.name}
+              />
+            </ListItem>
+          ))
         ) : (
-          <li>
-            You need to be logged in to see the distances and duration of your
-            stores
-          </li>
+          <ListItem>No stores added yet</ListItem>
         )}
-      </ul>
+      </List>
     </div>
   );
 };

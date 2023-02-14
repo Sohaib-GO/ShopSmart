@@ -17,7 +17,7 @@ VALUES
     '122 Street Northwest, Edmonton, AB',
     53.6028262802915,
     -113.5357762697085,
-    'https://1000logos.net/wp-content/uploads/2022/08/Loblaws-Logo.png'
+    'https://www.instacart.com/assets/domains/store_configuration/logo/1008/white_label_landing_page_71155d76-49dc-4430-b99f-e944315b8805.png'
   );
 
 INSERT INTO
@@ -35,11 +35,11 @@ INSERT INTO
   stores (name, address, lat, lng, image)
 VALUES
   (
-    'No Frills',
+    'Save On Foods',
     '15411 97 St NW, Edmonton, AB T5X 5V3',
     53.6156989,
     -113.4901921,
-    'https://seeklogo.com/images/N/no-frills-logo-1D8F76AE88-seeklogo.com.png'
+    'https://storage.googleapis.com/images-sof-prd-9fa6b8b.sof.prd.v8.commerce.mi9cloud.com/web/img/sof_primary.png'
   );
 
 INSERT INTO

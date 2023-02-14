@@ -27,7 +27,7 @@ const useLogin = (props) => {
   }, [success]);
 
   useEffect(() => {
-    fetch("/api/current-user")
+    fetch("/api/users/current-user")
       .then((res) => res.json())
       .then((data) => {
         setUser(data);
@@ -40,7 +40,7 @@ const useLogin = (props) => {
     const user = { email, password };
 
     try {
-      const res = await axios.post("/api/login", user);
+      const res = await axios.post("/api/users/login", user);
       if (res.status === 200) {
         setSuccess(true);
         setIsLoggedIn(true);
@@ -56,7 +56,7 @@ const useLogin = (props) => {
     localStorage.removeItem("user");
     setIsLoggedIn(false);
 
-    fetch("/api/logout", {
+    fetch("/api/users/logout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

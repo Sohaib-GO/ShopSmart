@@ -59,17 +59,29 @@ function Listings(props) {
   const [groceries, setGroceries] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
 
+  const [isListsOpen, setListsOpen] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+  });
+
   const { isLoggedIn } = useLogin(props);
 
   useEffect(() => {
-    fetch("/api/fetch-grocery-list")
+    fetch("/api/lists/fetch-grocery-list")
       .then((res) => res.json())
       .then((data) => setGroceries(data.data));
   }, []);
 
+  useEffect(() => {
+    console.log(selectedStore, " store");
+  }, [selectedStore]);
+
   const handleDeleteGroceryItem = async (item_name, store_name) => {
     try {
-      const response = await axios.post("/api/delete-grocery-item", {
+      const response = await axios.post("/api/lists/delete-grocery-item", {
         item_name,
         store_name,
       });
@@ -121,12 +133,26 @@ function Listings(props) {
     return false;
   };
 
+  const handleAccordion = (store) => {
+    setListsOpen = { store: true };
+  };
+
+  useEffect(() => {
+    const dropdown = document.getElementById(selectedStore);
+    if (dropdown) {
+      dropdown.click();
+    }
+  }, [selectedStore]);
+
   return (
     <>
       {!isLoggedIn && <Alert severity="warning">Please sign in</Alert>}
       {isLoggedIn && (
         <div className="listings-page">
+          <Map groceries={groceries} />
+
           {groceries?.map((store) => {
+            //isListsOpen add store to this list, set the value to false or true depending if you want the default state to be open or not
             return (
               <Accordion>
                 <AccordionSummary
@@ -135,9 +161,20 @@ function Listings(props) {
                 >
                   <Button
                     variant="text"
-                    onClick={() => setSelectedStore(store)}
+                    onClick={() => {
+                      setSelectedStore(store);
+                    }}
                   >
-                    {store.store_name}
+                    {/* {store.store_name} */}
+                    <img
+                      src={store.store_image}
+                      alt="store logo"
+                      style={{
+                        width: "100%",
+                        height: "50px",
+                        objectFit: "cover",
+                      }}
+                    />
                   </Button>
                 </AccordionSummary>
                 <AccordionDetails className="store-details">
@@ -194,11 +231,12 @@ function Listings(props) {
                               />
                               <ListItemText
                                 id={item.id}
-                                primary={`${item.item_price}$ per 100 g`}
+                                primary={`: $${item.item_price}`}
                               />
                             </ListItemButton>
                           </ListItem>
                           <Divider variant="inset" component="li" />
+
                           <Modal
                             hideBackdrop
                             open={openDeleteModal}
@@ -235,72 +273,12 @@ function Listings(props) {
                         </List>
                       );
                     })}
+                    <DistanceTime store={store} />
                   </div>
-                  <Map />
                 </AccordionDetails>
               </Accordion>
             );
           })}
-          <Drawer
-            anchor="right"
-            open={!!selectedStore}
-            onClose={() => setSelectedStore(null)}
-          >
-            {selectedStore && (
-              <Card sx={{ maxWidth: 700, minWidth: 300 }}>
-                <CardMedia
-                  className="item-image"
-                  component="img"
-                  image={selectedStore.store_logo}
-                  alt={selectedStore.store_name}
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h6" component="div">
-                    {selectedStore.store_name}
-                  </Typography>
-                  <Divider />
-                  <DistanceTime />
-                </CardContent>
-              </Card>
-            )}
-          </Drawer>
-          {/* {selectedStore && (
-            <div className="drawer">
-              <Card sx={{ maxWidth: 345 }}>
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    height="140"
-                    image={selectedStore.store_logo || "/static/..."}
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {selectedStore.store_name}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      {selectedStore.items.map((item) => {
-                        return (
-                          <div key={`selected-item-${item.item_name}`}>
-                            <Typography
-                              variant="body2"
-                              color="textSecondary"
-                              component="p"
-                            >
-                              {item.item_name}: {item.item_price}$
-                            </Typography>
-                          </div>
-                        );
-                      })}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </div>
-          )} */}
         </div>
       )}
     </>
