@@ -22,7 +22,7 @@ which grocery store they are and their address.
 
 ## Getting Started 
 
-1. Create [https://github.com/Sohaib-GO/ShopSmart] a new repository this repository as a template.
+1. ![Create] [https://github.com/Sohaib-GO/ShopSmart] a new repository this repository as a template.
 2. Clone your repository onto the local device.
 3. Run scheme & seeds files to create database.
 4. run `npm run db:reset`.
@@ -41,9 +41,9 @@ You may also see any lint errors in the console.
 
 ## Screenshots 
 
-Main Page [https://github.com/Sohaib-GO/ShopSmart/blob/master/img/Grocery_items.png?raw=true]
-Search items list [https://github.com/Sohaib-GO/ShopSmart/blob/master/img/Grocery_items.png?raw=true]
-Display of users grocery list and map [https://github.com/Sohaib-GO/ShopSmart/blob/master/img/Lists.png?raw=true]
+![Main Page] [https://github.com/Sohaib-GO/ShopSmart/blob/master/img/Grocery_items.png?raw=true]
+![Search items list] [https://github.com/Sohaib-GO/ShopSmart/blob/master/img/Grocery_items.png?raw=true]
+![Display of users grocery list and map] [https://github.com/Sohaib-GO/ShopSmart/blob/master/img/Lists.png?raw=true]
 
 
 ## How to use Application 
