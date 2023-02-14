@@ -103,7 +103,4 @@ VALUES
 ('Cauliflower', 'Crunchy and nutritious cauliflower', 5.99, 'Vegetable', 'https://example.com/cauliflower.jpg', 2),
 ('Cauliflower', 'Crunchy and nutritious cauliflower', 4.00, 'Vegetable', 'https://example.com/cauliflower.jpg', 3),
 ('Cauliflower', 'Crunchy and nutritious cauliflower', 5.49, 'Vegetable', 'https://example.com/cauliflower.jpg', 4),
-('Cauliflower', 'Crunchy and nutritious cauliflower', 4.19, 'Vegetable', 'https://example.com/cauliflower.jpg', 5),
-
-
-
+('Cauliflower', 'Crunchy and nutritious cauliflower', 4.19, 'Vegetable', 'https://example.com/cauliflower.jpg', 5);
