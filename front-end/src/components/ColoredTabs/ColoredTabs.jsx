@@ -16,6 +16,7 @@ function ColoredTabs({ tabs }) {
 
   React.useEffect(() => {
     if (location.pathname === "/") setValue("");
+    else if (!value) setValue(location.pathname.substring(1));
   }, [location.pathname]);
 
   return (

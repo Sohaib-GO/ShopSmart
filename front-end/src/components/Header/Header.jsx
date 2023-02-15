@@ -33,6 +33,7 @@ function Header(props) {
   const tabs = [
     { value: "search-items", label: "Search items" },
     { value: "listings", label: "Listings" },
+    { value: "about", label: "About" },
   ];
 
   return (
@@ -60,11 +61,8 @@ function Header(props) {
           <div>
             <Box className="user-name">
               <Typography variant="h6" color="grey">
-                Welcome!&nbsp;&nbsp;
+                Welcome {user.name}&nbsp;&nbsp;
               </Typography>
-
-              <Typography>{user.name}&nbsp;&nbsp;</Typography>
-
               <Button variant="contained" color="error" onClick={handleLogout}>
                 Logout
               </Button>

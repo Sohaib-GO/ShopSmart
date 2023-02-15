@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import FormGroup from "@mui/material/FormGroup";
@@ -87,7 +87,7 @@ function SearchItems(props) {
       .then((res) => res.json())
       .then((data) => {
         setItems(data);
-        setFilteredSlicedItems(Object.keys(data).slice(0, 10));
+        paginate(Object.keys(data), 7, 1);
       })
       .catch((error) => console.error(error));
     // Fetching user list
@@ -121,20 +121,26 @@ function SearchItems(props) {
     return stores.reduce((min, curr) => (curr.price < min.price ? curr : min));
   };
 
-  const filteredItems = Object.keys(items).filter((itemName) =>
-    itemName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredItems = useMemo(() => {
+    return Object.keys(items).filter((itemName) =>
+      itemName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [searchTerm]);
+
+  useEffect(() => {
+    paginate(filteredItems, 7, 1);
+  }, [filteredItems]);
 
   // Pagination
-  const pageCount = Math.floor(filteredItems.length / 10);
-  const handlePageChange = (event, page) => {
-    if (page === 1) {
-      setFilteredSlicedItems(filteredItems.slice(0, 10));
-    } else {
-      setFilteredSlicedItems(filteredItems.slice(page + 1, page + 11));
-    }
-  };
+  const pageCount = Math.floor(filteredItems.length / 7);
 
+  const paginate = (array, page_size, page_number) => {
+    const _array = array.slice(
+      (page_number - 1) * page_size,
+      page_number * page_size
+    );
+    setFilteredSlicedItems(_array);
+  };
   const getSavedItem = (item) => {
     if (!savedItems) return;
     for (const el of savedItems) {
@@ -164,7 +170,6 @@ function SearchItems(props) {
         body: JSON.stringify({ item_name: itemName, store_name, price }),
       });
       const result = await response.json();
-      console.log("result", savedItems);
 
       if (!result.success) {
         throw new Error(result.message);
@@ -200,85 +205,83 @@ function SearchItems(props) {
                 variant="standard"
               />
             )}
-            onInputChange={(e, newValue) => {
-              if (typeof newValue === "string") {
-                setSearchTerm(newValue);
-              } else {
-                setSearchTerm(newValue.productName);
-              }
-            }}
+            onInputChange={(e, newValue) => setSearchTerm(newValue)}
           />
         </div>
         <div>
           <Grid item xs={12} md={6}>
-            {filteredItems.length > 0 && (
+            {searchTerm && (
               <Typography
                 sx={{ mt: 4, mb: 2 }}
                 variant="body1"
                 component="div"
-              ></Typography>
+              >{`Found ${filteredItems.length} ${
+                filteredItems.length === 1 ? "item" : "items"
+              }`}</Typography>
             )}
             <List dense={dense}>
-              {filteredSlicedItems?.map((itemName) => {
-                const { item_image, stores, id } = items[itemName];
-                const { price } = getCheapestStore(stores);
-                const savedItem = getSavedItem(itemName);
+              {filteredSlicedItems &&
+                filteredSlicedItems.map((itemName) => {
+                  const { item_image, stores, id } = items[itemName];
+                  const { price } = getCheapestStore(stores);
+                  const savedItem = getSavedItem(itemName);
 
-                return (
-                  <ListItem
-                    id={id}
-                    key={`list-item-${id}`}
-                    secondaryAction={
-                      isLoggedIn && (
-                        <Box
-                          sx={{
-                            "& > :not(style)": {
-                              m: 2,
-                            },
-                          }}
-                        >
-                          {!savedItem ? (
-                            <IconButton
-                              onClick={() => handleAddToGroceryList(itemName)}
-                              edge="end"
-                              aria-productName="add"
-                            >
-                              <AddCircleOutlineIcon color="success" />
-                            </IconButton>
-                          ) : (
-                            <IconButton
-                              onClick={() =>
-                                handleDeleteGroceryItem(
-                                  itemName,
-                                  savedItem.store_name
-                                )
-                              }
-                              edge="end"
-                              aria-productName="add"
-                            >
-                              <DoneOutlineIcon color="success" />
-                            </IconButton>
-                          )}
-                        </Box>
-                      )
-                    }
-                  >
-                    <ListItemAvatar
-                      className="store-logo-avatar"
-                      onClick={() => setItem(items[itemName])}
+                  return (
+                    <ListItem
+                      id={id}
+                      key={`list-item-${id}`}
+                      secondaryAction={
+                        isLoggedIn && (
+                          <Box
+                            sx={{
+                              "& > :not(style)": {
+                                m: 2,
+                              },
+                            }}
+                          >
+                            {!savedItem ? (
+                              <IconButton
+                                onClick={() => handleAddToGroceryList(itemName)}
+                                edge="end"
+                                aria-productName="add"
+                              >
+                                <AddCircleOutlineIcon color="success" />
+                              </IconButton>
+                            ) : (
+                              <IconButton
+                                onClick={() =>
+                                  handleDeleteGroceryItem(
+                                    itemName,
+                                    savedItem.store_name
+                                  )
+                                }
+                                edge="end"
+                                aria-productName="add"
+                              >
+                                <DoneOutlineIcon color="success" />
+                              </IconButton>
+                            )}
+                          </Box>
+                        )
+                      }
                     >
-                      <Avatar src={item_image} />
-                    </ListItemAvatar>
-                    <ListItemText className="item-name" primary={itemName} />
-                    <ListItemText primary={`$${price}`} />
-                  </ListItem>
-                );
-              })}
+                      <ListItemAvatar
+                        className="store-logo-avatar"
+                        onClick={() => setItem(items[itemName])}
+                      >
+                        <Avatar src={item_image} />
+                      </ListItemAvatar>
+                      <ListItemText className="item-name" primary={itemName} />
+                      <ListItemText primary={`$${price}`} />
+                    </ListItem>
+                  );
+                })}
             </List>
             <Pagination
+              className="pagination"
               count={pageCount + 1}
               color="primary"
-              onChange={handlePageChange}
+              onChange={(event, page) => paginate(filteredItems, 7, page)}
             />
           </Grid>
         </div>

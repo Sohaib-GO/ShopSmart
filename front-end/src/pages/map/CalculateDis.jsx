@@ -13,6 +13,8 @@ import {
   ListItemText,
   List,
   ListItem,
+  Tabs,
+  Tab,
 } from "@mui/material";
 
 const DistanceTime = (props) => {
@@ -58,19 +60,17 @@ const DistanceTime = (props) => {
 
   return (
     <div className="modeOfTransportation">
-      <label>
-        Mode of transportation:
-        <Select
+      {storeDistances.length > 0 && (
+        <Tabs
           value={transportationMode}
-          onChange={(e) => setTransportationMode(e.target.value)}
-          style={{ width: "40%" }}
+          onChange={(event, value) => setTransportationMode(value)}
         >
-          <MenuItem value="driving">Driving</MenuItem>
-          <MenuItem value="walking">Walking</MenuItem>
-          <MenuItem value="bicycling">Bicycling</MenuItem>
-          <MenuItem value="transit">Transit</MenuItem>
-        </Select>
-      </label>
+          <Tab icon={<DirectionsCar />} value="driving" label="Driving" />
+          <Tab icon={<DirectionsWalk />} value="walking" label="Walking" />
+          <Tab icon={<DirectionsBike />} value="bicycling" label="Bicycling" />
+          <Tab icon={<DirectionsTransit />} value="transit" label="Transit" />
+        </Tabs>
+      )}
       <List>
         {storeDistances.length > 0 ? (
           storeDistances.map((storeDistance) => (

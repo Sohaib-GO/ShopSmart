@@ -149,50 +149,50 @@ function Listings(props) {
       {!isLoggedIn && <Alert severity="warning">Please sign in</Alert>}
       {isLoggedIn && (
         <div className="listings-page">
-          <Map groceries={groceries} />
-
-          {groceries?.map((store) => {
-            //isListsOpen add store to this list, set the value to false or true depending if you want the default state to be open or not
-            return (
-              <Accordion>
-                <AccordionSummary
-                  sx={{ backgroundColor: "lightgrey" }}
-                  expandIcon={<ExpandMoreIcon />}
-                >
-                  <Button
-                    variant="text"
-                    onClick={() => {
-                      setSelectedStore(store);
-                    }}
+          <div>
+            {groceries?.map((store) => {
+              //isListsOpen add store to this list, set the value to false or true depending if you want the default state to be open or not
+              return (
+                <Accordion className="accordion">
+                  <AccordionSummary
+                    sx={{ width: "600px", backgroundColor: "lightgrey" }}
+                    expandIcon={<ExpandMoreIcon />}
                   >
-                    {/* {store.store_name} */}
-                    <img
-                      src={store.store_image}
-                      alt="store logo"
-                      style={{
-                        width: "100%",
-                        height: "50px",
-                        objectFit: "cover",
-                      }}
-                    />
-                  <p class='list-text-length'>Number of items {store.items.length}</p>
-                  </Button>
-                </AccordionSummary>
-                <AccordionDetails className="store-details">
-                  <div>
-                    {store.items.map((item) => {
-                      const checked = isChecked(
-                        item.item_name,
-                        store.store_name
-                      );
-                      return (
-                        <List dense sx={{ width: "100%", maxWidth: 400 }}>
-                          <ListItem
-                            key={`id-${item.item_name}`}
-                            className="list-item"
-                            secondaryAction={
-                              <div className="list-item-action-buttons">
-                                {/* <Checkbox
+                    <div className="accordion-header">
+                      <img
+                        src={store.store_image}
+                        alt="store logo"
+                        style={{
+                          width: "40%",
+                          height: "30px",
+                          objectFit: "cover",
+                        }}
+                      />
+                      <Typography color="grey" variant="body2">
+                        You saved {store.items.length}{" "}
+                        {store.items.length === 1 ? "item" : "items"} in this
+                        store
+                      </Typography>
+                    </div>
+                  </AccordionSummary>
+                  <AccordionDetails className="store-details">
+                    <div>
+                      {store.items.map((item) => {
+                        const checked = isChecked(
+                          item.item_name,
+                          store.store_name
+                        );
+                        return (
+                          <List
+                            dense
+                            sx={{ width: "100%", maxWidth: 500, minWidth: 400 }}
+                          >
+                            <ListItem
+                              key={`id-${item.item_name}`}
+                              className="list-item"
+                              secondaryAction={
+                                <div className="list-item-action-buttons">
+                                  {/* <Checkbox
                                   checked={checked}
                                   edge="end"
                                   color="success"
@@ -203,83 +203,85 @@ function Listings(props) {
                                     )
                                   }
                                 /> */}
-                                <IconButton
-                                  edge="end"
-                                  aria-label="delete"
-                                  onClick={() =>
-                                    handleOpenDeleteModal(
-                                      item.item_name,
-                                      store.store_name
-                                    )
-                                  }
-                                >
-                                  <DeleteIcon />
-                                </IconButton>
-                              </div>
-                            }
-                            disablePadding
-                          >
-                            <ListItemButton>
-                              <ListItemAvatar>
-                                <Avatar
-                                  alt={`Avatar${item.item_image}`}
-                                  src={item.item_image}
+                                  <IconButton
+                                    edge="end"
+                                    aria-label="delete"
+                                    onClick={() =>
+                                      handleOpenDeleteModal(
+                                        item.item_name,
+                                        store.store_name
+                                      )
+                                    }
+                                  >
+                                    <DeleteIcon />
+                                  </IconButton>
+                                </div>
+                              }
+                              disablePadding
+                            >
+                              <ListItemButton>
+                                <ListItemAvatar>
+                                  <Avatar
+                                    alt={`Avatar${item.item_image}`}
+                                    src={item.item_image}
+                                  />
+                                </ListItemAvatar>
+                                <ListItemText
+                                  className="list-item-text"
+                                  primary={item.item_name}
                                 />
-                              </ListItemAvatar>
-                              <ListItemText
-                                className="list-item-text"
-                                primary={item.item_name}
-                              />
-                              <ListItemText
-                                id={item.id}
-                                primary={` $${item.item_price}`}
-                              />
-                            </ListItemButton>
-                          </ListItem>
-                          <Divider variant="inset" component="li" />
+                                <ListItemText
+                                  id={item.id}
+                                  primary={` $${item.item_price}`}
+                                />
+                              </ListItemButton>
+                            </ListItem>
+                            <Divider variant="inset" component="li" />
 
-                          <Modal
-                            hideBackdrop
-                            open={openDeleteModal}
-                            onClose={handleCloseDeleteModal}
-                          >
-                            <Box sx={{ ...modalStyle }}>
-                              <Typography variant="h6" color="text.secondary">
-                                Are you sure you want to delete this item?
-                              </Typography>
-                              <Typography
-                                variant="body1"
-                                color="text.secondary"
-                              >
-                                This item will be removed from your list
-                                permanently
-                              </Typography>
-                              <div className="modal-action-buttons">
-                                <Button
-                                  variant="outlined"
-                                  color="error"
-                                  onClick={handleDeleteModalSubmit}
+                            <Modal
+                              hideBackdrop
+                              open={openDeleteModal}
+                              onClose={handleCloseDeleteModal}
+                            >
+                              <Box sx={{ ...modalStyle }}>
+                                <Typography variant="h6" color="text.secondary">
+                                  Are you sure you want to delete this item?
+                                </Typography>
+                                <Typography
+                                  variant="body1"
+                                  color="text.secondary"
                                 >
-                                  Yes
-                                </Button>
-                                <Button
-                                  variant="outlined"
-                                  onClick={handleCloseDeleteModal}
-                                >
-                                  No
-                                </Button>
-                              </div>
-                            </Box>
-                          </Modal>
-                        </List>
-                      );
-                    })}
-                    <DistanceTime store={store} />
-                  </div>
-                </AccordionDetails>
-              </Accordion>
-            );
-          })}
+                                  This item will be removed from your list
+                                  permanently
+                                </Typography>
+                                <div className="modal-action-buttons">
+                                  <Button
+                                    variant="outlined"
+                                    color="error"
+                                    onClick={handleDeleteModalSubmit}
+                                  >
+                                    Yes
+                                  </Button>
+                                  <Button
+                                    variant="outlined"
+                                    onClick={handleCloseDeleteModal}
+                                  >
+                                    No
+                                  </Button>
+                                </div>
+                              </Box>
+                            </Modal>
+                          </List>
+                        );
+                      })}
+                      <DistanceTime store={store} />
+                    </div>
+                  </AccordionDetails>
+                </Accordion>
+              );
+            })}
+          </div>
+          <Map groceries={groceries} />
         </div>
       )}
     </>

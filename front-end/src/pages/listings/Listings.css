@@ -8,7 +8,8 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin-bottom: 10em;}
+  margin-bottom: 10em;
+}
 
 .modal-action-buttons {
   display: flex;
@@ -31,14 +32,15 @@
   
 }
 .listings-page {
-  margin: 2em;
-
-/*  
+  padding-top: 2em;
   display: flex;
-  flex-direction: row-reverse;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: flex-start; */
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-around;
+  align-items: flex-start;
+  background-color:rgba(147,167,186,255);
+  height: 200vh;
+  width: 100%;
 
 }
 .store-details {
@@ -48,18 +50,23 @@
 }
 
 .list-text-length {
+  display: flex;
+  flex-direction: row;
   margin-left: 10px;
+  color: rgb(117, 112, 112);
 }
 
 .modeOfTransportation {
   display: flex;
   flex-direction: row-reverse;
 }
-
-/* .accordion {
+.accordion-header {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-} */
+  justify-content: space-around;
+  align-items: center;
+}
+
 /* .map {
   display: flex;
   flex-direction: row;
