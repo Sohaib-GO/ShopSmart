@@ -86,12 +86,12 @@ const MarkerAndInfo = ({ store }) => {
       {open && (
         <InfoWindow position={storeLocation} onCloseClick={toggleOpenInfo}>
           <>
-            <div class="info-window">
-              <img class="store-logo" src={storeLogo} alt="store logo" />
-              <div class="address-container">
-                <p class="info-window-address">{store.store_address}</p>
+            <div className="info-window">
+              <img className="store-logo" src={storeLogo} alt="store logo" />
+              <div className="address-container">
+                <p className="info-window-address">{store.store_address}</p>
               </div>
-              <p class="info-window-text">
+              <p className="info-window-text">
                 Number of items: {store.items.length}
               </p>
             </div>

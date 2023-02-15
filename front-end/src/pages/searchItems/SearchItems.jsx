@@ -132,7 +132,9 @@ function SearchItems(props) {
   }, [filteredItems]);
 
   // Pagination
-  const pageCount = Math.floor(filteredItems.length / 7);
+  const pageCount = useMemo(() => {
+    return Math.floor(filteredItems.length / 7);
+  }, [filteredItems]);
 
   const paginate = (array, page_size, page_number) => {
     const _array = array.slice(
@@ -209,19 +211,19 @@ function SearchItems(props) {
           />
         </div>
         <div>
-          <Grid item xs={12} md={6}>
-            {searchTerm && (
-              <Typography
-                sx={{ mt: 4, mb: 2 }}
-                variant="body1"
-                component="div"
-              >{`Found ${filteredItems.length} ${
-                filteredItems.length === 1 ? "item" : "items"
-              }`}</Typography>
-            )}
-            <List dense={dense}>
-              {filteredSlicedItems &&
-                filteredSlicedItems.map((itemName) => {
+          {filteredSlicedItems && (
+            <Grid item xs={12} md={6}>
+              {searchTerm && (
+                <Typography
+                  sx={{ mt: 4, mb: 2 }}
+                  variant="body1"
+                  component="div"
+                >{`Found ${filteredItems.length} ${
+                  filteredItems.length === 1 ? "item" : "items"
+                }`}</Typography>
+              )}
+              <List dense={dense}>
+                {filteredSlicedItems.map((itemName) => {
                   const { item_image, stores, id } = items[itemName];
                   const { price } = getCheapestStore(stores);
                   const savedItem = getSavedItem(itemName);
@@ -276,14 +278,15 @@ function SearchItems(props) {
                     </ListItem>
                   );
                 })}
-            </List>
-            <Pagination
-              className="pagination"
-              count={pageCount + 1}
-              color="primary"
-              onChange={(event, page) => paginate(filteredItems, 7, page)}
-            />
-          </Grid>
+              </List>
+              <Pagination
+                className="pagination"
+                count={pageCount + 1}
+                color="primary"
+                onChange={(event, page) => paginate(filteredItems, 7, page)}
+              />
+            </Grid>
+          )}
         </div>
       </div>
       <Drawer anchor="right" open={!!item} onClose={() => setItem(null)}>
