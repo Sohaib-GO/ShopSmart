@@ -155,7 +155,7 @@ function Listings(props) {
               return (
                 <Accordion className="accordion">
                   <AccordionSummary
-                    sx={{ width: "600px", backgroundColor: "lightgrey" }}
+                    sx={{ width: "740px", backgroundColor: "lightgrey" }}
                     expandIcon={<ExpandMoreIcon />}
                   >
                     <div className="accordion-header">
