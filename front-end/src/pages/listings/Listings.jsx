@@ -164,7 +164,7 @@ function Listings(props) {
                         alt="store logo"
                         style={{
                           width: "40%",
-                          height: "30px",
+                          height: "auto",
                           objectFit: "cover",
                         }}
                       />

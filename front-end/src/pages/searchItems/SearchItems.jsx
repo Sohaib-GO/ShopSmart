@@ -132,6 +132,9 @@ function SearchItems(props) {
   }, [filteredItems]);
 
   // Pagination
+
+  const pageCount1 =  Math.floor(Object.keys(items).length / 7)
+
   const pageCount = useMemo(() => {
     return Math.floor(filteredItems.length / 7);
   }, [filteredItems]);
@@ -240,7 +243,7 @@ function SearchItems(props) {
                                 m: 2,
                               },
                             }}
-                          >
+                            pageCount>
                             {!savedItem ? (
                               <IconButton
                                 onClick={() => handleAddToGroceryList(itemName)}
@@ -279,12 +282,20 @@ function SearchItems(props) {
                   );
                 })}
               </List>
+            { filteredItems ? (
               <Pagination
-                className="pagination"
-                count={pageCount + 1}
-                color="primary"
-                onChange={(event, page) => paginate(filteredItems, 7, page)}
-              />
+              className="pagination"
+              count={pageCount1 + 1}
+              color="primary"
+              onChange={(event, page) => paginate(filteredItems, 7, page)}
+            />
+            ) : 
+            <Pagination
+            className="pagination"
+            count={pageCount + 1}
+            color="primary"
+            onChange={(event, page) => paginate(filteredItems, 7, page)}
+          /> }  
             </Grid>
           )}
         </div>
