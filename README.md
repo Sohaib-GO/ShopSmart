@@ -43,7 +43,7 @@ You may also see any lint errors in the console.
 
 ![Screenshot of Main Page](https://github.com/Sohaib-GO/ShopSmart/blob/master/img/Homepage.png?raw=true)
 ![Screenshot of Search items list](https://github.com/Sohaib-GO/ShopSmart/blob/master/img/Grocery_items.png?raw=true)
-![Screenshot of Display of users grocery list and map](https://github.com/Sohaib-GO/ShopSmart/blob/master/img/Lists.png?raw=true)
+![Screenshot of Display of users grocery list and map](https://github.com/Sohaib-GO/ShopSmart/blob/master/img/Grocery_List.png?raw=true)
 
 
 ## How to use Application 
